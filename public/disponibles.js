@@ -261,6 +261,8 @@ window.STOCK = [
          "Resistente al agua 3 bar (30 m): salpicaduras y lluvia, no para nadar.",
          "Garantía TicoTime de 3 meses."]},
 ];
+/* Videos por referencia: "ref": "assets/videos/<ref>.mp4" (póster <ref>.jpg al lado) */
+window.VIDEOS = {356:"assets/videos/356.mp4"};
 window.WA = "50686400835";
 
 // Inventario en vivo: la lista de referencias y precios se lee de la pestaña "Web" de la hoja de Google
@@ -312,6 +314,9 @@ window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_
         });
         if (!out.length) throw new Error("vacío");
         return out;
+      })
+      .catch(function(){ return base; })
+      .then(function(list){ list.forEach(function(s){ if (window.VIDEOS[s.ref]) s.video = window.VIDEOS[s.ref]; }); return list;
       })
       .catch(function(){ return base; })
       .then(function(list){ clearTimeout(timer); return list; });

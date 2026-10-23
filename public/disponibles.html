@@ -90,6 +90,15 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 .detail ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;color:#c6ccd2;font-size:13px;line-height:1.5}
 .detail .top-row{display:flex;justify-content:space-between;align-items:center}
 .detail .ref{position:static}
+.vbadge{position:absolute;left:10px;bottom:10px;z-index:3;display:flex;align-items:center;gap:6px;background:#05080ce6;color:#efc650;border:1px solid #d5a62a;font:800 10px Inter,Arial,sans-serif;letter-spacing:.12em;padding:5px 9px 5px 7px;border-radius:20px}
+.vbadge i{width:0;height:0;border-left:8px solid #efc650;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.vtabs{position:absolute;left:12px;bottom:12px;z-index:5;display:flex;gap:6px}
+.vtabs button{background:#05080ce6;color:#f5f3ee;border:1px solid #d5a62a88;font:800 10px Inter,Arial,sans-serif;letter-spacing:.1em;padding:8px 12px;border-radius:20px;cursor:pointer}
+.vtabs button.on{background:#d5a62a;color:#080b0f;border-color:#d5a62a}
+.detail .pics video{max-height:470px;max-width:100%;width:auto;display:block;background:#000}
+.detail .pics.isvid{background:#000;padding:0;flex-direction:column}
+.detail .pics.isvid .vtabs{position:static;order:-1;width:100%;justify-content:center;padding:10px;background:#05080c;border-bottom:1px solid #d5a62a44}
+@media(max-width:650px){.detail .pics video{max-height:60vh}.vbadge{font-size:8px;padding:4px 7px 4px 6px;left:6px;bottom:6px}}
 .catalog-link{margin:0 7% 80px;padding:28px 32px;border:1px solid #d5a62a55;background:#0d141c;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 .catalog-link h2{font:600 32px/1 Oswald;text-transform:uppercase;margin:6px 0}
 .catalog-link p{margin:0;color:#aeb7bf;font-size:13px}
@@ -157,7 +166,7 @@ function render(){
   let items = STOCK.filter(s => (brand==="Todas"||s.brand===brand||(brand==="Ofertas"&&s.offer)) && (!q || (s.name+" "+s.ref).toLowerCase().includes(q)));
   items.sort((a,b)=> sort==="pa" ? eff(a)-eff(b) : sort==="pd" ? eff(b)-eff(a) : sort==="ref" ? a.ref-b.ref : (!!b.offer-!!a.offer) || eff(b)-eff(a));
   $("grid").innerHTML = items.length ? items.map(s => { const inCart = cart.includes(s.ref); return `<article class="dcard">
-    <button class="dial${s.img?"":" noimg"}" data-detail="${s.ref}" aria-label="Ver detalles de ${s.name}">${s.img?`<img src="${s.img}" alt="${s.name}" loading="lazy">`:dialSVG(s.c)}<span class="ref">REF. ${pad(s.ref)}</span>${offerTag(s)}</button>
+    <button class="dial${s.img?"":" noimg"}" data-detail="${s.ref}" aria-label="Ver detalles de ${s.name}">${s.img?`<img src="${s.img}" alt="${s.name}" loading="lazy">`:dialSVG(s.c)}<span class="ref">REF. ${pad(s.ref)}</span>${offerTag(s)}${s.video?`<span class="vbadge"><i></i>VIDEO</span>`:""}</button>
     <div class="info"><div class="mk">${s.brand}</div><h3 class="name">${s.name}</h3>${s.sub?`<div class="sub">${s.sub}</div>`:""}
     ${s.desc?`<button class="more" data-detail="${s.ref}">Ver detalles</button>`:""}${priceHTML(s)}
     <button class="add${inCart?" in":""}" data-ref="${s.ref}">${inCart?"✓ En el carrito":"Agregar al carrito"}</button></div></article>`; }).join("")
@@ -178,20 +187,26 @@ function renderCart(){
   $("send").setAttribute("aria-disabled", items.length ? "false" : "true");
 }
 let detailRef = null;
+function showPic(s, vid){
+  const p = $("dPics"); p.classList.toggle("isvid", vid);
+  p.innerHTML = (vid ? `<video src="${s.video}" poster="${s.video.replace(/\.mp4$/,".jpg")}" controls autoplay playsinline preload="metadata"></video>`
+    : (s.img ? `<img src="${s.img}" alt="${s.name}">` : dialSVG(s.c)) + offerTag(s))
+    + (s.video ? `<div class="vtabs"><button type="button" data-pic="0" class="${vid?"":"on"}">FOTO</button><button type="button" data-pic="1" class="${vid?"on":""}">▶ VIDEO</button></div>` : "");
+}
 function openDetail(ref){
   const s = STOCK.find(x=>x.ref===ref); if(!s) return; detailRef = ref;
-  $("dPics").innerHTML = (s.img ? `<img src="${s.img}" alt="${s.name}">` : dialSVG(s.c)) + offerTag(s);
+  showPic(s, !!s.video && !!window.__openVideo); window.__openVideo = false;
   $("dRef").textContent = "REF. " + pad(ref); $("dBrand").textContent = s.brand; $("dTitle").textContent = s.name;
   $("dSub").textContent = s.sub || ""; $("dPrice").innerHTML = s.offer ? `<span class="old" style="font:400 14px Inter">${fmt(s.price)}</span> <span style="color:#ff5a4a">${fmt(s.offer)}</span>` : fmt(s.price);
   $("dDesc").innerHTML = (s.desc || ["Escribinos por WhatsApp y te mandamos fotos y detalles de este reloj."]).map(d=>`<li>${d}</li>`).join("");
   syncDetailBtn(); $("detail").hidden = false; $("scrim").hidden = false; $("closeDetail").focus();
 }
 function syncDetailBtn(){ if(detailRef===null) return; const inCart = cart.includes(detailRef), b = $("dAdd"); b.className = "add"+(inCart?" in":""); b.textContent = inCart?"✓ En el carrito":"Agregar al carrito"; }
-function closeDetail(){ $("detail").hidden = true; detailRef = null; if ($("drawer").hidden) $("scrim").hidden = true; }
+function closeDetail(){ $("dPics").innerHTML = ""; $("detail").hidden = true; detailRef = null; if ($("drawer").hidden) $("scrim").hidden = true; }
 function openCart(open){ $("drawer").hidden = !open; $("scrim").hidden = !open; if(open) $("closeCart").focus(); }
 const toggle = r => { const adding = !cart.includes(r); cart = adding ? [...cart, r] : cart.filter(x=>x!==r); save(); render(); syncDetailBtn(); if (window.ttAssist) { adding ? window.ttAssist.added() : window.ttAssist.refresh(); } };
 document.addEventListener("click", e => {
-  const det = e.target.closest("[data-detail]"); if (det){ openDetail(+det.dataset.detail); return; }
+  const det = e.target.closest("[data-detail]"); if (det){ window.__openVideo = !!e.target.closest(".vbadge"); openDetail(+det.dataset.detail); return; }
   const chip = e.target.closest(".chip"); if (chip){ brand = chip.dataset.b; renderChips(); render(); return; }
   const add = e.target.closest(".add[data-ref]"); if (add){ toggle(+add.dataset.ref); return; }
   const rm = e.target.closest("[data-rm]"); if (rm){ cart = cart.filter(x=>x!==+rm.dataset.rm); save(); render(); if (window.ttAssist) window.ttAssist.refresh(); }
@@ -200,12 +215,13 @@ $("dAdd").onclick = () => toggle(detailRef);
 $("openCart").onclick = () => openCart(true); $("closeCart").onclick = () => openCart(false);
 $("scrim").onclick = () => { closeDetail(); openCart(false); }; $("closeDetail").onclick = closeDetail;
 $("detail").addEventListener("click", e => { if (e.target.id==="detail") closeDetail(); });
+$("dPics").addEventListener("click", e => { const b = e.target.closest("[data-pic]"); if (!b) return; const s = STOCK.find(x=>x.ref===detailRef); if (s) showPic(s, b.dataset.pic==="1"); });
 document.addEventListener("keydown", e => { if (e.key==="Escape"){ closeDetail(); openCart(false); } });
 $("q").oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
 $("sort").onchange = e => { sort = e.target.value; render(); };
 ["nombre","nota"].forEach(id => $(id).addEventListener("input", renderCart));
 document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener("change", renderCart));
-const h = location.hash.match(/^#ref-(\d+)$/); renderChips(); render();
+const h = location.hash.match(/^#(?:ref|(video))-(\d+)$/); if (h && h[1]) { h[1] = h[2]; window.__openVideo = true; } else if (h) h[1] = h[2]; renderChips(); render();
 window.addEventListener("hashchange", () => { if (location.hash === "#ofertas") { brand = "Ofertas"; renderChips(); render(); document.getElementById("grid").scrollIntoView({behavior:"smooth"}); } });
 window.loadStock().then(list => { window.__stockLoaded = true; STOCK = list; cart = cart.filter(r => STOCK.some(s => s.ref === r)); save(); renderChips(); render(); if (h) openDetail(+h[1]); });
 </script>
