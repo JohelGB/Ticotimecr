@@ -262,7 +262,7 @@ window.STOCK = [
          "Garantía TicoTime de 3 meses."]},
 ];
 /* Videos por referencia: "ref": "assets/videos/<ref>.mp4" (póster <ref>.jpg al lado) */
-window.VIDEOS = {356:"assets/videos/356.mp4", 208:"assets/videos/208.mp4", 337:"assets/videos/337.mp4", 347:"assets/videos/347.mp4", 367:"assets/videos/367.mp4", 338:"assets/videos/338.mp4", 349:"assets/videos/349.mp4", 323:"assets/videos/323.mp4", 423:"assets/videos/423.mp4", 422:"assets/videos/422.mp4"};
+window.VIDEOS = {356:"assets/videos/356.mp4", 208:"assets/videos/208.mp4", 337:"assets/videos/337.mp4", 347:"assets/videos/347.mp4", 367:"assets/videos/367.mp4", 338:"assets/videos/338.mp4", 349:"assets/videos/349.mp4", 323:"assets/videos/323.mp4", 423:"assets/videos/423.mp4", 422:"assets/videos/422.mp4", 317:"assets/videos/317.mp4"};
 window.WA = "50686400835";
 
 // Inventario en vivo: la lista de referencias y precios se lee de la pestaña "Web" de la hoja de Google
