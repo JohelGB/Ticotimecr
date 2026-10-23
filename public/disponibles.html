@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="es"><head><meta charset="utf-8"><script src="analitica.js"></script><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Relojes Invicta, Casio, G-Shock y más en stock, con precio y video. Apartalo desde ₡15.000, garantía de 3 meses, pago por SINPE Móvil y envíos a todo Costa Rica.">
 <title>Relojes disponibles con entrega inmediata en Costa Rica | TicoTime CR</title>
 <link rel="icon" href="favicon.png" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#05080c"><link rel="stylesheet" href="styles.css">
@@ -212,7 +212,7 @@ function showPic(s, vid){
     + (s.video ? `<div class="vtabs"><button type="button" data-pic="0" class="${vid?"":"on"}">FOTO</button><button type="button" data-pic="1" class="${vid?"on":""}">▶ VIDEO</button></div>` : "");
 }
 function openDetail(ref){
-  const s = STOCK.find(x=>x.ref===ref); if(!s) return; detailRef = ref;
+  const s = STOCK.find(x=>x.ref===ref); if(!s) return; detailRef = ref; if (window.ttTrack) ttTrack("view_item", s);
   showPic(s, !!s.video && !!window.__openVideo); window.__openVideo = false;
   $("dRef").textContent = "REF. " + pad(ref); $("dBrand").textContent = s.brand; $("dTitle").textContent = s.name;
   $("dSub").textContent = s.sub || ""; $("dPrice").innerHTML = s.offer ? `<span class="old" style="font:400 14px Inter">${fmt(s.price)}</span> <span style="color:#ff5a4a">${fmt(s.offer)}</span>` : fmt(s.price);
@@ -223,14 +223,15 @@ function openDetail(ref){
 function syncDetailBtn(){ if(detailRef===null) return; const inCart = cart.includes(detailRef), b = $("dAdd"); b.className = "add"+(inCart?" in":""); b.textContent = inCart?"✓ En el carrito":"Agregar al carrito"; }
 function closeDetail(){ $("dPics").innerHTML = ""; $("detail").hidden = true; detailRef = null; if ($("drawer").hidden) $("scrim").hidden = true; }
 function openCart(open){ $("drawer").hidden = !open; $("scrim").hidden = !open; if(open) $("closeCart").focus(); }
-const toggle = r => { const adding = !cart.includes(r); cart = adding ? [...cart, r] : cart.filter(x=>x!==r); save(); render(); syncDetailBtn(); if (window.ttAssist) { adding ? window.ttAssist.added() : window.ttAssist.refresh(); } };
+const toggle = r => { const adding = !cart.includes(r); if (window.ttTrack) ttTrack(adding ? "add_to_cart" : "remove_from_cart", STOCK.find(x=>x.ref===r)); cart = adding ? [...cart, r] : cart.filter(x=>x!==r); save(); render(); syncDetailBtn(); if (window.ttAssist) { adding ? window.ttAssist.added() : window.ttAssist.refresh(); } };
 document.addEventListener("click", e => {
   const det = e.target.closest("[data-detail]"); if (det){ window.__openVideo = !!e.target.closest(".vbadge"); openDetail(+det.dataset.detail); return; }
   const chip = e.target.closest(".chip"); if (chip){ brand = chip.dataset.b; renderChips(); render(); return; }
   const add = e.target.closest(".add[data-ref]"); if (add){ toggle(+add.dataset.ref); return; }
-  const rm = e.target.closest("[data-rm]"); if (rm){ cart = cart.filter(x=>x!==+rm.dataset.rm); save(); render(); if (window.ttAssist) window.ttAssist.refresh(); }
+  const rm = e.target.closest("[data-rm]"); if (rm){ if (window.ttTrack) ttTrack("remove_from_cart", STOCK.find(x=>x.ref===+rm.dataset.rm)); cart = cart.filter(x=>x!==+rm.dataset.rm); save(); render(); if (window.ttAssist) window.ttAssist.refresh(); }
 });
 $("dAdd").onclick = () => toggle(detailRef);
+$("send").addEventListener("click", () => { const items = cart.map(r => STOCK.find(s=>s.ref===r)).filter(Boolean); if (!items.length || !window.ttTrack) return; ttTrack("begin_checkout", items, {payment_type: document.querySelector('input[name="pago"]:checked').value, entrega: document.querySelector('input[name="entrega"]:checked').value}); });
 $("openCart").onclick = () => openCart(true); $("closeCart").onclick = () => openCart(false);
 $("scrim").onclick = () => { closeDetail(); openCart(false); }; $("closeDetail").onclick = closeDetail;
 $("detail").addEventListener("click", e => { if (e.target.id==="detail") closeDetail(); });
