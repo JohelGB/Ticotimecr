@@ -49,3 +49,18 @@
 .dream-mark{border:0!important;width:72px!important;height:72px!important}
 .dream-mark img{width:100%;height:100%;display:block}
 @media(max-width:650px){.logo>img{width:42px;height:42px}.dream-mark{width:56px!important;height:56px!important}}
+
+/* Etiqueta de oferta (portada) */
+.otag{position:absolute;top:0;right:18px;z-index:3;transform-origin:50% 0;animation:swing 2.8s ease-in-out infinite;pointer-events:none}
+.otag .string{width:2px;height:18px;background:var(--gold);margin:0 auto}
+.otag .body{background:#d63a2f;color:#fff;padding:12px 10px 10px;border-radius:4px 4px 10px 10px;text-align:center;box-shadow:0 6px 14px #0007;position:relative;min-width:64px}
+.otag .body::before{content:"";position:absolute;top:5px;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:#fff}
+.otag b{display:block;font:700 22px/1 Oswald,Arial,sans-serif}
+.otag small{display:block;font:800 9px Inter,Arial,sans-serif;letter-spacing:.12em;margin-top:3px}
+.otag.holly .string{height:14px}
+.otag.holly .body{margin-top:12px;border:2px solid #1f7a45;outline:2px dashed #f2f2f2;outline-offset:-6px}
+.otag.holly .body::before{display:none}
+.otag .hollyleaf{position:absolute;top:2px;left:50%;transform:translateX(-50%);width:56px;height:28px;z-index:4;filter:drop-shadow(0 2px 2px #0004)}
+@keyframes swing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@media (prefers-reduced-motion:reduce){.otag{animation:none}}
+@media(max-width:650px){.otag{right:8px}.otag .body{min-width:52px;padding:11px 7px 8px}.otag b{font-size:17px}.otag small{font-size:8px}}
