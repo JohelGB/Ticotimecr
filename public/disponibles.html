@@ -33,6 +33,27 @@
 .price{font:700 24px Oswald,Arial,sans-serif;color:#fff;margin-top:2px;font-variant-numeric:tabular-nums}
 .add{margin-top:auto;border:1px solid var(--gold);background:var(--gold);color:#080b0f;padding:11px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .add.in{background:transparent;color:var(--ok);border-color:var(--ok)}
+/* Oferta: etiqueta colgante (C) y versión navideña con acebo (N2) */
+.prices{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.old{color:#8e98a2;text-decoration:line-through;font-size:13px}
+.price.hot{color:#ff5a4a}
+.otag{position:absolute;top:0;right:18px;z-index:3;transform-origin:50% 0;animation:swing 2.8s ease-in-out infinite;pointer-events:none}
+.otag .string{width:2px;height:18px;background:var(--gold);margin:0 auto}
+.otag .body{background:#d63a2f;color:#fff;padding:12px 10px 10px;border-radius:4px 4px 10px 10px;text-align:center;box-shadow:0 6px 14px #0007;position:relative;min-width:64px}
+.otag .body::before{content:"";position:absolute;top:5px;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:#fff}
+.otag b{display:block;font:700 22px/1 Oswald,Arial,sans-serif}
+.otag small{display:block;font:800 9px Inter,Arial,sans-serif;letter-spacing:.12em;margin-top:3px}
+.otag.holly .string{height:14px}
+.otag.holly .body{margin-top:12px;border:2px solid #1f7a45;outline:2px dashed #f2f2f2;outline-offset:-6px}
+.otag.holly .body::before{display:none}
+.otag .hollyleaf{position:absolute;top:2px;left:50%;transform:translateX(-50%);width:56px;height:28px;z-index:4;filter:drop-shadow(0 2px 2px #0004)}
+.detail .otag{right:24px}
+.chip.ofertas{border-color:#d63a2f;color:#ff8a7e}
+.chip.ofertas[aria-pressed="true"]{background:#d63a2f;color:#fff;border-color:#d63a2f}
+.line .o{font-size:10px;font-weight:800;color:#ff8a7e;letter-spacing:.06em}
+@keyframes swing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@media (prefers-reduced-motion:reduce){.otag{animation:none}}
+@media(max-width:650px){.otag{right:8px}.otag .body{min-width:52px;padding:11px 7px 8px}.otag b{font-size:17px}.otag small{font-size:8px}}
 .empty2{grid-column:1/-1;color:var(--muted);text-align:center;padding:30px}
 .cart-btn{display:flex;align-items:center;gap:8px;background:var(--gold);color:#080b0f;border:1px solid var(--gold);padding:10px 14px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .cart-btn .count{background:#080b0f;color:var(--gold2);min-width:20px;height:20px;border-radius:999px;display:inline-grid;place-items:center;font-size:10px;padding:0 5px}
@@ -62,7 +83,7 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 .fine{font-size:11px;color:var(--muted);text-align:center}
 .detail{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:16px;pointer-events:none}
 .detail .box{pointer-events:auto;background:#0b1118;border:1px solid #d5a62a66;max-width:860px;width:100%;max-height:100%;overflow:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
-.detail .pics{background:#fff;display:flex;align-items:center;justify-content:center;padding:18px}
+.detail .pics{position:relative;background:#fff;display:flex;align-items:center;justify-content:center;padding:18px}
 .detail .pics img{max-height:470px;width:auto;max-width:100%;object-fit:contain}
 .detail .txt{padding:24px;display:flex;flex-direction:column;gap:10px;min-width:0}
 .detail h3{font:600 30px/1.05 Oswald;text-transform:uppercase;margin:0}
@@ -118,19 +139,27 @@ try { cart = JSON.parse(localStorage.getItem("tt_cart") || "[]").filter(r => STO
 const save = () => { try { localStorage.setItem("tt_cart", JSON.stringify(cart)); } catch (e) {} };
 const dialSVG = c => `<svg viewBox="0 0 120 150" aria-hidden="true"><rect x="42" y="2" width="36" height="34" rx="6" fill="#2a2f38"/><rect x="42" y="114" width="36" height="34" rx="6" fill="#2a2f38"/><circle cx="60" cy="75" r="46" fill="#8a7a55"/><circle cx="60" cy="75" r="40" fill="${c}"/><line x1="60" y1="75" x2="60" y2="50" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="75" x2="78" y2="68" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>`;
 const pad = r => String(r).padStart(3, "0");
+const eff = s => s.offer || s.price;
+// Temporada navideña: del 1 de noviembre al 6 de enero la etiqueta lleva acebo
+const isXmas = (d => { const m = d.getMonth()+1, day = d.getDate(); return m===11 || m===12 || (m===1 && day<=6); })(new Date());
+const HOLLY = `<svg class="hollyleaf" viewBox="0 0 44 22" aria-hidden="true"><path d="M21 11c-4-7-12-8-18-5 3 1 3 4 1 5 3 1 4 4 2 6 6 1 12-1 15-6z" fill="#1f7a45"/><path d="M23 11c4-7 12-8 18-5-3 1-3 4-1 5-3 1-4 4-2 6-6 1-12-1-15-6z" fill="#258f52"/><circle cx="19.5" cy="13" r="3" fill="#d63a2f"/><circle cx="24.5" cy="13" r="3" fill="#e2453a"/><circle cx="22" cy="9.5" r="3" fill="#c62c24"/></svg>`;
+const offerTag = s => s.offer ? `<span class="otag${isXmas?" holly":""}" aria-label="Oferta ${Math.round((1-s.offer/s.price)*100)}%"><span class="string" style="display:block"></span>${isXmas?HOLLY:""}<span class="body" style="display:block"><b>-${Math.round((1-s.offer/s.price)*100)}%</b><small>OFERTA</small></span></span>` : "";
+const priceHTML = s => s.offer ? `<div class="prices"><span class="old">${fmt(s.price)}</span><span class="price hot">${fmt(s.offer)}</span></div>` : `<div class="price">${fmt(s.price)}</div>`;
 
 function renderChips(){
   const counts = STOCK.reduce((m,s)=>(m[s.brand]=(m[s.brand]||0)+1,m),{});
-  const list = [["Todas",STOCK.length], ...Object.entries(counts).sort((a,b)=>b[1]-a[1])];
-  $("chips").innerHTML = list.map(([b,n])=>`<button class="chip" data-b="${b}" aria-pressed="${b===brand}">${b}<small>${n}</small></button>`).join("");
+  const nOf = STOCK.filter(s=>s.offer).length;
+  if (brand==="Ofertas" && !nOf) brand = "Todas";
+  const list = [["Todas",STOCK.length], ...(nOf?[["Ofertas",nOf]]:[]), ...Object.entries(counts).sort((a,b)=>b[1]-a[1])];
+  $("chips").innerHTML = list.map(([b,n])=>`<button class="chip${b==="Ofertas"?" ofertas":""}" data-b="${b}" aria-pressed="${b===brand}">${b}<small>${n}</small></button>`).join("");
 }
 function render(){
-  let items = STOCK.filter(s => (brand==="Todas"||s.brand===brand) && (!q || (s.name+" "+s.ref).toLowerCase().includes(q)));
-  items.sort((a,b)=> sort==="pa" ? a.price-b.price : sort==="ref" ? a.ref-b.ref : b.price-a.price);
+  let items = STOCK.filter(s => (brand==="Todas"||s.brand===brand||(brand==="Ofertas"&&s.offer)) && (!q || (s.name+" "+s.ref).toLowerCase().includes(q)));
+  items.sort((a,b)=> sort==="pa" ? eff(a)-eff(b) : sort==="ref" ? a.ref-b.ref : (!!b.offer-!!a.offer) || eff(b)-eff(a));
   $("grid").innerHTML = items.length ? items.map(s => { const inCart = cart.includes(s.ref); return `<article class="dcard">
-    <button class="dial${s.img?"":" noimg"}" data-detail="${s.ref}" aria-label="Ver detalles de ${s.name}">${s.img?`<img src="${s.img}" alt="${s.name}" loading="lazy">`:dialSVG(s.c)}<span class="ref">REF. ${pad(s.ref)}</span></button>
+    <button class="dial${s.img?"":" noimg"}" data-detail="${s.ref}" aria-label="Ver detalles de ${s.name}">${s.img?`<img src="${s.img}" alt="${s.name}" loading="lazy">`:dialSVG(s.c)}<span class="ref">REF. ${pad(s.ref)}</span>${offerTag(s)}</button>
     <div class="info"><div class="mk">${s.brand}</div><h3 class="name">${s.name}</h3>${s.sub?`<div class="sub">${s.sub}</div>`:""}
-    ${s.desc?`<button class="more" data-detail="${s.ref}">Ver detalles</button>`:""}<div class="price">${fmt(s.price)}</div>
+    ${s.desc?`<button class="more" data-detail="${s.ref}">Ver detalles</button>`:""}${priceHTML(s)}
     <button class="add${inCart?" in":""}" data-ref="${s.ref}">${inCart?"✓ En el carrito":"Agregar al carrito"}</button></div></article>`; }).join("")
     : `<div class="empty2">No hay relojes con ese filtro.</div>`;
   $("nStock").textContent = STOCK.length;
@@ -139,21 +168,21 @@ function render(){
 function renderCart(){
   const items = cart.map(r => STOCK.find(s=>s.ref===r)).filter(Boolean);
   $("count").textContent = items.length;
-  $("lines").innerHTML = items.length ? items.map(s=>`<div class="line"><div class="th">${s.img?`<img src="${s.img}" alt="">`:dialSVG(s.c)}</div><div class="n">${s.name}</div><div class="p">${fmt(s.price)}</div><div class="r">Ref. ${pad(s.ref)}</div><button data-rm="${s.ref}">Quitar</button></div>`).join("")
+  $("lines").innerHTML = items.length ? items.map(s=>`<div class="line"><div class="th">${s.img?`<img src="${s.img}" alt="">`:dialSVG(s.c)}</div><div class="n">${s.name}</div><div class="p">${fmt(eff(s))}</div><div class="r">Ref. ${pad(s.ref)}${s.offer?` · <span class="o">OFERTA</span>`:""}</div><button data-rm="${s.ref}">Quitar</button></div>`).join("")
     : `<p style="color:var(--muted);margin:0;font-size:13px">Tu carrito está vacío. Agregá relojes desde la lista.</p>`;
-  const total = items.reduce((t,s)=>t+s.price,0); $("total").textContent = fmt(total);
+  const total = items.reduce((t,s)=>t+eff(s),0); $("total").textContent = fmt(total);
   const pago = document.querySelector('input[name="pago"]:checked').value, ent = document.querySelector('input[name="entrega"]:checked').value;
   const nombre = $("nombre").value.trim(), nota = $("nota").value.trim();
-  const msg = ["Hola TicoTimeCR, quiero hacer este pedido:","",...items.map(s=>`• Ref. ${pad(s.ref)} ${s.name} — ${fmt(s.price)}`),"",`Total: ${fmt(total)}`,`Forma de pago: ${pago}`,`Entrega: ${ent}`,nombre?`Nombre: ${nombre}`:"",nota?`Nota: ${nota}`:""].filter((l,i,a)=>l!==""||a[i-1]!=="").join("\n");
+  const msg = ["Hola TicoTimeCR, quiero hacer este pedido:","",...items.map(s=>`• Ref. ${pad(s.ref)} ${s.name} — ${fmt(eff(s))}${s.offer?` (oferta, antes ${fmt(s.price)})`:""}`),"",`Total: ${fmt(total)}`,`Forma de pago: ${pago}`,`Entrega: ${ent}`,nombre?`Nombre: ${nombre}`:"",nota?`Nota: ${nota}`:""].filter((l,i,a)=>l!==""||a[i-1]!=="").join("\n");
   $("send").href = "https://wa.me/" + WA + "?text=" + encodeURIComponent(msg);
   $("send").setAttribute("aria-disabled", items.length ? "false" : "true");
 }
 let detailRef = null;
 function openDetail(ref){
   const s = STOCK.find(x=>x.ref===ref); if(!s) return; detailRef = ref;
-  $("dPics").innerHTML = s.img ? `<img src="${s.img}" alt="${s.name}">` : dialSVG(s.c);
+  $("dPics").innerHTML = (s.img ? `<img src="${s.img}" alt="${s.name}">` : dialSVG(s.c)) + offerTag(s);
   $("dRef").textContent = "REF. " + pad(ref); $("dBrand").textContent = s.brand; $("dTitle").textContent = s.name;
-  $("dSub").textContent = s.sub || ""; $("dPrice").textContent = fmt(s.price);
+  $("dSub").textContent = s.sub || ""; $("dPrice").innerHTML = s.offer ? `<span class="old" style="font:400 14px Inter">${fmt(s.price)}</span> <span style="color:#ff5a4a">${fmt(s.offer)}</span>` : fmt(s.price);
   $("dDesc").innerHTML = (s.desc || ["Escribinos por WhatsApp y te mandamos fotos y detalles de este reloj."]).map(d=>`<li>${d}</li>`).join("");
   syncDetailBtn(); $("detail").hidden = false; $("scrim").hidden = false; $("closeDetail").focus();
 }

@@ -264,7 +264,7 @@ window.STOCK = [
 window.WA = "50686400835";
 
 // Inventario en vivo: la lista de referencias y precios se lee de la pestaña "Web" de la hoja de Google
-// (publicada como CSV). Las fotos y descripciones salen de la lista de arriba, emparejadas por referencia.
+// (publicada como CSV): columnas ref, modelo, precio y oferta (precio de oferta, opcional). Las fotos y descripciones salen de la lista de arriba, emparejadas por referencia.
 // Si la hoja no responde, la página usa la lista de arriba tal cual.
 window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=777001&single=true&output=csv";
 
@@ -302,9 +302,13 @@ window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_
           var ref = parseInt(String(r[0]||"").replace(/\D/g,""),10);
           var price = parseInt(String(r[2]||"").replace(/\D/g,""),10);
           if (!ref || !price || seen[ref]) return; seen[ref]=1;
-          var d = byRef[ref];
-          if (d) { var c = {}; for (var k in d) c[k]=d[k]; c.price = price; out.push(c); }
-          else out.push({ref:ref, brand:guessBrand(r[1]||""), name:tidy(r[1]||("Reloj "+ref)), price:price, c:"#2b2f36"});
+          var offer = parseInt(String(r[3]||"").replace(/\D/g,""),10);
+          var d = byRef[ref], c;
+          if (d) { c = {}; for (var k in d) c[k]=d[k]; c.price = price; }
+          else c = {ref:ref, brand:guessBrand(r[1]||""), name:tidy(r[1]||("Reloj "+ref)), price:price, c:"#2b2f36"};
+          delete c.offer;
+          if (offer > 0 && offer < price) c.offer = offer;
+          out.push(c);
         });
         if (!out.length) throw new Error("vacío");
         return out;
