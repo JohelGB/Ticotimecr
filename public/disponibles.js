@@ -262,7 +262,7 @@ window.STOCK = [
          "Garantía TicoTime de 3 meses."]},
 ];
 /* Videos por referencia: "ref": "assets/videos/<ref>.mp4" (póster <ref>.jpg al lado) */
-window.VIDEOS = {356:"assets/videos/356.mp4", 208:"assets/videos/208.mp4", 337:"assets/videos/337.mp4", 347:"assets/videos/347.mp4", 367:"assets/videos/367.mp4", 338:"assets/videos/338.mp4", 349:"assets/videos/349.mp4", 323:"assets/videos/323.mp4", 423:"assets/videos/423.mp4", 422:"assets/videos/422.mp4", 317:"assets/videos/317.mp4"};
+window.VIDEOS = {356:"assets/videos/356.mp4", 208:"assets/videos/208.mp4", 337:"assets/videos/337.mp4", 347:"assets/videos/347.mp4", 367:"assets/videos/367.mp4", 338:"assets/videos/338.mp4", 349:"assets/videos/349.mp4", 323:"assets/videos/323.mp4", 423:"assets/videos/423.mp4", 422:"assets/videos/422.mp4", 317:"assets/videos/317.mp4", 332:"assets/videos/332.mp4", 331:"assets/videos/331.mp4", 313:"assets/videos/313.mp4", 491:"assets/videos/491.mp4", 490:"assets/videos/490.mp4", 407:"assets/videos/407.mp4", 400:"assets/videos/400.mp4", 402:"assets/videos/402.mp4", 404:"assets/videos/404.mp4"};
 window.WA = "50686400835";
 
 // Inventario en vivo: la lista de referencias y precios se lee de la pestaña "Web" de la hoja de Google
