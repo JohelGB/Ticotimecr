@@ -7,3 +7,5 @@ Sitio de TicoTime CR: catálogo por colecciones (191 referencias) y tienda de re
 - `public/assets/disponibles/` guarda la foto de cada reloj disponible, nombrada con su número de referencia.
 
 Cada cambio que se sube a la rama `main` se publica solo en Cloudflare.
+
+Para actualizar: cambiar `public/disponibles.js` (y agregar la foto en `public/assets/disponibles/`) y subir a `main`.
