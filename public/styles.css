@@ -133,3 +133,19 @@ footer{flex-direction:column;align-items:flex-start;padding:34px 24px;gap:18px}
 .tight-cat .card:hover{border-color:#d5a62a99}
 @media(max-width:650px){.tight-cat .collection-grid,.tight-cat .grid{grid-template-columns:1fr}}
 @media(max-width:650px){.tight-cat .card-img{aspect-ratio:auto;display:block}.tight-cat .card-img img{height:auto;max-height:none;display:block}}
+/* Vitrina de video en la portada */
+.hero-show{position:absolute;right:calc(8% + 120px);top:50%;transform:translateY(-44%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px}
+.hero-show[hidden]{display:none}
+.phone{position:relative;width:250px;aspect-ratio:9/16;border-radius:30px;padding:8px;background:linear-gradient(145deg,#2a2418,#0b0d10 40%,#1c170d);border:1px solid #d5a62a88;box-shadow:0 30px 70px #000c,0 0 0 1px #000,0 0 50px #d5a62a22}
+.phone video{width:100%;height:100%;object-fit:cover;border-radius:23px;display:block;background:#000}
+.hs-live{position:absolute;left:20px;top:20px;display:flex;align-items:center;gap:6px;background:#05080cd9;color:#fff;font:800 9px Inter,Arial,sans-serif;letter-spacing:.14em;padding:5px 9px;border-radius:20px}
+.hs-live i{width:7px;height:7px;border-radius:50%;background:#e2453a;animation:hsblink 1.4s infinite}
+@keyframes hsblink{50%{opacity:.25}}
+.hs-card{position:absolute;left:-150px;bottom:70px;width:210px;background:#05080cf0;border:1px solid var(--gold);padding:14px 16px;display:flex;flex-direction:column;gap:4px;box-shadow:0 16px 40px #000b;transition:.25s}
+.hs-card:hover{transform:translateY(-3px)}
+.hs-card small{font:800 9px Inter,Arial,sans-serif;letter-spacing:.18em;color:var(--gold2)}
+.hs-card b{font:600 17px/1.15 Oswald,Arial,sans-serif;text-transform:uppercase;color:#fff}
+.hs-card span{font:700 18px Oswald,Arial,sans-serif}.hs-card span s{color:#8e98a2;font-size:13px;margin-right:4px}.hs-card span b{font-size:20px}.hs-card span b.hot{color:#ff5a4a}
+.hs-card em{font-style:normal;font:800 10px Inter,Arial,sans-serif;letter-spacing:.08em;color:var(--gold2);text-transform:uppercase;margin-top:4px}
+.hs-dots{display:flex;gap:7px}.hs-dots i{width:8px;height:8px;border-radius:50%;background:#ffffff40;cursor:pointer}.hs-dots i.on{background:var(--gold2);width:22px;border-radius:5px}
+@media(max-width:1000px){.hero-show{display:none!important}}
