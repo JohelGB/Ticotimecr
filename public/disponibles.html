@@ -134,7 +134,7 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 let STOCK = window.STOCK; const WA = window.WA;
 const fmt = n => "₡" + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const $ = id => document.getElementById(id);
-let brand = "Todas", q = "", sort = "dest", cart = [];
+let brand = location.hash === "#ofertas" ? "Ofertas" : "Todas", q = "", sort = "dest", cart = [];
 try { cart = JSON.parse(localStorage.getItem("tt_cart") || "[]").filter(r => STOCK.some(s => s.ref === r)); } catch (e) {}
 const save = () => { try { localStorage.setItem("tt_cart", JSON.stringify(cart)); } catch (e) {} };
 const dialSVG = c => `<svg viewBox="0 0 120 150" aria-hidden="true"><rect x="42" y="2" width="36" height="34" rx="6" fill="#2a2f38"/><rect x="42" y="114" width="36" height="34" rx="6" fill="#2a2f38"/><circle cx="60" cy="75" r="46" fill="#8a7a55"/><circle cx="60" cy="75" r="40" fill="${c}"/><line x1="60" y1="75" x2="60" y2="50" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="75" x2="78" y2="68" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>`;
@@ -149,7 +149,7 @@ const priceHTML = s => s.offer ? `<div class="prices"><span class="old">${fmt(s.
 function renderChips(){
   const counts = STOCK.reduce((m,s)=>(m[s.brand]=(m[s.brand]||0)+1,m),{});
   const nOf = STOCK.filter(s=>s.offer).length;
-  if (brand==="Ofertas" && !nOf) brand = "Todas";
+  if (brand==="Ofertas" && !nOf && window.__stockLoaded) brand = "Todas";
   const list = [["Todas",STOCK.length], ...(nOf?[["Ofertas",nOf]]:[]), ...Object.entries(counts).sort((a,b)=>b[1]-a[1])];
   $("chips").innerHTML = list.map(([b,n])=>`<button class="chip${b==="Ofertas"?" ofertas":""}" data-b="${b}" aria-pressed="${b===brand}">${b}<small>${n}</small></button>`).join("");
 }
@@ -189,12 +189,12 @@ function openDetail(ref){
 function syncDetailBtn(){ if(detailRef===null) return; const inCart = cart.includes(detailRef), b = $("dAdd"); b.className = "add"+(inCart?" in":""); b.textContent = inCart?"✓ En el carrito":"Agregar al carrito"; }
 function closeDetail(){ $("detail").hidden = true; detailRef = null; if ($("drawer").hidden) $("scrim").hidden = true; }
 function openCart(open){ $("drawer").hidden = !open; $("scrim").hidden = !open; if(open) $("closeCart").focus(); }
-const toggle = r => { cart = cart.includes(r) ? cart.filter(x=>x!==r) : [...cart, r]; save(); render(); syncDetailBtn(); };
+const toggle = r => { const adding = !cart.includes(r); cart = adding ? [...cart, r] : cart.filter(x=>x!==r); save(); render(); syncDetailBtn(); if (window.ttAssist) { adding ? window.ttAssist.added() : window.ttAssist.refresh(); } };
 document.addEventListener("click", e => {
   const det = e.target.closest("[data-detail]"); if (det){ openDetail(+det.dataset.detail); return; }
   const chip = e.target.closest(".chip"); if (chip){ brand = chip.dataset.b; renderChips(); render(); return; }
   const add = e.target.closest(".add[data-ref]"); if (add){ toggle(+add.dataset.ref); return; }
-  const rm = e.target.closest("[data-rm]"); if (rm){ cart = cart.filter(x=>x!==+rm.dataset.rm); save(); render(); }
+  const rm = e.target.closest("[data-rm]"); if (rm){ cart = cart.filter(x=>x!==+rm.dataset.rm); save(); render(); if (window.ttAssist) window.ttAssist.refresh(); }
 });
 $("dAdd").onclick = () => toggle(detailRef);
 $("openCart").onclick = () => openCart(true); $("closeCart").onclick = () => openCart(false);
@@ -206,6 +206,7 @@ $("sort").onchange = e => { sort = e.target.value; render(); };
 ["nombre","nota"].forEach(id => $(id).addEventListener("input", renderCart));
 document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener("change", renderCart));
 const h = location.hash.match(/^#ref-(\d+)$/); renderChips(); render();
-window.loadStock().then(list => { STOCK = list; cart = cart.filter(r => STOCK.some(s => s.ref === r)); save(); renderChips(); render(); if (h) openDetail(+h[1]); });
+window.addEventListener("hashchange", () => { if (location.hash === "#ofertas") { brand = "Ofertas"; renderChips(); render(); document.getElementById("grid").scrollIntoView({behavior:"smooth"}); } });
+window.loadStock().then(list => { window.__stockLoaded = true; STOCK = list; cart = cart.filter(r => STOCK.some(s => s.ref === r)); save(); renderChips(); render(); if (h) openDetail(+h[1]); });
 </script>
-</body></html>
+<script src="asistente.js" defer></script></body></html>
