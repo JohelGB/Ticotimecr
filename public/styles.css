@@ -165,3 +165,8 @@ footer{flex-direction:column;align-items:flex-start;padding:34px 24px;gap:18px}
 }
 @keyframes scnudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
 @media (prefers-reduced-motion:reduce){.section-card .sc-btn i{animation:none}}
+/* Botón de colecciones más sutil */
+.section-card .sc-btn{background:#05080cb3;color:var(--gold2);border:1px solid #d5a62acc;box-shadow:none;padding:9px 13px;font-size:10px;backdrop-filter:blur(4px)}
+.section-card:hover .sc-btn{background:var(--gold);color:#080b0f}
+.section-card .sc-btn i{font-size:13px}
+@media(max-width:650px){.section-card .sc-btn{display:inline-flex;width:auto;justify-content:flex-start;padding:10px 14px;font-size:10.5px}}
