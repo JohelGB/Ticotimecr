@@ -105,7 +105,7 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 <div class="perks"><div><span>✓</span>Garantía de 3 meses</div><div><span>✓</span>Sistema de apartados</div><div><span>✓</span>WhatsApp 8640-0835</div></div></section>
 <div class="tools"><div class="chips" id="chips" role="group" aria-label="Filtrar por marca"></div>
 <input id="q" type="search" placeholder="Buscar modelo o número" aria-label="Buscar">
-<select id="sort" aria-label="Ordenar"><option value="pd">Precio: mayor a menor</option><option value="pa">Precio: menor a mayor</option><option value="ref">Número de referencia</option></select></div>
+<select id="sort" aria-label="Ordenar"><option value="dest">Ofertas primero</option><option value="pd">Precio: mayor a menor</option><option value="pa">Precio: menor a mayor</option><option value="ref">Número de referencia</option></select></div>
 <section class="dgrid" id="grid" aria-live="polite"></section>
 <section class="catalog-link"><div><p class="kicker goldtxt">¿NO ESTÁ AQUÍ?</p><h2>Mirá el catálogo completo</h2><p>191 referencias por pedido. Escribinos con el número y te cotizamos.</p></div><a class="btn gold" href="index.html#colecciones">Ver catálogo →</a></section>
 </main>
@@ -134,7 +134,7 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 let STOCK = window.STOCK; const WA = window.WA;
 const fmt = n => "₡" + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const $ = id => document.getElementById(id);
-let brand = "Todas", q = "", sort = "pd", cart = [];
+let brand = "Todas", q = "", sort = "dest", cart = [];
 try { cart = JSON.parse(localStorage.getItem("tt_cart") || "[]").filter(r => STOCK.some(s => s.ref === r)); } catch (e) {}
 const save = () => { try { localStorage.setItem("tt_cart", JSON.stringify(cart)); } catch (e) {} };
 const dialSVG = c => `<svg viewBox="0 0 120 150" aria-hidden="true"><rect x="42" y="2" width="36" height="34" rx="6" fill="#2a2f38"/><rect x="42" y="114" width="36" height="34" rx="6" fill="#2a2f38"/><circle cx="60" cy="75" r="46" fill="#8a7a55"/><circle cx="60" cy="75" r="40" fill="${c}"/><line x1="60" y1="75" x2="60" y2="50" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="60" y1="75" x2="78" y2="68" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>`;
@@ -155,7 +155,7 @@ function renderChips(){
 }
 function render(){
   let items = STOCK.filter(s => (brand==="Todas"||s.brand===brand||(brand==="Ofertas"&&s.offer)) && (!q || (s.name+" "+s.ref).toLowerCase().includes(q)));
-  items.sort((a,b)=> sort==="pa" ? eff(a)-eff(b) : sort==="ref" ? a.ref-b.ref : (!!b.offer-!!a.offer) || eff(b)-eff(a));
+  items.sort((a,b)=> sort==="pa" ? eff(a)-eff(b) : sort==="pd" ? eff(b)-eff(a) : sort==="ref" ? a.ref-b.ref : (!!b.offer-!!a.offer) || eff(b)-eff(a));
   $("grid").innerHTML = items.length ? items.map(s => { const inCart = cart.includes(s.ref); return `<article class="dcard">
     <button class="dial${s.img?"":" noimg"}" data-detail="${s.ref}" aria-label="Ver detalles de ${s.name}">${s.img?`<img src="${s.img}" alt="${s.name}" loading="lazy">`:dialSVG(s.c)}<span class="ref">REF. ${pad(s.ref)}</span>${offerTag(s)}</button>
     <div class="info"><div class="mk">${s.brand}</div><h3 class="name">${s.name}</h3>${s.sub?`<div class="sub">${s.sub}</div>`:""}
