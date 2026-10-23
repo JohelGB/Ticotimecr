@@ -83,3 +83,35 @@
 .vinfo em s{color:#8e98a2;font-size:12px;margin-right:4px}
 @keyframes vping{0%{box-shadow:0 0 0 0 #efc65088}100%{box-shadow:0 0 0 16px #efc65000}}
 @media(max-width:650px){.vids{grid-auto-columns:46%}}
+/* Cómo comprar */
+.buy{background:#090e14}
+.buy-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:auto auto;gap:15px}
+.buy-apt{grid-row:span 3;border:1px solid var(--gold);background:linear-gradient(160deg,#141009,#0b1118 60%);padding:28px;display:flex;flex-direction:column;gap:14px}
+.buy-apt h3{font:600 34px/1.05 Oswald,Arial,sans-serif;text-transform:uppercase;margin:0}.buy-apt h3 span{color:var(--gold2);display:block}
+.buy-apt>p{margin:0;color:#c6ccd2;line-height:1.65}
+.apt-tiers{display:grid;gap:8px}
+.apt-tiers div{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid #d5a62a55;background:#05080c;padding:12px 16px}
+.apt-tiers small{color:#c6ccd2;font-size:13px}.apt-tiers b{font:700 26px Oswald,Arial,sans-serif;color:var(--gold2);white-space:nowrap}
+.apt-note{font-size:12px!important;color:var(--muted)!important}
+.buy-apt .btn{align-self:flex-start}
+.buy-card{grid-column:span 2;border:1px solid #2b3743;background:#0b1118;padding:18px 20px;display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:start}
+.buy-card i{grid-row:span 2;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--gold);color:var(--gold2);font:700 20px Oswald,Arial,sans-serif;font-style:normal}
+.buy-card h3{font:600 19px Oswald,Arial,sans-serif;text-transform:uppercase;margin:0 0 4px}.buy-card p{margin:0;color:#aeb7bf;font-size:13px;line-height:1.6}.buy-card b{color:var(--gold2)}
+.buy-steps{list-style:none;padding:0;margin:18px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.buy-steps li{border-top:1px solid #d5a62a66;padding-top:12px;color:#c6ccd2;font-size:13px;line-height:1.55}.buy-steps b{display:block;font:700 20px Oswald,Arial,sans-serif;color:var(--gold2);margin-bottom:4px}.buy-steps a{color:var(--gold2)}
+@media(max-width:900px){.buy-grid{grid-template-columns:1fr}.buy-apt{grid-row:auto}.buy-card{grid-column:auto}.buy-steps{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.buy-apt{padding:22px 18px}.buy-apt h3{font-size:28px}.apt-tiers b{font-size:22px}.buy-steps{grid-template-columns:1fr}}
+/* Redes */
+.social{display:flex;gap:10px;align-items:center}
+.social a{width:40px;height:40px;display:grid;place-items:center;border:1px solid #d5a62a88;border-radius:50%;color:var(--gold2);transition:.25s}
+.social a:hover{background:var(--gold);color:#080b0f}
+.social svg{width:18px;height:18px;fill:currentColor}
+/* Ajustes celular */
+@media(max-width:650px){
+html,body{overflow-x:hidden}
+.hero-content{width:calc(100% - 36px);max-width:none;box-sizing:border-box}
+.hero-panel{box-sizing:border-box;max-width:100%}
+.hero h1{font-size:clamp(38px,12vw,54px)}
+footer{flex-direction:column;align-items:flex-start;padding:34px 24px;gap:18px}
+}
+.buy-card{grid-template-rows:auto auto;align-content:center}.buy-card p{grid-column:2}
