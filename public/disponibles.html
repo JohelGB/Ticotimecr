@@ -110,7 +110,7 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 
 <script src="disponibles.js"></script>
 <script>
-const STOCK = window.STOCK, WA = window.WA;
+let STOCK = window.STOCK; const WA = window.WA;
 const fmt = n => "₡" + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const $ = id => document.getElementById(id);
 let brand = "Todas", q = "", sort = "pd", cart = [];
@@ -176,6 +176,7 @@ $("q").oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
 $("sort").onchange = e => { sort = e.target.value; render(); };
 ["nombre","nota"].forEach(id => $(id).addEventListener("input", renderCart));
 document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener("change", renderCart));
-const h = location.hash.match(/^#ref-(\d+)$/); renderChips(); render(); if (h) openDetail(+h[1]);
+const h = location.hash.match(/^#ref-(\d+)$/); renderChips(); render();
+window.loadStock().then(list => { STOCK = list; cart = cart.filter(r => STOCK.some(s => s.ref === r)); save(); renderChips(); render(); if (h) openDetail(+h[1]); });
 </script>
 </body></html>

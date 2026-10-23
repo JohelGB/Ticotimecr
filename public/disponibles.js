@@ -1,5 +1,5 @@
 // Relojes disponibles (entrega inmediata). Cada reloj es pieza única.
-// Para actualizar: editar esta lista y subir el sitio de nuevo.
+// Aquí van las fotos, descripciones y precios de respaldo. Lo que está disponible y su precio se leen de la hoja (ver abajo).
 window.STOCK = [
   {ref:400,img:"assets/disponibles/400.webp",brand:"Invicta",name:"Invicta S1 Rally Dragon 49013",price:110000,c:"#1b1b1f",
    sub:"Automático · Esfera esqueleto · 41 mm",
@@ -262,3 +262,55 @@ window.STOCK = [
          "Garantía TicoTime de 3 meses."]},
 ];
 window.WA = "50686400835";
+
+// Inventario en vivo: la lista de referencias y precios se lee de la pestaña "Web" de la hoja de Google
+// (publicada como CSV). Las fotos y descripciones salen de la lista de arriba, emparejadas por referencia.
+// Si la hoja no responde, la página usa la lista de arriba tal cual.
+window.SHEET_CSV = "";
+
+(function(){
+  function parseCSV(text){
+    var rows=[], row=[], cell="", q=false;
+    for (var i=0;i<text.length;i++){
+      var ch=text[i];
+      if (q){ if (ch=='"'){ if (text[i+1]=='"'){ cell+='"'; i++; } else q=false; } else cell+=ch; }
+      else if (ch=='"') q=true;
+      else if (ch==','){ row.push(cell); cell=""; }
+      else if (ch=='\n'||ch=='\r'){ if (ch=='\r'&&text[i+1]=='\n') i++; row.push(cell); rows.push(row); row=[]; cell=""; }
+      else cell+=ch;
+    }
+    if (cell!==""||row.length){ row.push(cell); rows.push(row); }
+    return rows;
+  }
+  function guessBrand(name){
+    if (/g-?\s?shock/i.test(name)) return "G-Shock";
+    var w=(name.trim().split(/\s+/)[0]||"Otros"); return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();
+  }
+  function tidy(name){ name=name.trim(); return name.charAt(0).toUpperCase()+name.slice(1); }
+  window.loadStock = function(){
+    var base = window.STOCK.slice();
+    if (!window.SHEET_CSV || !window.fetch) return Promise.resolve(base);
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 7000);
+    var url = window.SHEET_CSV + (window.SHEET_CSV.indexOf("?")>=0 ? "&" : "?") + "t=" + Date.now();
+    return fetch(url, {cache:"no-store", signal: ctrl ? ctrl.signal : undefined})
+      .then(function(r){ if (!r.ok) throw new Error("http "+r.status); return r.text(); })
+      .then(function(text){
+        var byRef = {}; base.forEach(function(s){ byRef[s.ref]=s; });
+        var out = [], seen = {};
+        parseCSV(text).slice(1).forEach(function(r){
+          var ref = parseInt(String(r[0]||"").replace(/\D/g,""),10);
+          var price = parseInt(String(r[2]||"").replace(/\D/g,""),10);
+          if (!ref || !price || seen[ref]) return; seen[ref]=1;
+          var d = byRef[ref];
+          if (d) { var c = {}; for (var k in d) c[k]=d[k]; c.price = price; out.push(c); }
+          else out.push({ref:ref, brand:guessBrand(r[1]||""), name:tidy(r[1]||("Reloj "+ref)), price:price, c:"#2b2f36"});
+        });
+        if (!out.length) throw new Error("vacío");
+        return out;
+      })
+      .catch(function(){ return base; })
+      .then(function(list){ clearTimeout(timer); return list; });
+  };
+})();
+
