@@ -266,7 +266,7 @@ window.WA = "50686400835";
 // Inventario en vivo: la lista de referencias y precios se lee de la pestaña "Web" de la hoja de Google
 // (publicada como CSV). Las fotos y descripciones salen de la lista de arriba, emparejadas por referencia.
 // Si la hoja no responde, la página usa la lista de arriba tal cual.
-window.SHEET_CSV = "";
+window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=777001&single=true&output=csv";
 
 (function(){
   function parseCSV(text){
