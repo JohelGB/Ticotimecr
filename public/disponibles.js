@@ -176,9 +176,9 @@ window.STOCK = [
          "Brazalete de acero a juego con la caja.",
          "Corona de presión y cristal mineral.",
          "Garantía TicoTime de 3 meses."]},
-  {ref:443,img:"assets/disponibles/443.webp",brand:"Invicta",name:"Invicta Pro Diver Lozavelle 46140",price:45000,c:"#c9a245",
-   sub:"45 mm · Dorado",
-   desc:["Caja de 45 mm y brazalete en tono dorado.",
+  {ref:443,img:"assets/disponibles/443.webp",brand:"Invicta",name:"Invicta Pro Diver 22095",price:45000,c:"#c9a245",
+   sub:"Dorado · Bisel negro",
+   desc:["Caja y brazalete de acero en tono dorado.",
          "Esfera dorada con textura y ventana de fecha.",
          "Bisel giratorio negro con números dorados.",
          "Garantía TicoTime de 3 meses."]},
@@ -262,7 +262,7 @@ window.STOCK = [
          "Garantía TicoTime de 3 meses."]},
 ];
 /* Videos por referencia: "ref": "assets/videos/<ref>.mp4" (póster <ref>.jpg al lado) */
-window.VIDEOS = {356:"assets/videos/356.mp4", 208:"assets/videos/208.mp4", 337:"assets/videos/337.mp4", 347:"assets/videos/347.mp4", 367:"assets/videos/367.mp4", 338:"assets/videos/338.mp4", 349:"assets/videos/349.mp4", 323:"assets/videos/323.mp4", 423:"assets/videos/423.mp4", 422:"assets/videos/422.mp4", 317:"assets/videos/317.mp4", 332:"assets/videos/332.mp4", 331:"assets/videos/331.mp4", 313:"assets/videos/313.mp4", 491:"assets/videos/491.mp4", 490:"assets/videos/490.mp4", 407:"assets/videos/407.mp4", 400:"assets/videos/400.mp4", 402:"assets/videos/402.mp4", 404:"assets/videos/404.mp4"};
+window.VIDEOS = {356:"assets/videos/356.mp4", 208:"assets/videos/208.mp4", 337:"assets/videos/337.mp4", 347:"assets/videos/347.mp4", 367:"assets/videos/367.mp4", 338:"assets/videos/338.mp4", 349:"assets/videos/349.mp4", 323:"assets/videos/323.mp4", 423:"assets/videos/423.mp4", 422:"assets/videos/422.mp4", 443:"assets/videos/443.mp4", 317:"assets/videos/317.mp4", 332:"assets/videos/332.mp4", 331:"assets/videos/331.mp4", 313:"assets/videos/313.mp4", 491:"assets/videos/491.mp4", 490:"assets/videos/490.mp4", 407:"assets/videos/407.mp4", 400:"assets/videos/400.mp4", 402:"assets/videos/402.mp4", 404:"assets/videos/404.mp4"};
 window.WA = "50686400835";
 /* Adelanto para apartar según el precio (con oferta si tiene): menos de ₡50.000 → ₡15.000; de ₡50.000 a ₡99.999 → ₡20.000; ₡100.000 o más → ₡25.000 */
 window.apartado = function(p){ return p >= 100000 ? 25000 : p >= 50000 ? 20000 : 15000; };
