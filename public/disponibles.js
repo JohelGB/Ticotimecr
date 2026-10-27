@@ -169,6 +169,12 @@ window.STOCK = [
          "Esfera verde con subesferas de día, fecha y 24 horas.",
          "Brazalete en tono dorado a juego con la caja.",
          "Garantía TicoTime de 3 meses."]},
+  {ref:494,img:"assets/disponibles/494.webp",brand:"Invicta",name:"Invicta Speedway 49334 Verde",price:47000,c:"#1f7a45",
+   sub:"Dorado · Esfera verde · Segundero pequeño",
+   desc:["Caja en tono dorado con bisel facetado de estilo moderno.",
+         "Esfera verde con efecto rayos de sol y subesfera de segundos.",
+         "Brazalete de acero en tono dorado a juego.",
+         "Garantía TicoTime de 3 meses."]},
   {ref:407,img:"assets/disponibles/407.webp",brand:"Invicta",name:"Invicta Speedway Victorious 51137",price:45500,c:"#7fd0c4",
    sub:"42 mm · Acero · Esfera tiffany",
    desc:["Caja de 42 mm en acero con bisel de 12 lados.",
@@ -262,7 +268,7 @@ window.STOCK = [
          "Garantía TicoTime de 3 meses."]},
 ];
 /* Videos por referencia: "ref": "assets/videos/<ref>.mp4" (póster <ref>.jpg al lado) */
-window.VIDEOS = {356:"assets/videos/356.mp4", 208:"assets/videos/208.mp4", 337:"assets/videos/337.mp4", 347:"assets/videos/347.mp4", 367:"assets/videos/367.mp4", 338:"assets/videos/338.mp4", 349:"assets/videos/349.mp4", 323:"assets/videos/323.mp4", 423:"assets/videos/423.mp4", 422:"assets/videos/422.mp4", 443:"assets/videos/443.mp4", 317:"assets/videos/317.mp4", 332:"assets/videos/332.mp4", 331:"assets/videos/331.mp4", 313:"assets/videos/313.mp4", 491:"assets/videos/491.mp4", 490:"assets/videos/490.mp4", 407:"assets/videos/407.mp4", 400:"assets/videos/400.mp4", 402:"assets/videos/402.mp4", 404:"assets/videos/404.mp4"};
+window.VIDEOS = {356:"assets/videos/356.mp4", 208:"assets/videos/208.mp4", 337:"assets/videos/337.mp4", 347:"assets/videos/347.mp4", 367:"assets/videos/367.mp4", 338:"assets/videos/338.mp4", 349:"assets/videos/349.mp4", 323:"assets/videos/323.mp4", 423:"assets/videos/423.mp4", 422:"assets/videos/422.mp4", 443:"assets/videos/443.mp4", 494:"assets/videos/494.mp4", 317:"assets/videos/317.mp4", 332:"assets/videos/332.mp4", 331:"assets/videos/331.mp4", 313:"assets/videos/313.mp4", 491:"assets/videos/491.mp4", 490:"assets/videos/490.mp4", 407:"assets/videos/407.mp4", 400:"assets/videos/400.mp4", 402:"assets/videos/402.mp4", 404:"assets/videos/404.mp4"};
 window.WA = "50686400835";
 /* Adelanto para apartar según el precio (con oferta si tiene): menos de ₡50.000 → ₡15.000; de ₡50.000 a ₡99.999 → ₡20.000; ₡100.000 o más → ₡25.000 */
 window.apartado = function(p){ return p >= 100000 ? 25000 : p >= 50000 ? 20000 : 15000; };
