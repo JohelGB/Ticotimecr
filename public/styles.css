@@ -197,3 +197,12 @@ footer{flex-direction:column;align-items:flex-start;padding:34px 24px;gap:18px}
 @keyframes ttHotBg{0%,100%{background-position:0 0}50%{background-position:100% 0}}
 @keyframes ttFire{0%,100%{transform:scale(1) rotate(-4deg)}50%{transform:scale(1.18) rotate(4deg)}}
 @media (prefers-reduced-motion:reduce){.btn.anim-hot,.btn.anim-hot .fire,.nav-hot::after{animation:none!important}}
+
+/* Etiqueta de oferta Viernes Negro (noviembre) */
+.otag.bf .string{background:linear-gradient(#e9c45a,#a8801c)}
+.otag.bf .body{background:#0a0a0a;border:1.5px solid #e9c45a;padding:13px 10px 0;min-width:72px;overflow:hidden;box-shadow:0 8px 16px #0008}
+.otag.bf .body::before{background:#e9c45a}
+.otag.bf em{display:block;font:800 8.5px Inter,Arial,sans-serif;letter-spacing:.14em;color:#e9c45a;font-style:normal;margin-top:2px;white-space:nowrap}
+.otag.bf b{margin-top:3px;font-size:24px}
+.otag.bf i{display:block;margin:7px -10px 0;background:#d63a2f;color:#fff;font:800 8px Inter,Arial,sans-serif;letter-spacing:.12em;font-style:normal;padding:3px 4px 4px;white-space:nowrap}
+@media(max-width:650px){.otag.bf .body{min-width:60px;padding:11px 7px 0}.otag.bf em{font-size:7px;letter-spacing:.08em}.otag.bf b{font-size:18px}.otag.bf i{font-size:6.5px;letter-spacing:.06em;margin:6px -7px 0}}

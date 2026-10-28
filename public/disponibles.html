@@ -183,9 +183,10 @@ const dialSVG = c => `<svg viewBox="0 0 120 150" aria-hidden="true"><rect x="42"
 const pad = r => String(r).padStart(3, "0");
 const eff = s => s.offer || s.price;
 // Temporada navideña: del 1 de noviembre al 6 de enero la etiqueta lleva acebo
-const isXmas = (d => { const m = d.getMonth()+1, day = d.getDate(); return m===11 || m===12 || (m===1 && day<=6); })(new Date());
+const isBF = (d => { const m = d.getMonth()+1; return m===11 || (m===10 && d.getDate()>=27); })(new Date());
+const isXmas = !isBF && (d => { const m = d.getMonth()+1, day = d.getDate(); return m===12 || (m===1 && day<=6); })(new Date());
 const HOLLY = `<svg class="hollyleaf" viewBox="0 0 44 22" aria-hidden="true"><path d="M21 11c-4-7-12-8-18-5 3 1 3 4 1 5 3 1 4 4 2 6 6 1 12-1 15-6z" fill="#1f7a45"/><path d="M23 11c4-7 12-8 18-5-3 1-3 4-1 5-3 1-4 4-2 6-6 1-12-1-15-6z" fill="#258f52"/><circle cx="19.5" cy="13" r="3" fill="#d63a2f"/><circle cx="24.5" cy="13" r="3" fill="#e2453a"/><circle cx="22" cy="9.5" r="3" fill="#c62c24"/></svg>`;
-const offerTag = s => s.offer ? `<span class="otag${isXmas?" holly":""}" aria-label="Oferta ${Math.round((1-s.offer/s.price)*100)}%"><span class="string" style="display:block"></span>${isXmas?HOLLY:""}<span class="body" style="display:block"><b>-${Math.round((1-s.offer/s.price)*100)}%</b><small>OFERTA</small></span></span>` : "";
+const offerTag = s => s.offer ? `<span class="otag${isXmas?" holly":""}${isBF?" bf":""}" aria-label="Oferta ${Math.round((1-s.offer/s.price)*100)}%"><span class="string" style="display:block"></span>${isXmas?HOLLY:""}<span class="body" style="display:block">${isBF?"<em>BLACK FRIDAY</em>":""}<b>-${Math.round((1-s.offer/s.price)*100)}%</b>${isBF?"<i>VIERNES NEGRO</i>":"<small>OFERTA</small>"}</span></span>` : "";
 const aptHTML = s => `<div class="apt">o apartalo con <b>${fmt(apartado(eff(s)))}</b></div>`;
 const priceHTML = s => (s.offer ? `<div class="prices"><span class="old">${fmt(s.price)}</span><span class="price hot">${fmt(s.offer)}</span></div>` : `<div class="price">${fmt(s.price)}</div>`) + aptHTML(s);
 
