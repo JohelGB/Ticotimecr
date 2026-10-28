@@ -278,6 +278,7 @@ window.SOCIAL = {tiktok:"https://www.tiktok.com/@ticotimecr", instagram:"https:/
 // (publicada como CSV): columnas ref, modelo, precio y oferta (precio de oferta, opcional). Las fotos y descripciones salen de la lista de arriba, emparejadas por referencia.
 // Si la hoja no responde, la página usa la lista de arriba tal cual.
 window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=777001&single=true&output=csv";
+window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=880103&single=true&output=csv";
 
 (function(){
   function parseCSV(text){
@@ -298,6 +299,18 @@ window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_
     var w=(name.trim().split(/\s+/)[0]||"Otros"); return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();
   }
   function tidy(name){ name=name.trim(); return name.charAt(0).toUpperCase()+name.slice(1); }
+  /* Relojes por encargo (pestaña WebEncargos publicada): id, nombre, marca, precio, foto, entrega */
+  window.loadEncargos = function(){
+    if (!window.ENCARGOS_CSV || !window.fetch) return Promise.resolve([]);
+    return fetch(window.ENCARGOS_CSV + "&t=" + Date.now(), {cache:"no-store"})
+      .then(function(r){ if (!r.ok) throw new Error("http"); return r.text(); })
+      .then(function(t){
+        var rows = parseCSV(t); if (!rows.length || String(rows[0][0]).trim().toLowerCase() !== "id") return [];
+        return rows.slice(1).map(function(r){ return {id:String(r[0]||"").trim(), name:String(r[1]||"").trim(), brand:String(r[2]||"").trim(),
+          price:parseInt(String(r[3]||"").replace(/\D/g,""),10)||0, img:String(r[4]||"").trim(), eta:String(r[5]||"").trim()}; })
+          .filter(function(e){ return e.id && e.name && e.price > 0; });
+      }).catch(function(){ return []; });
+  };
   window.loadStock = function(){
     var base = window.STOCK.slice();
     if (!window.SHEET_CSV || !window.fetch) return Promise.resolve(base);
