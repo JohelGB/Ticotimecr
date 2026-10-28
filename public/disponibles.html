@@ -101,8 +101,8 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 .ofd .enc-tabs .chip.on{background:#e8432f;border-color:#e8432f;color:#fff}
 .obadge{position:absolute;top:10px;right:10px;z-index:3;background:#e8432f;color:#fff;font:800 15px/1 Oswald,Inter,Arial,sans-serif;padding:7px 9px;border-radius:6px;box-shadow:0 4px 14px #e8432f66}
 .ofd .ebadge{color:#fff;border-color:#e8432f;background:#05080ce6}
-.ofd .was{color:#8e98a2;text-decoration:line-through;font-size:13px;margin-right:8px}.ofd .price b{color:#ff5a4a}
-.ofd .save{font-size:11px;color:#ff8a7a;font-weight:700;margin-top:2px}
+.ofd .was,.enc .was{color:#8e98a2;text-decoration:line-through;font-size:13px;margin-right:8px}.ofd .price b,.enc .price b{color:#ff5a4a}
+.ofd .save,.enc .save{font-size:11px;color:#ff8a7a;font-weight:700;margin-top:2px}
 .ofd{border-top:1px solid #e8432f33;padding-top:6px;scroll-margin-top:80px}
 .btn-hot{border-color:#e8432f!important;color:#ff7a6a!important}
 
@@ -291,8 +291,8 @@ function pintarEnc(){
   $("encBrands").innerHTML = ["Todas", ...marcas].map(m => `<button class="chip${m === encMarca ? " on" : ""}" data-marca="${m}">${m}<b>${m === "Todas" ? G.length : G.filter(e => e.brand === m).length}</b></button>`).join("");
   const L = G.filter(e => encMarca === "Todas" || e.brand === encMarca).sort((a, b) => a.price - b.price);
   $("encGrid").innerHTML = L.map(e => { const msg = `Hola TicoTimeCR, me interesa este reloj por encargo:\n• ${e.name} (${e.id}) — ${fmt(e.price)}\n¿Me ayudás con el pedido?`;
-    return `<article class="dcard"><div class="dial${e.img?"":" noimg"}" style="cursor:default">${e.img?`<img src="${e.img}${/cdn\.shopify\.com/.test(e.img)?"&width=600":""}" alt="${e.name}" loading="lazy" referrerpolicy="no-referrer">`:dialSVG("#2b2f36")}<span class="ebadge">POR ENCARGO</span></div>
-    <div class="info"><div class="mk">${e.brand||"&nbsp;"}</div><h3 class="name">${e.name}</h3>${e.sub?`<div class="sub">${e.sub}</div>`:""}<div class="eta">Llega en ${e.eta||"15 a 20 días"}</div><div class="price">${fmt(e.price)}</div><div class="apt">o apartalo con <b>${fmt(apartado(e.price))}</b></div>
+    return `<article class="dcard"><div class="dial${e.img?"":" noimg"}" style="cursor:default">${e.img?`<img src="${e.img}${/cdn\.shopify\.com/.test(e.img)?"&width=600":""}" alt="${e.name}" loading="lazy" referrerpolicy="no-referrer">`:dialSVG("#2b2f36")}<span class="ebadge">POR ENCARGO</span>${e.antes>e.price?`<span class="obadge">-${Math.round((1-e.price/e.antes)*100)}%</span>`:""}</div>
+    <div class="info"><div class="mk">${e.brand||"&nbsp;"}</div><h3 class="name">${e.name}</h3>${e.sub?`<div class="sub">${e.sub}</div>`:""}<div class="eta">Llega en ${e.eta||"15 a 20 días"}</div><div class="price">${e.antes>e.price?`<span class="was">${fmt(e.antes)}</span><b>${fmt(e.price)}</b>`:fmt(e.price)}</div>${e.antes>e.price?`<div class="save">Ahorrás ${fmt(e.antes-e.price)}</div>`:""}<div class="apt">o apartalo con <b>${fmt(apartado(e.price))}</b></div>
     <a class="add wa" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Pedir por WhatsApp</a></div></article>`; }).join("");
 }
 $("encTabs").addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (!b) return; encCat = b.dataset.cat; pintarEnc(); });
