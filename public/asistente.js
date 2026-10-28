@@ -9,7 +9,7 @@
   function cartN(){ try { return JSON.parse(localStorage.getItem("tt_cart") || "[]").length; } catch(e){ return 0; } }
   function fab(){ var n = cartN(); return '<button class="tt-fab" id="ttFab" aria-label="Abrir asistente de TicoTime"><img src="'+LOGO+'" alt=""><span class="tt-dot"></span>'+(n?'<span class="tt-count">'+n+'</span>':'')+'</button>'; }
   var GREET = '<div class="tt-msg">¡Pura vida! 👋 Soy el asistente de <b>TicoTime CR</b>. ¿Qué andás buscando?</div>'+
-    '<div class="tt-chips"><a href="disponibles.html#ofertas" data-go>🔥 Ver ofertas</a><a href="disponibles.html" data-go>⌚ Disponibles ya</a><a href="index.html#colecciones" data-go>📖 Catálogo completo</a><button type="button" data-info>🛡️ Garantía y apartados</button></div>';
+    '<div class="tt-chips"><a href="disponibles.html#ofertas" data-go>🔥 Ver ofertas</a><a href="disponibles.html" data-go>⌚ Disponibles ya</a><a href="disponibles.html#encargo" data-go>✈️ Por encargo</a><a href="index.html#colecciones" data-go>📖 Catálogo completo</a><button type="button" data-info>🛡️ Garantía y apartados</button></div>';
   var INFO = '<div class="tt-msg">Todos nuestros relojes tienen <b>garantía de 3 meses</b>. Con el <b>sistema de apartados</b> lo reservás con <b>₡15.000</b> (menos de ₡50.000), <b>₡20.000</b> (de ₡50.000 a ₡99.999) o <b>₡25.000</b> (₡100.000 o más) y pagás el resto en tractos. Pagos por SINPE Móvil o transferencia y envíos a todo el país (aprox. ₡3.000).</div>';
   function render(peek){
     if (open){
