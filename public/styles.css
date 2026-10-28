@@ -170,3 +170,21 @@ footer{flex-direction:column;align-items:flex-start;padding:34px 24px;gap:18px}
 .section-card:hover .sc-btn{background:var(--gold);color:#080b0f}
 .section-card .sc-btn i{font-size:13px}
 @media(max-width:650px){.section-card .sc-btn{display:inline-flex;width:auto;justify-content:flex-start;padding:10px 14px;font-size:10.5px}}
+
+/* Botones animados: Disponibles y Por encargo */
+.anim-disp,.anim-enc{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:9px;isolation:isolate}
+.anim-disp::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:45%;background:linear-gradient(100deg,transparent,#fff8 50%,transparent);transform:skewX(-20deg);animation:ttShine 3.2s ease-in-out infinite;z-index:1;pointer-events:none}
+@keyframes ttShine{0%,55%{left:-60%}85%,100%{left:130%}}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#2fd36b;flex:none;position:relative;box-shadow:0 0 0 0 #2fd36baa;animation:ttPulse 1.8s ease-out infinite}
+@keyframes ttPulse{0%{box-shadow:0 0 0 0 #2fd36bcc}70%{box-shadow:0 0 0 9px #2fd36b00}100%{box-shadow:0 0 0 0 #2fd36b00}}
+.btn.anim-enc{border-color:transparent!important;background:linear-gradient(#070b10,#070b10) padding-box,linear-gradient(90deg,var(--gold),#fff3c4,var(--gold),#7a5a12,var(--gold)) border-box;background-size:100% 100%,300% 100%;animation:ttBorder 4s linear infinite;border:1px solid transparent}
+@keyframes ttBorder{to{background-position:0 0,300% 0}}
+.anim-enc .plane{width:16px;height:16px;flex:none;display:inline-block;animation:ttFly 2.6s ease-in-out infinite}
+.anim-enc .plane svg{width:100%;height:100%;fill:var(--gold2);transform:rotate(90deg)}
+@keyframes ttFly{0%{transform:translate(-3px,2px)}50%{transform:translate(3px,-2px)}100%{transform:translate(-3px,2px)}}
+.anim-enc:hover .plane{animation:ttTakeoff .7s ease-in forwards}
+@keyframes ttTakeoff{0%{transform:translate(0,0)}60%{transform:translate(18px,-10px);opacity:0}61%{transform:translate(-18px,8px);opacity:0}100%{transform:translate(0,0);opacity:1}}
+.head-disp.anim-disp{gap:7px}
+@media (prefers-reduced-motion:reduce){.anim-disp::after,.live-dot,.anim-enc,.anim-enc .plane{animation:none!important}}
+.head-disp.anim-disp{display:none}
+@media(max-width:1000px){.head-disp.anim-disp{display:inline-flex}}
