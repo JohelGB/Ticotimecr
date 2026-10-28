@@ -1271,7 +1271,11 @@ window.ENCARGOS_FIJOS = [
   {id:"A-B0HMG6ZHLZ", name:"Pagani Design PD-1839 Buceo Miyota", cat:"H", brand:"Pagani Design", price:116000, eta:"15 a 20 días",
    img:"https://m.media-amazon.com/images/I/71BRERPRsqL._AC_SL600_.jpg",
    usd:189.99, src:"https://www.amazon.com/dp/B0HMG6ZHLZ", tienda:"amazon", ganancia:18000,
-   sub:"Hombre · 43 mm · Automático · Buceo"}
+   sub:"Hombre · 43 mm · Automático · Buceo"},
+  {id:"A-B093THFRXG", name:"G-Shock GBD-200-1 Negro", cat:"H", brand:"G-Shock", price:98500, eta:"15 a 20 días", img:"https://m.media-amazon.com/images/I/61cn-miWbKL._AC_SL600_.jpg", usd:129.9, src:"https://www.amazon.com/dp/B093THFRXG", tienda:"amazon", ganancia:30000, sub:"Hombre · Digital · Bluetooth · Contador de pasos"},
+  {id:"A-B093TGFXRZ", name:"G-Shock GBD-200-9 Verde lima", cat:"H", brand:"G-Shock", price:100000, eta:"15 a 20 días", img:"https://m.media-amazon.com/images/I/614egLSvkuL._AC_SL600_.jpg", usd:132.98, src:"https://www.amazon.com/dp/B093TGFXRZ", tienda:"amazon", ganancia:30000, sub:"Hombre · Digital · Bluetooth · Contador de pasos"},
+  {id:"A-B0B45NVTY9", name:"G-Shock GBD-200UU-9 Blanco y amarillo", cat:"H", brand:"G-Shock", price:98500, eta:"15 a 20 días", img:"https://m.media-amazon.com/images/I/71bsbsklNHL._AC_SL600_.jpg", usd:129.99, src:"https://www.amazon.com/dp/B0B45NVTY9", tienda:"amazon", ganancia:30000, sub:"Hombre · Digital · Bluetooth · Contador de pasos"},
+  {id:"A-B0G4SS4G6V", name:"G-Shock GBD-200-7 Blanco", cat:"H", brand:"G-Shock", price:97500, eta:"15 a 20 días", img:"https://m.media-amazon.com/images/I/71Y-eQlXZxL._AC_SL600_.jpg", usd:127.99, src:"https://www.amazon.com/dp/B0G4SS4G6V", tienda:"amazon", ganancia:30000, sub:"Hombre · Digital · Bluetooth · Contador de pasos"}
 ];
 window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=880103&single=true&output=csv";
 
