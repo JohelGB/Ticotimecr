@@ -253,7 +253,8 @@ let ENC = [], encCat = /hombre/.test(location.hash) ? "H" : "D", encMarca = "Tod
 function pintarEnc(){
   [...$("encTabs").children].forEach(b => b.classList.toggle("on", b.dataset.cat === encCat));
   const G = ENC.filter(e => (e.cat || "D") === encCat);
-  const marcas = ["Invicta","Casio","G-Shock"].filter(m => G.some(e => e.brand === m)).concat([...new Set(G.map(e => e.brand))].filter(m => !["Invicta","Casio","G-Shock"].includes(m)));
+  const ORD = ["Invicta","Casio","G-Shock","Citizen","Seiko","Bulova","Pagani Design"];
+  const marcas = ORD.filter(m => G.some(e => e.brand === m)).concat([...new Set(G.map(e => e.brand))].filter(m => !ORD.includes(m)));
   if (encMarca !== "Todas" && !marcas.includes(encMarca)) encMarca = "Todas";
   $("encBrands").innerHTML = ["Todas", ...marcas].map(m => `<button class="chip${m === encMarca ? " on" : ""}" data-marca="${m}">${m}<b>${m === "Todas" ? G.length : G.filter(e => e.brand === m).length}</b></button>`).join("");
   const L = G.filter(e => encMarca === "Todas" || e.brand === encMarca).sort((a, b) => a.price - b.price);
