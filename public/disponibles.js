@@ -278,6 +278,12 @@ window.SOCIAL = {tiktok:"https://www.tiktok.com/@ticotimecr", instagram:"https:/
 // (publicada como CSV): columnas ref, modelo, precio y oferta (precio de oferta, opcional). Las fotos y descripciones salen de la lista de arriba, emparejadas por referencia.
 // Si la hoja no responde, la página usa la lista de arriba tal cual.
 window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=777001&single=true&output=csv";
+/* Relojes por encargo que agrega Claude (foto y precio final calculado: USD × 1,07 × 462 + 4.000 + ganancia) */
+window.ENCARGOS_FIJOS = [
+  {id:"E-51077", name:"Invicta Angel 51077 Dorado y Acero", brand:"Invicta", price:80500, eta:"8 a 15 días",
+   img:"https://invictastores.com/cdn/shop/files/f8a369fa-688e-4687-a0ee-628406669f31_piscib.png?v=1781123504",
+   sub:"Dama · 33 mm · Cuarzo · 50 m"}
+];
 window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=880103&single=true&output=csv";
 
 (function(){
@@ -301,7 +307,8 @@ window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoqu
   function tidy(name){ name=name.trim(); return name.charAt(0).toUpperCase()+name.slice(1); }
   /* Relojes por encargo (pestaña WebEncargos publicada): id, nombre, marca, precio, foto, entrega */
   window.loadEncargos = function(){
-    if (!window.ENCARGOS_CSV || !window.fetch) return Promise.resolve([]);
+    var fijos = (window.ENCARGOS_FIJOS || []).slice();
+    if (!window.ENCARGOS_CSV || !window.fetch) return Promise.resolve(fijos);
     return fetch(window.ENCARGOS_CSV + "&t=" + Date.now(), {cache:"no-store"})
       .then(function(r){ if (!r.ok) throw new Error("http"); return r.text(); })
       .then(function(t){
@@ -309,7 +316,8 @@ window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoqu
         return rows.slice(1).map(function(r){ return {id:String(r[0]||"").trim(), name:String(r[1]||"").trim(), brand:String(r[2]||"").trim(),
           price:parseInt(String(r[3]||"").replace(/\D/g,""),10)||0, img:String(r[4]||"").trim(), eta:String(r[5]||"").trim()}; })
           .filter(function(e){ return e.id && e.name && e.price > 0; });
-      }).catch(function(){ return []; });
+      }).catch(function(){ return []; })
+      .then(function(l){ return fijos.concat(l); });
   };
   window.loadStock = function(){
     var base = window.STOCK.slice();
