@@ -352,7 +352,7 @@ window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoqu
   function tidy(name){ name=name.trim(); return name.charAt(0).toUpperCase()+name.slice(1); }
   /* Relojes por encargo (pestaña WebEncargos publicada): id, nombre, marca, precio, foto, entrega */
   window.loadEncargos = function(){
-    var fijos = (window.ENCARGOS_FIJOS || []).slice();
+    var fijos = (window.ENCARGOS_FIJOS || []).filter(function(e){ return !e.agotado; });
     if (!window.ENCARGOS_CSV || !window.fetch) return Promise.resolve(fijos);
     return fetch(window.ENCARGOS_CSV + "&t=" + Date.now(), {cache:"no-store"})
       .then(function(r){ if (!r.ok) throw new Error("http"); return r.text(); })
