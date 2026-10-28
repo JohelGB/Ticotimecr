@@ -263,6 +263,7 @@ const h = location.hash.match(/^#(?:ref|(video))-(\d+)$/); if (h && h[1]) { h[1]
 window.addEventListener("hashchange", () => { if (location.hash === "#ofertas") { brand = "Ofertas"; renderChips(); render(); document.getElementById("grid").scrollIntoView({behavior:"smooth"}); } });
 
 (function(){ const O = window.OFERTAS; if (!O || !O.items || !O.items.length) return;
+  if (Date.now() - new Date(O.revisado).getTime() > 36*3600*1000) return; /* si los precios no se revisan en 36 h, la sección se oculta sola */
   let cat = "T"; const ofmt = n => "₡" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   try { const t = new Date(O.revisado); const hoy = new Date(); const mismo = t.toDateString() === hoy.toDateString();
     $("ofdRev").textContent = "Precios revisados " + (mismo ? "hoy" : t.toLocaleDateString("es-CR",{day:"numeric",month:"long"})) + " a las " + t.toLocaleTimeString("es-CR",{hour:"numeric",minute:"2-digit"}).replace(/\.$/,"") + "."; } catch(e){}
