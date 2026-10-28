@@ -278,40 +278,55 @@ window.SOCIAL = {tiktok:"https://www.tiktok.com/@ticotimecr", instagram:"https:/
 // (publicada como CSV): columnas ref, modelo, precio y oferta (precio de oferta, opcional). Las fotos y descripciones salen de la lista de arriba, emparejadas por referencia.
 // Si la hoja no responde, la página usa la lista de arriba tal cual.
 window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=777001&single=true&output=csv";
-/* Relojes por encargo que agrega Claude (foto y precio final calculado: USD × 1,07 × 462 + 4.000 + ganancia) */
+/* Relojes por encargo que agrega Claude.
+   usd = precio actual en la tienda (src). price = precio final en colones:
+   redondeo_arriba_500( (usd + 12.99 envío + 5.99 protección) × 1.07 × 462 + 4000 + ganancia )
+   ganancia: <43 → 12000 · 43-60 → 14500 · 60-100 → 18000 · 100-200 → 22000 · 200-350 → 30000 · ≥350 → 40000 (G-Shock mínimo 25000)
+   La rutina programada de actualización de precios revisa cada src y ajusta usd/price. */
 window.ENCARGOS_FIJOS = [
   {id:"E-48916", name:"Invicta Wildflower Aria 48916 Dorado", brand:"Invicta", price:38500, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/48916_catalogshot_487025.jpg?v=1775527798",
+   usd:25.99, src:"https://invictastores.com/collections/wildflower-watches/products/invicta-wildflower-women-s-watch-32mm-pf20587-48916",
    sub:"Dama · 32 mm · Cuarzo · 50 m"},
   {id:"E-49130", name:"Invicta Speedway Lustrine 49130 Dorado", brand:"Invicta", price:40500, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/49130_catalogshot_491309.jpg?v=1778893808",
+   usd:29.99, src:"https://invictastores.com/collections/invicta-watches-for-women/products/invicta-speedway-women-s-watch-34mm-gold-49130",
    sub:"Dama · 34 mm · Cuarzo · 30 m"},
   {id:"E-48229", name:"Invicta Wildflower Veylise 48229 Dorado y Acero", brand:"Invicta", price:40000, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/48229_catalogshot_474452_cf970292-43ce-403d-904e-fc29a334022e.jpg?v=1778894296",
+   usd:28.99, src:"https://invictastores.com/products/invicta-wildflower-women-s-watch-32mm-gold-steel-48229",
    sub:"Dama · 32 mm · Cuarzo · 30 m"},
   {id:"E-48232", name:"Invicta Wildflower Perlyne 48232 Oro Rosa", brand:"Invicta", price:39000, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/48232_catalogshot_474455.jpg?v=1778894320",
+   usd:26.99, src:"https://invictastores.com/products/invicta-wildflower-women-s-watch-w-mother-of-pearl-dial-32mm-rose-gold-48232",
    sub:"Dama · 32 mm · Esfera de nácar · 30 m"},
   {id:"E-0136", name:"Invicta Wildflower 0136 Suizo Acero y Dorado", brand:"Invicta", price:43500, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/0136-2.jpg?v=1757686874",
+   usd:35.99, src:"https://invictastores.com/products/invicta-wildflower-women-s-watch-21-5mm-steel-gold-0136",
    sub:"Dama · 21,5 mm · Suizo Ronda 763 · 50 m"},
   {id:"E-47339", name:"Invicta Speedway Facetio 47339 Dorado", brand:"Invicta", price:40000, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/47339_catalogshot_457721_oyrdpswiygh82jbq_6088e231-bd20-49af-ae01-ebba20e5f12f.jpg",
+   usd:28.99, src:"https://invictastores.com/products/invicta-speedway-women-s-watch-34mm-gold-47339",
    sub:"Dama · 34 mm · Cuarzo · 30 m"},
   {id:"E-49088", name:"Invicta Speedway Facetio 49088 Dorado y Acero", brand:"Invicta", price:38500, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/49088_catalogshot_490687.jpg?v=1778893808",
+   usd:25.99, src:"https://invictastores.com/products/invicta-speedway-women-s-watch-34mm-gold-steel-49088",
    sub:"Dama · 34 mm · Cuarzo · 30 m"},
   {id:"E-69272", name:"Invicta Wildflower Petal 69272 Acero", brand:"Invicta", price:37000, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/chatgpt_image_12_ene_2026_23_00_44.jpg?v=1776729700",
+   usd:22.99, src:"https://invictastores.com/products/invicta-wildflower-petal-womens-watch-29mm-steel-69272",
    sub:"Dama · 29 mm · Cuarzo"},
   {id:"E-48577", name:"Invicta Speedway Coeurlyn 48577 Acero (set con pulsera)", brand:"Invicta", price:40000, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/48577_catalogshot_486288.jpg",
+   usd:28.99, src:"https://invictastores.com/collections/clearance/products/invicta-speedway-women-s-watch-34mm-steel-with-bracelet-set-48577",
    sub:"Dama · 34 mm · Incluye pulsera"},
   {id:"E-50944", name:"Invicta Pro Diver 50944 Acero", brand:"Invicta", price:40000, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/50944.png",
+   usd:28.99, src:"https://invictastores.com/collections/clearance/products/invicta-pro-diver-womens-watch-34mm-steel-50944",
    sub:"Dama · 34 mm · Cuarzo"},
   {id:"E-51077", name:"Invicta Angel 51077 Dorado y Acero", brand:"Invicta", price:90000, eta:"15 a 20 días",
    img:"https://invictastores.com/cdn/shop/files/f8a369fa-688e-4687-a0ee-628406669f31_piscib.png?v=1781123504",
+   usd:109.99, src:"https://invictastores.com/products/invicta-angel-womens-watch-33mm-gold-steel-51077",
    sub:"Dama · 33 mm · Cuarzo · 50 m"}
 ];
 window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_UmxVYaOq5sEkirjU5EurUTfgIOxSSOoPtCifBpTK9tdBa-0ujbwPz4u0v-nYLB3xYgJ/pub?gid=880103&single=true&output=csv";
