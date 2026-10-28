@@ -92,7 +92,7 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 .detail .ref{position:static}
 .btn-enc{display:inline-block;margin:6px 0 14px;border:1px solid var(--gold);color:var(--gold2);padding:10px 14px;font:800 11px Inter,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}.btn-enc:hover{background:var(--gold);color:#080b0f}
 .enc{margin:10px 7% 50px}.enc-head{margin:30px 0 18px}.enc-head h2{font:600 clamp(30px,4vw,44px)/1 Oswald,Arial,sans-serif;text-transform:uppercase;margin:0 0 10px}.enc-head p:not(.kicker){color:#aeb7bf;max-width:70ch;line-height:1.7;margin:0}
-.enc-grid{margin:0!important}.ebadge{position:absolute;left:10px;bottom:10px;z-index:3;background:#05080ce6;color:#efc650;border:1px solid #d5a62a;font:800 9px Inter,Arial,sans-serif;letter-spacing:.14em;padding:5px 9px;border-radius:20px}
+.enc-grid{margin:0!important}.enc-tabs{display:flex;gap:8px;margin:0 0 16px}.enc-tabs .chip{font-size:13px;padding:10px 18px}.enc-tabs .chip.on{background:var(--gold);color:#080b0f;border-color:var(--gold)}.enc-tabs .chip b{margin-left:6px;opacity:.7}.ebadge{position:absolute;left:10px;bottom:10px;z-index:3;background:#05080ce6;color:#efc650;border:1px solid #d5a62a;font:800 9px Inter,Arial,sans-serif;letter-spacing:.14em;padding:5px 9px;border-radius:20px}
 .eta{font-size:11px;color:#5cc08a;font-weight:700}.enc .add.wa{background:#1f8f4e;border-color:#1f8f4e;color:#fff;text-align:center;text-decoration:none;display:block}
 @media(max-width:650px){.enc{margin:10px 16px 40px}}
 .apt{font-size:11px;color:#c6ccd2;margin-top:2px}.apt b{color:var(--gold2)}
@@ -124,7 +124,7 @@ label.opt small{display:block;color:var(--muted);font-size:11px}
 <input id="q" type="search" placeholder="Buscar modelo o número" aria-label="Buscar">
 <select id="sort" aria-label="Ordenar"><option value="dest">Ofertas primero</option><option value="pd">Precio: mayor a menor</option><option value="pa">Precio: menor a mayor</option><option value="ref">Número de referencia</option></select></div>
 <section class="dgrid" id="grid" aria-live="polite"></section>
-<section class="enc" id="encargo" hidden><div class="enc-head"><p class="kicker goldtxt">TE LO TRAEMOS</p><h2>Por encargo</h2><p>Te traemos cualquier reloj, de cualquier marca. Estos son algunos de los que podemos pedir para vos: apartalo con un adelanto y pagás el resto en tractos. ¿Buscás otro modelo? Escribinos y te lo conseguimos.</p></div><div class="dgrid enc-grid" id="encGrid"></div></section>
+<section class="enc" id="encargo" hidden><div class="enc-head"><p class="kicker goldtxt">TE LO TRAEMOS</p><h2>Por encargo</h2><p>Te traemos cualquier reloj, de cualquier marca. Estos son algunos de los que podemos pedir para vos: apartalo con un adelanto y pagás el resto en tractos. ¿Buscás otro modelo? Escribinos y te lo conseguimos.</p></div><div class="enc-tabs" id="encTabs"><button class="chip on" data-cat="D">Dama</button><button class="chip" data-cat="H">Hombre</button></div><div class="dgrid enc-grid" id="encGrid"></div></section>
 <section class="catalog-link"><div><p class="kicker goldtxt">¿NO ESTÁ AQUÍ?</p><h2>Mirá el catálogo completo</h2><p>206 referencias por pedido. Escribinos con el número y te cotizamos.</p></div><a class="btn gold" href="index.html#colecciones">Ver catálogo →</a></section>
 <section id="comprar" class="section buy"><div class="section-head"><div><p class="kicker goldtxt">FÁCIL Y SEGURO</p><h2>Cómo comprar</h2></div><p>Elegís tu reloj, nos escribís por WhatsApp y lo coordinamos todo. Podés pagarlo completo o apartarlo y pagarlo a tu ritmo.</p></div>
 <div class="buy-grid">
@@ -249,12 +249,20 @@ $("sort").onchange = e => { sort = e.target.value; render(); };
 document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener("change", renderCart));
 const h = location.hash.match(/^#(?:ref|(video))-(\d+)$/); if (h && h[1]) { h[1] = h[2]; window.__openVideo = true; } else if (h) h[1] = h[2]; renderChips(); render();
 window.addEventListener("hashchange", () => { if (location.hash === "#ofertas") { brand = "Ofertas"; renderChips(); render(); document.getElementById("grid").scrollIntoView({behavior:"smooth"}); } });
-window.loadEncargos && window.loadEncargos().then(L => { if (!L.length) return;
+let ENC = [], encCat = /hombre/.test(location.hash) ? "H" : "D";
+function pintarEnc(){
+  [...$("encTabs").children].forEach(b => b.classList.toggle("on", b.dataset.cat === encCat));
+  const L = ENC.filter(e => (e.cat || "D") === encCat).sort((a, b) => a.price - b.price);
   $("encGrid").innerHTML = L.map(e => { const msg = `Hola TicoTimeCR, me interesa este reloj por encargo:\n• ${e.name} (${e.id}) — ${fmt(e.price)}\n¿Me ayudás con el pedido?`;
-    return `<article class="dcard"><div class="dial${e.img?"":" noimg"}" style="cursor:default">${e.img?`<img src="${e.img}" alt="${e.name}" loading="lazy" referrerpolicy="no-referrer">`:dialSVG("#2b2f36")}<span class="ebadge">POR ENCARGO</span></div>
+    return `<article class="dcard"><div class="dial${e.img?"":" noimg"}" style="cursor:default">${e.img?`<img src="${e.img}${/cdn\.shopify\.com/.test(e.img)?"&width=600":""}" alt="${e.name}" loading="lazy" referrerpolicy="no-referrer">`:dialSVG("#2b2f36")}<span class="ebadge">POR ENCARGO</span></div>
     <div class="info"><div class="mk">${e.brand||"&nbsp;"}</div><h3 class="name">${e.name}</h3>${e.sub?`<div class="sub">${e.sub}</div>`:""}<div class="eta">Llega en ${e.eta||"15 a 20 días"}</div><div class="price">${fmt(e.price)}</div><div class="apt">o apartalo con <b>${fmt(apartado(e.price))}</b></div>
     <a class="add wa" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Pedir por WhatsApp</a></div></article>`; }).join("");
-  $("encargo").hidden = false; if (location.hash === "#encargo") setTimeout(() => $("encargo").scrollIntoView({behavior:"smooth"}), 300); });
+}
+$("encTabs").addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (!b) return; encCat = b.dataset.cat; pintarEnc(); });
+window.loadEncargos && window.loadEncargos().then(L => { if (!L.length) return;
+  ENC = L; ["D","H"].forEach(c => { const n = L.filter(e => (e.cat || "D") === c).length; const b = $("encTabs").querySelector(`[data-cat="${c}"]`); b.innerHTML = (c === "D" ? "Dama" : "Hombre") + `<b>${n}</b>`; b.hidden = !n; });
+  pintarEnc();
+  $("encargo").hidden = false; if (/^#encargo/.test(location.hash)) setTimeout(() => $("encargo").scrollIntoView({behavior:"smooth"}), 300); });
 window.loadStock().then(list => { window.__stockLoaded = true; STOCK = list; try { const B="https://ticotimecr.com/"; const ld={"@context":"https://schema.org","@type":"ItemList","name":"Relojes disponibles TicoTime CR","itemListElement":list.map((s,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"Product","name":s.name,"sku":String(s.ref),"brand":{"@type":"Brand","name":s.brand},"image":s.img?B+s.img:B+"assets/og-ticotime.jpg","description":(s.desc||[s.sub||s.name]).join(" "),"offers":{"@type":"Offer","price":eff(s),"priceCurrency":"CRC","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition","url":B+"disponibles#ref-"+s.ref,"seller":{"@type":"Organization","name":"TicoTime CR"}}}}))}; const el=document.createElement("script"); el.type="application/ld+json"; el.textContent=JSON.stringify(ld); document.head.appendChild(el);} catch(e){} cart = cart.filter(r => STOCK.some(s => s.ref === r)); save(); renderChips(); render(); if (h) openDetail(+h[1]); });
 </script>
 <script src="asistente.js" defer></script></body></html>
