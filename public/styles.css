@@ -206,3 +206,7 @@ footer{flex-direction:column;align-items:flex-start;padding:34px 24px;gap:18px}
 .otag.bf b{margin-top:3px;font-size:24px}
 .otag.bf i{display:block;margin:7px -10px 0;background:#d63a2f;color:#fff;font:800 8px Inter,Arial,sans-serif;letter-spacing:.12em;font-style:normal;padding:3px 4px 4px;white-space:nowrap}
 @media(max-width:650px){.otag.bf .body{min-width:60px;padding:11px 7px 0}.otag.bf em{font-size:7px;letter-spacing:.08em}.otag.bf b{font-size:18px}.otag.bf i{font-size:6.5px;letter-spacing:.06em;margin:6px -7px 0}}
+
+/* Catálogo: fotos oficiales de Casio (fondo claro) */
+.card-img.ext{background:radial-gradient(circle at 50% 42%,#fbfaf7 0,#e9e5dc 60%,#cfc8ba 100%)!important}
+.card-img.ext img{background:transparent!important;object-fit:contain;padding:8%;box-sizing:border-box;aspect-ratio:0.889;width:100%;height:auto}

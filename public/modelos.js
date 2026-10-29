@@ -1,11 +1,11 @@
 /* TicoTime CR — nombre del modelo de cada referencia del catálogo (para tarjetas, búsqueda y mensajes de WhatsApp) */
 window.MODELOS = {
 1:"G-Shock Move GBD-200-9 Verde Lima",2:"G-Shock GA-2100-1A1 CasiOak Negro",3:"G-Shock G-100",4:"G-Shock GA-700 Rojo",
-5:"G-Shock GA-700-1B Negro",6:"G-Shock GA-700-7A Blanco",7:"G-Shock GD-100 Negro",8:"G-Shock G-100 Analógico-Digital",
-9:"G-Shock DW-9052",10:"G-Shock GA-2100-4A Rojo",11:"G-Shock GM-2100-1A Metal",12:"G-Shock GA-100-7A Blanco",
+5:"G-Shock GA-700-1B Negro",6:"G-Shock GA-700-7A Blanco",7:"G-Shock GD-100 Negro",8:"G-Shock GA-100-1A1 Negro",
+9:"G-Shock DW-9052",10:"G-Shock GA-2100-4A Rojo",11:"G-Shock GM-2100-1A Metal",12:"G-Shock GA-2100-7A7 CasiOak Blanco",
 13:"G-Shock GBA-800UC Gris",14:"G-Shock GA-700UC Verde Oliva",15:"G-Shock GA-700UC Caqui",16:"G-Shock DW-9052 Azul",
-17:"G-Shock GA-2100VB-1A Negro y Violeta",18:"G-Shock GD-400 Caqui y Dorado",19:"G-Shock GA-2100 Negro y Dorado",20:"G-Shock Move GBD-200UU-9 Blanco",
-21:"G-Shock GA-V01A Negro",22:"Casio Duro MDV106 Negro",23:"Casio Duro MDV106 Negro y Azul \"Batman\"",24:"Casio Duro MDV106 Azul",
+17:"G-Shock GA-2100VB-1A Negro y Violeta",18:"G-Shock GD-400GB-1B2 Negro y Dorado",19:"G-Shock GA-2100 Negro y Dorado",20:"G-Shock Move GBD-200UU-9 Beige",
+21:"G-Shock GA-V01-1A Negro",22:"Casio Duro MDV106 Negro",23:"Casio Duro MDV106 Negro y Azul \"Batman\"",24:"Casio Duro MDV106 Azul",
 25:"Casio Duro MDV106 Verde",26:"Casio Duro MDV106 Azul y Rojo \"Pepsi\"",27:"Casio Duro MDV106 Dorado y Negro",28:"Casio Illuminator AE-1500WH",
 29:"Casio Illuminator AE-1500WH Gris",30:"Casio Illuminator AE-1500WH Gris #2",31:"Casio Illuminator AE-1500WH Negro",32:"Casio Illuminator AE-1200WH Plateado",
 33:"Casio Illuminator AE-1600WH Negro",34:"Casio Illuminator AE-1500WH Caqui",35:"Casio Illuminator AE-1500WH Verde Olivo",36:"Casio Heavy Duty MCW-100H Naranja",
