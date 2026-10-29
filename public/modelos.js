@@ -51,5 +51,6 @@ window.MODELOS = {
 193:"Bulova Marine Star Verde",194:"Bulova Classic Diamond Cronógrafo Azul",195:"Bulova Marine Star 98A226 Automático",196:"Bulova Classic Sutton Automático",
 197:"Bulova Marine Star Automático Azul Petróleo",198:"Bulova Classic Cronógrafo Gris",199:"Bulova Classic Wilton 97B169",200:"Bulova Classic Romano Negro",
 201:"Bulova Classic Dorado Minimal",202:"Bulova Dress Classic Diamond Vino",203:"Bulova Marine Star Serie B Cronógrafo",204:"Bulova Dress Classic Verde Bicolor",
-205:"Bulova Dress Classic Azul Bicolor",206:"Bulova Classic Diamond 98D188 Azul Bicolor"
+205:"Bulova Dress Classic Azul Bicolor",206:"Bulova Classic Diamond 98D188 Azul Bicolor",
+207:"Baby-G BA-110XBC-1A Negro Arcoíris",208:"Baby-G BA-110X-7A1 Blanco",209:"Baby-G BA-110XRG-7A Blanco y Oro Rosa",210:"Baby-G BA-110XRG-1A Negro y Oro Rosa",211:"Baby-G BA-110X-1A Negro",212:"Baby-G BA-110XCP-4A",213:"Baby-G BA-110AH-6A",214:"Baby-G BGD-565-7 Blanco",215:"Baby-G BGD-565U-1 Negro",216:"Baby-G BGD-565U-4",217:"Baby-G BGD-565SC-2 Translúcido",218:"Baby-G BGD-565SC-4 Translúcido"
 };
