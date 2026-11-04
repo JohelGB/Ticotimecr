@@ -1,0 +1,21 @@
+name: Bajar fotos para reels
+on:
+  push:
+    paths: ['social/fotos/urls.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bajar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          cd social/fotos
+          while read -r k u; do [ -n "$k" ] && curl -sfL -A "Mozilla/5.0" -o "$k.${u##*.}" "$u?width=1400" || echo "fallo $k"; done < urls.txt
+          ls -la
+      - run: |
+          git config user.name "JohelGB"; git config user.email "johel.g.b@gmail.com"
+          git add social/fotos
+          git commit -m "Fotos para reels (descargadas por Actions)" || exit 0
+          git push
