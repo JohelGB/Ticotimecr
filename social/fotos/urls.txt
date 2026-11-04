@@ -16,3 +16,5 @@
 509_2 https://cdn.shopify.com/s/files/1/0697/8492/8419/files/48380_catalogshot_479588_beauty.png
 509_3 https://cdn.shopify.com/s/files/1/0697/8492/8419/files/48380_back_view.jpg
 511_0 https://cdn.shopify.com/s/files/1/0697/8492/8419/files/70884__522808_1.jpg
+402_1 https://m.media-amazon.com/images/I/71zsY89a3DL._AC_SL1500_.jpg
+494_1 https://m.media-amazon.com/images/I/61hCblqObSL._AC_SL1500_.jpg
