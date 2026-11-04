@@ -60,3 +60,32 @@ Receta probada (13 créditos por reloj, Venom Hydra 4-nov-2026):
 3. Bajar el mp4 y la imagen con la acción (líneas `ai_<ref>_intro <url>` y `ai_<ref>_frame <url>` en `social/fotos/urls.txt`).
 4. En el spec: `"intro":"social/fotos/ai_<ref>_intro.mp4","extra_photos":["social/fotos/ai_<ref>_frame.jpg"]`.
 Solo hacerlo cuando Johel lo pida (gasta créditos de su plan).
+
+## Reels ELEGANTES con IA (tarea "Reels elegantes IA", martes y viernes)
+Estilo marca de lujo: clip de IA de 15 s a pantalla completa, letra fina (Lora), juego "¿Cuánto creés que cuesta?",
+cierre azul marino con logo TicoTime y precio revelado. Motor: `social/engine/make_elegante.py` (ejemplo: `specs/2026-11-04-402-elegante.json`).
+Costo objetivo: **13 créditos** (foto 3 + video 10). Plan Starter: 200 créditos al mes (renueva el día 4).
+
+1. Créditos: `get_credit_balance`. Si quedan **menos de 20**, NO generes nada y avisá a Johel en una línea.
+2. Elegí UN reloj de la hoja Web (preferí los de mayor precio o en oferta, con fotos oficiales en `social/fotos/<ref>_*`)
+   que no tenga Reel elegante en los últimos 30 días (`publicados.md`, filas con "elegante") ni Reel normal programado ese mismo día o el siguiente.
+3. Escena (variá; no repitas la de los últimos 3 elegantes): mano en volante de noche · muñeca sobre mesa de café con taza ·
+   escritorio de oficina con laptop · atardecer en la playa (Guanacaste) · bar/terraza de noche · chaqueta de cuero en la ciudad · mano sobre la mesa de un restaurante.
+   Reloj de dama → muñeca de mujer.
+4. Foto (3 créditos): `generate_image` modelo `gemini-3-pro-image-preview`, 9:16, `referenceImageUrls` = 1–2 fotos oficiales (raw de GitHub).
+   Prompt: "Close-up cinematic photograph… ONE <left> hand/wrist … wearing EXACTLY the watch in the reference images (<descripción>)…
+   keep every detail identical… tight close-up, the watch is the hero and fills about half of the frame width, in the center,
+   dial facing the camera, anatomically correct, one hand only… <escena>… No text, no extra logos, no faces."
+   Bajala con la acción (línea `ai_<ref>_<escena> <url>` en `social/fotos/urls.txt`, push, esperar `gh run`, pull) y REVISALA con Read:
+   una sola mano lógica, reloj grande e idéntico al original. Si está mal, UN solo reintento corrigiendo el prompt. Si vuelve a salir mal, pará y avisá.
+5. Video (10 créditos): `generate_video` modelo **`MiniMax H3 Max Turbo`**, duration 15, resolution 720p, orientation 9:16,
+   `firstFrameUrls` = esa foto, idempotencyKey único. Prompt: una sola toma continua, cámara que se acerca lentamente hasta que la esfera
+   llena el cuadro, luces/reflejos que pasan, mano relajada con movimientos mínimos, "keep the watch exactly the same… no morphing, no extra hands, no text".
+   Esperá con `wait_for_generation`, bajalo con la acción y revisá 6–8 cuadros (ffmpeg) antes de usarlo. Si el reloj se deforma, no lo publiqués y avisá.
+6. Spec `specs/<AAAA-MM-DD>-<ref>-elegante.json`: `{"ref","name"(corto, sin número),"line":"<3 datos cortos con ·>","price","oferta","clip":"social/fotos/ai_<ref>_<escena>.mp4","feats":[3 frases de la ficha],"pregunta":"¿Cuánto creés que cuesta?"}`
+   y `python3 social/engine/make_elegante.py social/engine/specs/<slug>.json`. Revisá la portada y un cuadro del cierre (precio legible).
+7. Commit + push, línea en `publicados.md` (con "(elegante IA)"), y `createScheduledPost` el MISMO día a las **20:00** en facebook + instagram + tiktok,
+   Reel, `instagramData.isAiGenerated: true`, `tiktokData {title:"¿Cuánto creés que cuesta?", isAigc:true, privacyOption:PUBLIC_TO_EVERYONE, commercialContentOwnBrand:true}`.
+   Texto: "¿Cuánto creés que cuesta este <modelo>? 🤔 Pausá, comentá tu respuesta y después mirá el final del video." + 1 línea de características +
+   "🛡️ 100 % original, con garantía de 3 meses / 💳 Apartalo y pagalo en tractos / 🚚 Envíos a todo el país / 👉 Escribinos al WhatsApp 8640-0835 / 🌐 ticotimecr.com / Ref. <ref>" + hashtags.
+8. SendUserMessage corto: reloj, escena, hora de publicación, créditos gastados y créditos restantes.
