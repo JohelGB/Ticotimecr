@@ -1,7 +1,7 @@
 name: Bajar fotos para reels
 on:
   push:
-    paths: ['social/fotos/urls.txt']
+    paths: ['social/fotos/urls.txt', 'social/fotos/buscar.txt']
   workflow_dispatch:
 permissions:
   contents: write
@@ -10,12 +10,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
+      - name: Descargar URLs directas (urls.txt = "<ref>_<n> <url>")
+        run: |
           cd social/fotos
-          while read -r k u; do [ -n "$k" ] && curl -sfL -A "Mozilla/5.0" -o "$k.${u##*.}" "$u?width=1400" || echo "fallo $k"; done < urls.txt
+          [ -f urls.txt ] || exit 0
+          while read -r k u; do [ -z "$k" ] && continue; ls "$k".* >/dev/null 2>&1 && continue; curl -sfL -A "Mozilla/5.0" -o "$k.${u##*.}" "$u?width=1400" || echo "fallo $k"; done < urls.txt
+      - name: Buscar fotos en la tienda Invicta (buscar.txt = "<ref> <modelo>")
+        run: |
+          cd social/fotos
+          [ -f buscar.txt ] || exit 0
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.parse
+          UA={'User-Agent':'Mozilla/5.0'}
+          def get(u):
+              return urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=30).read()
+          for line in open('buscar.txt'):
+              p=line.split()
+              if len(p)<2: continue
+              ref,model=p[0],p[1]
+              if any(f.startswith(ref+'_') for f in os.listdir('.')): continue
+              try:
+                  j=json.loads(get('https://www.invictastores.com/search/suggest.json?q='+urllib.parse.quote(model)+'&resources[type]=product&resources[limit]=5'))
+                  prods=[x for x in j['resources']['results'].get('products',[]) if model in (x['title']+x['handle'])]
+                  if not prods: print('sin resultado',ref,model); continue
+                  d=json.loads(get('https://www.invictastores.com/products/'+prods[0]['handle']+'.js'))
+                  for i,u in enumerate(d['images'][:4]):
+                      u='https:'+u if u.startswith('//') else u
+                      ext=u.split('?')[0].rsplit('.',1)[-1].lower()
+                      open(f'{ref}_{i}.{ext}','wb').write(get(u.split('?')[0]+'?width=1400'))
+                  print('ok',ref,model,len(d['images'][:4]))
+              except Exception as e: print('fallo',ref,model,e)
+          PY
           ls -la
       - run: |
           git config user.name "JohelGB"; git config user.email "johel.g.b@gmail.com"
           git add social/fotos
           git commit -m "Fotos para reels (descargadas por Actions)" || exit 0
-          git push
+          git pull --rebase && git push
