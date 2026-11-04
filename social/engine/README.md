@@ -49,3 +49,14 @@ Se publica en Instagram + Facebook (Reel) + TikTok con Metricool, usando el enla
    #relojescr #relojescostarica #invicta #invictacr #relojesoriginales #costarica   (Casio: #casio #casiocr en vez de invicta)
    ```
 9. Resumen corto en español con SendUserMessage: qué Reels quedaron programados (fecha, hora, modelo, precio). Si no hacía falta ninguno, no mandes nada.
+
+## Intro con IA (Everygen, opcional — cuesta créditos)
+Receta probada (13 créditos por reloj, Venom Hydra 4-nov-2026):
+1. `generate_image` modelo `gemini-3-pro-image-preview` (3 créditos), 9:16, `referenceImageUrls` = foto oficial del reloj (raw de GitHub),
+   prompt: "EXACTLY the watch in the reference… keep every detail identical…" + escena de estudio oscuro con luz de borde del color del reloj, sin texto.
+   Revisá la imagen antes de seguir (que el reloj sea idéntico).
+2. `generate_video` modelo `Kling 3.0 Turbo`, 5 s, portrait, `firstFrameUrls` = esa imagen (10 créditos), prompt de cámara lenta
+   que avanza y gira un poco, humo, brillo de luz; "keep the watch exactly the same".
+3. Bajar el mp4 y la imagen con la acción (líneas `ai_<ref>_intro <url>` y `ai_<ref>_frame <url>` en `social/fotos/urls.txt`).
+4. En el spec: `"intro":"social/fotos/ai_<ref>_intro.mp4","extra_photos":["social/fotos/ai_<ref>_frame.jpg"]`.
+Solo hacerlo cuando Johel lo pida (gasta créditos de su plan).

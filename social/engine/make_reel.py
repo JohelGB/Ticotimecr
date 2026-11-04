@@ -31,14 +31,25 @@ def load(ref,n):
     return im
 def card(im,box_w=820,box_h=820):
     s=min(box_w/im.width,box_h/im.height); im=im.resize((int(im.width*s),int(im.height*s)),Image.LANCZOS)
-    c=Image.new('RGB',(box_w,box_h),(255,255,255)); c.paste(im,((box_w-im.width)//2,(box_h-im.height)//2))
+    c=Image.new('RGB',(box_w,box_h),im.getpixel((2,2))); c.paste(im,((box_w-im.width)//2,(box_h-im.height)//2))
     return c
 def make(spec,r,out):
     ref=spec['ref']; vo=spec['_voz']; D=dur(vo)+1.3
     fin=r['oferta'] or r['price']; ade=25000 if fin>=100000 else 20000 if fin>=50000 else 15000
     photos=[load(ref,n) for n in photos_for(ref)]
+    # intro opcional con clip de IA (spec['intro'] = ruta relativa al repo)
+    IL=0; IF=[]
+    if spec.get('intro'):
+        idir=f'/tmp/intro_{ref}'; os.makedirs(idir,exist_ok=True)
+        subprocess.run(['ffmpeg','-y','-loglevel','error','-i',os.path.join(ROOT,spec['intro']),'-vf','scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30','-q:v','3',f'{idir}/%04d.jpg'],check=True)
+        # fotos extra de IA: pantalla completa con acercamiento lento (3.3 s cada una), después del clip
+        for j,n in enumerate(spec.get('extra_photos',[])):
+            subprocess.run(['ffmpeg','-y','-loglevel','error','-loop','1','-i',os.path.join(ROOT,n),'-vf',
+              'scale=2160:3840:force_original_aspect_ratio=increase,crop=2160:3840,zoompan=z=\'1.12-0.12*on/99\':x=\'iw/2-(iw/zoom/2)\':y=\'ih/2-(ih/zoom/2)\':d=99:s=1080x1920:fps=30',
+              '-frames:v','99','-q:v','3',f'{idir}/x{j}_%04d.jpg'],check=True)
+        IF=sorted(os.listdir(idir)); IF=[f'{idir}/{f}' for f in IF if not f.startswith('x')]+[f'{idir}/{f}' for f in IF if f.startswith('x')]; IL=len(IF)/FPS
     # segmentos: si hay 1 foto, alternar completa y acercamiento
-    segL=3.3; nseg=math.ceil(D/segL); segs=[]
+    segL=3.3; nseg=math.ceil(max(1,D-IL)/segL); segs=[]
     for i in range(nseg):
         if len(photos)==1:
             im=photos[0]
@@ -61,7 +72,17 @@ def make(spec,r,out):
     N=int(D*FPS); feats=spec['feats']; fstart=2.0; fend=D-4.6; fl=(fend-fstart)/len(feats)
     fT=font(F_B,50); fS=font(F_M,48); fN=font(F_B,56); fF=font(F_B,54); fw=font(F_X,66); fsm=font(F_M,34); fpill=font(F_B,50)
     for i in range(N):
-        t=i/FPS; fr=bg.copy(); d=ImageDraw.Draw(fr)
+        t=i/FPS
+        intro_on=IL>0 and t<IL
+        if intro_on:
+            fr=Image.open(IF[min(i,len(IF)-1)]).convert('RGBA')
+            ov=Image.new('RGBA',(W,H),(0,0,0,0)); od=ImageDraw.Draw(ov)
+            for y in range(0,560): od.line([(0,y),(W,y)],fill=(0,0,0,int(200*(1-y/560))))
+            for y in range(1250,H): od.line([(0,y),(W,y)],fill=(0,0,0,int(220*(y-1250)/(H-1250))))
+            fr=Image.alpha_composite(fr,ov)
+        else: fr=bg.copy()
+        d=ImageDraw.Draw(fr)
+        tp=t-IL
         top=64; tag='OFERTA' if r['oferta'] else 'ENTREGA INMEDIATA'
         tw=d.textlength(tag,font=fT); px=(W-tw)/2-34
         d.rounded_rectangle([px,top,px+tw+68,top+80],radius=40,fill=GOLD2+(255,)); d.text((px+34,top+8),tag,font=fT,fill=BG+(255,))
@@ -70,7 +91,7 @@ def make(spec,r,out):
             s2='antes '+fmt(r['price']); w2=d.textlength(s2,font=fS); x2=(W-w2)/2; y2=top+280
             d.text((x2,y2),s2,font=fS,fill=MUTED+(255,)); d.line([(x2-6,y2+33),(x2+w2+6,y2+33)],fill=MUTED+(255,),width=5)
         # foto actual (con cruce entre segmentos)
-        k=min(int(t//segL),nseg-1); lt=t-k*segL
+        k=min(int(max(0,tp)//segL),nseg-1); lt=max(0,tp)-k*segL
         def draw_seg(img,lt,alpha=255,dx=0):
             ein=ease(lt/0.45); z=(0.86+0.14*ein)*(1+0.045*lt/segL)
             ang=2.2*math.sin(2*math.pi*(t)/3.4)
@@ -84,11 +105,13 @@ def make(spec,r,out):
             if alpha<255: w2.putalpha(w2.split()[3].point(lambda v:v*alpha//255))
             cy=885+12*math.sin(2*math.pi*t/2.4); x=int((W-w2.width)/2+dx); y=int(cy-w2.height/2)
             return w2,x,y
-        layers=[]
-        slide=int((1-ease(lt/0.45))*260) if k>0 else 0
-        layers.append(draw_seg(segs[k],lt,255,slide))
-        if k>0 and lt<0.25:
-            a=int(255*(1-lt/0.25)); layers.insert(0,draw_seg(segs[k-1],lt+segL,a,-int((lt/0.25)*200)))
+        layers=[] if intro_on else None
+        if layers is None:
+          layers=[]
+          slide=int((1-ease(lt/0.45))*260) if (k>0 or IL>0) else 0
+          layers.append(draw_seg(segs[k],lt,255,slide))
+          if k>0 and lt<0.25:
+              a=int(255*(1-lt/0.25)); layers.insert(0,draw_seg(segs[k-1],lt+segL,a,-int((lt/0.25)*200)))
         for w2,x,y in layers:
             sh=Image.new('RGBA',(W,H),(0,0,0,0)); s_img=Image.new('RGBA',w2.size,(0,0,0,255)); s_img.putalpha(w2.split()[3].point(lambda v:int(v*0.55)))
             sh.alpha_composite(s_img,(x+12,y+30)); fr=Image.alpha_composite(fr,sh.filter(ImageFilter.GaussianBlur(18))); fr.alpha_composite(w2,(x,y))
