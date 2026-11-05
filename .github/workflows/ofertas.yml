@@ -16,6 +16,7 @@ jobs:
         with: { python-version: '3.12' }
       - run: pip install -q beautifulsoup4
       - run: python tools/ofertas.py
+        env: { CANDIDATOS: "${{ github.event_name == 'workflow_dispatch' && '25' || '150' }}" }
       - name: Verificar y publicar
         run: |
           node -e "global.window={};eval(require('fs').readFileSync('public/ofertas.js','utf8'));const O=window.OFERTAS;if(!O.items.length)process.exit(1);console.log(O.items.length,O.revisado)"

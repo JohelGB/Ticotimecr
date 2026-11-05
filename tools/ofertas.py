@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 CR = datetime.timezone(datetime.timedelta(hours=-6))
 TC, TAX, TRAIDA = 462, 1.07, 4000
-N_OFERTAS, MIN_DAMA, MAX_MARCA, CANDIDATOS_POR_CORRIDA = 30, 8, 8, 150
+N_OFERTAS, MIN_DAMA, MAX_MARCA, CANDIDATOS_POR_CORRIDA = 30, 8, 8, int(os.environ.get("CANDIDATOS", "150"))
 
 def ganancia_oferta(usd):
     return 18000 if usd < 40 else 25000 if usd < 100 else 35000 if usd < 200 else 45000 if usd < 350 else 55000
@@ -112,7 +112,10 @@ def main():
         if h is None:
             keep.append(e); continue  # no se pudo revisar: se deja igual
         d = parse(h)
-        if not d["ok"] or not d["available"] or not d["list"]:
+        print("actual", asin, "ok" if d["ok"] else "noparse", "disp" if d.get("available") else "nodisp", "lista" if d.get("list") else "sinlista", flush=True)
+        if not d["ok"]:
+            keep.append(e); continue  # página rara (captcha o cambio): se deja igual
+        if not d["available"] or not d["list"]:
             salieron += 1; continue
         g = ganancia_oferta(d["price"])
         price, antes = colones(d["price"], g), colones(d["list"], g)
@@ -143,6 +146,7 @@ def main():
             h = fetch(a); time.sleep(0.6)
             if not h: continue
             d = parse(h)
+            print("cand", a, "ok" if d["ok"] else "noparse", "disp" if d.get("available") else "nodisp", "lista" if d.get("list") else "sinlista", (f"{round((1-d['price']/d['list'])*100)}%" if d.get("list") and d.get("price") else ""), flush=True)
             if not d["ok"] or not d["available"] or not d["list"] or d["price"] < 20: continue
             if (1 - d["price"] / d["list"]) < (0.20 if cnd["brand"] == "Invicta" else 0.25): continue
             m5 = re.search(r"\b(\d{4,5})\b", d.get("model", ""))
