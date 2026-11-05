@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 CR = datetime.timezone(datetime.timedelta(hours=-6))
 TC, TAX, TRAIDA = 462, 1.07, 4000
-N_OFERTAS, MIN_DAMA, MAX_MARCA, CANDIDATOS_POR_CORRIDA = 30, 8, 8, 90
+N_OFERTAS, MIN_DAMA, MAX_MARCA, CANDIDATOS_POR_CORRIDA = 30, 8, 8, 45
 
 def ganancia_oferta(usd):
     return 18000 if usd < 40 else 25000 if usd < 100 else 35000 if usd < 200 else 45000 if usd < 350 else 55000
@@ -26,39 +26,47 @@ def money(s):
     return float(m.group(1).replace(",", "")) if m else None
 
 def fetch(asin, tries=2):
+    t = time.time()
     for k in range(tries):
         try:
             req = urllib.request.Request(f"https://www.amazon.com/dp/{asin}", headers={"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9", "Accept": "text/html"})
-            html = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "ignore")
+            html = urllib.request.urlopen(req, timeout=20).read().decode("utf-8", "ignore")
             if "captcha" in html.lower()[:20000] and "productTitle" not in html:
                 raise RuntimeError("captcha")
+            print(f"{asin} {time.time()-t:.1f}s", flush=True)
             return html
         except Exception as e:
-            time.sleep(4 + k * 4)
+            time.sleep(3)
     return None
 
+def seg(html, marker, n=40000):
+    i = html.find(marker)
+    return html[i:i + n] if i >= 0 else ""
+
 def parse(html):
-    s = BeautifulSoup(html, "html.parser")
     out = {"ok": False}
-    if not s.select_one("#productTitle"):
+    m = re.search(r'id="productTitle"[^>]*>([^<]+)<', html)
+    if not m:
         return out
     out["ok"] = True
-    out["title"] = s.select_one("#productTitle").get_text(" ", strip=True)
-    box = s.select_one("#corePrice_feature_div") or s.select_one("#corePriceDisplay_desktop_feature_div") or s
-    p = box.select_one(".priceToPay .a-offscreen") or box.select_one(".a-price:not(.a-text-price) .a-offscreen")
+    out["title"] = re.sub(r"\s+", " ", m.group(1)).strip()
+    core = seg(html, 'id="corePrice_feature_div"') or seg(html, 'id="corePriceDisplay_desktop_feature_div"') or seg(html, 'id="apex_desktop"')
+    box = BeautifulSoup(core, "html.parser") if core else None
+    p = lp = None
+    if box:
+        p = box.select_one(".priceToPay .a-offscreen") or box.select_one(".a-price:not(.a-text-price) .a-offscreen")
+        lp = box.select_one(".basisPrice .a-offscreen")
+        if not lp:
+            for el in box.select(".a-price.a-text-price .a-offscreen"):
+                par = el.find_parent(); ctx = par.find_parent().get_text(" ", strip=True) if par and par.find_parent() else ""
+                if re.search(r"List|Typical", ctx):
+                    lp = el; break
     out["price"] = money(p.get_text()) if p else None
-    lp = box.select_one(".basisPrice .a-offscreen")
-    if not lp:
-        for el in box.select(".a-price.a-text-price .a-offscreen"):
-            ctx = el.find_parent().find_parent().get_text(" ", strip=True) if el.find_parent() else ""
-            if re.search(r"List|Typical", ctx):
-                lp = el; break
     out["list"] = money(lp.get_text()) if lp else None
-    av = s.select_one("#availability")
-    avt = av.get_text(" ", strip=True).lower() if av else ""
+    avt = re.sub(r"<[^>]+>", " ", seg(html, 'id="availability"', 3000)).lower()
     out["available"] = out["price"] is not None and "currently unavailable" not in avt
     m = re.search(r"Item model number\s*</span>\s*<span[^>]*>\s*([^<]+)", html) or re.search(r"Item model number[^<]*</th>\s*<td[^>]*>\s*([^<]+)", html)
-    out["model"] = (m.group(1).replace("‎", "").strip() if m else "")
+    out["model"] = (m.group(1).replace("\u200e", "").strip() if m else "")
     return out
 
 LINEAS = {
@@ -82,6 +90,7 @@ def nombre(brand, title, model, cat):
     return re.sub(r"\s+", " ", n).strip()
 
 def main():
+    t0 = time.time()
     now = datetime.datetime.now(CR)
     of_path = os.path.join(ROOT, "public/ofertas.js")
     raw = open(of_path, encoding="utf-8").read()
@@ -99,7 +108,7 @@ def main():
     keep, salieron, cambios = [], 0, 0
     for e in items:
         asin = e["id"][2:]
-        h = fetch(asin); time.sleep(1.2)
+        h = fetch(asin); time.sleep(0.6)
         if h is None:
             keep.append(e); continue  # no se pudo revisar: se deja igual
         d = parse(h)
@@ -131,7 +140,7 @@ def main():
             if marca_n >= MAX_MARCA: continue
             if cnd["cat"] == "H" and MIN_DAMA - damas >= faltan: continue
             revisados += 1
-            h = fetch(a); time.sleep(1.2)
+            h = fetch(a); time.sleep(0.6)
             if not h: continue
             d = parse(h)
             if not d["ok"] or not d["available"] or not d["list"] or d["price"] < 20: continue
@@ -165,7 +174,7 @@ def main():
         for e in L:
             cfg = src.get(e["id"][2:])
             if not cfg: continue
-            h = fetch(e["id"][2:]); time.sleep(1.2)
+            h = fetch(e["id"][2:]); time.sleep(0.6)
             if not h: continue
             d = parse(h)
             if not d["ok"] or not d["available"]:
