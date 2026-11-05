@@ -1,11 +1,9 @@
 /* TicoTime CR — Ofertas del día. Se actualiza automáticamente. */
 window.OFERTAS = {
-  revisado: "2026-11-05T08:31:00-06:00",
+  revisado: "2026-11-05T10:40:00-06:00",
   items: [
     {"id": "A-B0C8JMCTYR", "name": "Bulova Classic Diamantes Dama", "cat": "D", "brand": "Bulova", "price": 132500, "antes": 234500, "off": 43, "img": "https://m.media-amazon.com/images/I/71cn1jZ-o-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0FLRHQXRG", "name": "Bulova Classic Mini 96P260 Diamante", "cat": "D", "brand": "Bulova", "price": 149000, "antes": 259500, "off": 43, "img": "https://m.media-amazon.com/images/I/61gvM7hFDvL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B09VM49S54", "name": "Bulova Marine Star 98B384", "cat": "H", "brand": "Bulova", "price": 184500, "antes": 321000, "off": 43, "img": "https://m.media-amazon.com/images/I/71l+q+oA2NL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B01HGWCNS6", "name": "Bulova Sutton 96A187 Automático Esqueleto", "cat": "H", "brand": "Bulova", "price": 234500, "antes": 403000, "off": 42, "img": "https://m.media-amazon.com/images/I/61Pw1MuskEL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B08D9SY2T2", "name": "Citizen Promaster Dive BN0158-00X", "cat": "H", "brand": "Citizen", "price": 161000, "antes": 271500, "off": 41, "img": "https://m.media-amazon.com/images/I/81jPf73N-uS._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09VLNRXN5", "name": "Bulova Sutton 98B385", "cat": "H", "brand": "Bulova", "price": 161500, "antes": 271500, "off": 41, "img": "https://m.media-amazon.com/images/I/7116y64Aq-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0FL8RMYK1", "name": "Citizen Eco-Drive AW1571-76L", "cat": "H", "brand": "Citizen", "price": 136500, "antes": 224500, "off": 39, "img": "https://m.media-amazon.com/images/I/81L8UkHqOQL._AC_SL600_.jpg", "eta": "15 a 20 días"},
