@@ -1,0 +1,15 @@
+/* Relojes de lujo por encargo (Certina, Tissot, Seiko, Bulova). Precios en colones. */
+window.LUJO = [
+  {"id": "L-B0H5X4TVRV", "brand": "Certina", "name": "DS Super PH2000M Titanio", "sub": "Suizo automático · Titanio · 43 mm", "price": 791000, "img": "https://m.media-amazon.com/images/I/71KJyhEvcyL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B0BDN3ZCYJ", "brand": "Certina", "name": "DS Super PH500M", "sub": "Suizo automático · Buzo 500 m · 43 mm", "price": 593500, "img": "https://m.media-amazon.com/images/I/61joYCq9DvL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B0CP62CW4L", "brand": "Certina", "name": "DS Action Day-Date Powermatic 80", "sub": "Suizo automático · Esfera azul · Día y fecha", "price": 479500, "img": "https://m.media-amazon.com/images/I/71EnA1ZmPLL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B0CDP157F4", "brand": "Tissot", "name": "PRX Powermatic 80 Ice Blue", "sub": "Suizo automático · 40 mm", "price": 484500, "img": "https://m.media-amazon.com/images/I/81PIjPSYdaL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B0DCWZS98Y", "brand": "Tissot", "name": "T-Race Automatic", "sub": "Suizo automático · Esfera negra · 41 mm", "price": 472000, "img": "https://m.media-amazon.com/images/I/71BuBn6OI9L._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B0CCJTF2GJ", "brand": "Tissot", "name": "Gentleman Open Heart Powermatic 80", "sub": "Suizo automático · Corazón abierto · 40 mm", "price": 571000, "img": "https://m.media-amazon.com/images/I/71dgUiVi78L._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B0CJH8BL3P", "brand": "Seiko", "name": "5 Sports GMT SSK021", "sub": "Automático · GMT · 100 m", "price": 240000, "antes": 289000, "img": "https://m.media-amazon.com/images/I/51ywv2nO-YL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B074KKQ6L4", "brand": "Seiko", "name": "Presage Cocktail Time SRPB77", "sub": "Automático · Esfera con textura", "price": 241500, "img": "https://m.media-amazon.com/images/I/61A2YEPRN2L._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B08J8B7JJ7", "brand": "Seiko", "name": "Prospex SRPF03 Special Edition", "sub": "Automático · Buzo 200 m", "price": 262000, "antes": 316000, "img": "https://m.media-amazon.com/images/I/71u8bLT+O6L._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B07PGHH1JM", "brand": "Bulova", "name": "Marine Star Serie A 98A226", "sub": "Automático · Esfera blanca · Correa naranja", "price": 203000, "antes": 368000, "img": "https://m.media-amazon.com/images/I/81OQymqYPxL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B01HGWCNS6", "brand": "Bulova", "name": "Classic Sutton Skeleton 96A187", "sub": "Automático · Esfera esqueleto · 43 mm", "price": 210500, "antes": 378000, "img": "https://m.media-amazon.com/images/I/61Pw1MuskEL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B0C9LK6YTS", "brand": "Bulova", "name": "Marine Star Marc Anthony 98D184", "sub": "Automático · Esfera azul · Corazón abierto", "price": 294000, "antes": 427500, "img": "https://m.media-amazon.com/images/I/81tO6250gqL._AC_SL600_.jpg", "eta": "15 a 20 días"}
+];
