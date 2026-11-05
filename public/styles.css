@@ -213,3 +213,20 @@ footer{flex-direction:column;align-items:flex-start;padding:34px 24px;gap:18px}
 /* Catálogo: fotos oficiales de Casio (fondo claro) */
 .card-img.ext{background:radial-gradient(circle at 50% 42%,#fbfaf7 0,#e9e5dc 60%,#cfc8ba 100%)!important}
 .card-img.ext img{background:transparent!important;object-fit:contain;padding:8%;box-sizing:border-box;aspect-ratio:0.889;width:100%;height:auto}
+
+/* Vitrina alta gama en la portada */
+.hero-lux{position:absolute;right:3%;top:50%;transform:translateY(-42%);z-index:2;width:min(1040px,calc(97% - 720px));min-width:560px;background:#05080cd6;border:1px solid #d5a62a66;padding:16px 16px 12px;box-shadow:0 30px 70px #000b;backdrop-filter:blur(6px);box-sizing:border-box}
+.hero-lux~.hero-stat{display:none}
+.lux-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}.lux-head small{font:800 10px Inter,Arial,sans-serif;letter-spacing:.2em;color:var(--gold2)}.lux-head b{font:600 20px/1.1 Oswald,Arial,sans-serif;text-transform:uppercase;color:#fff;order:-1}
+.lux-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.lux-card{display:flex;flex-direction:column;gap:2px;background:#0b1118;border:1px solid #ffffff14;padding:8px 8px 10px;transition:.25s;color:#fff;text-decoration:none;min-width:0}
+.lux-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.lux-img{display:block;background:#fff;height:150px;margin-bottom:6px;overflow:hidden}.lux-img img{width:100%;height:100%;object-fit:contain;display:block;transition:.4s}.lux-card:hover .lux-img img{transform:scale(1.06)}
+.lux-card small{font:800 9px Inter,Arial,sans-serif;letter-spacing:.2em;color:var(--gold2)}
+.lux-card strong{font:600 14px/1.15 Oswald,Arial,sans-serif;text-transform:uppercase}
+.lux-card em{font:400 10.5px/1.3 Inter,Arial,sans-serif;font-style:normal;color:#9aa4ae}
+.lux-price{font:700 18px Oswald,Arial,sans-serif;color:var(--gold2);margin-top:auto;padding-top:4px}.lux-price s{display:block;color:#8e98a2;font-size:11px;font-weight:500}.lux-price b{font-weight:700}
+.lux-card i{font:700 8.5px Inter,Arial,sans-serif;font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:#7fc8a0}
+.lux-more{display:block;text-align:center;margin-top:10px;font:800 10.5px Inter,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2)}
+@media(max-width:1350px){.lux-grid{grid-template-columns:1fr 1fr}.lux-img{height:105px}.hero-lux{transform:translateY(-48%)}}
+@media(max-width:1000px){.hero{flex-wrap:wrap;padding-bottom:40px}.hero-lux{position:relative;right:auto;top:auto;transform:none;width:auto;min-width:0;margin:24px 24px 0;flex:1 1 100%}.lux-img{height:130px}}
