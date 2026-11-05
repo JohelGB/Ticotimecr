@@ -117,7 +117,7 @@ def main():
     est = json.load(open(est_path)) if os.path.exists(est_path) else {"offset": 0}
 
     # 1) revisar las actuales
-    keep, salieron, cambios = [], 0, 0
+    keep, salieron, cambios, verificadas = [], 0, 0, 0
     for e in items:
         asin = e["id"][2:]
         h = fetch(asin); time.sleep(random.uniform(1.5, 3.0))
@@ -127,6 +127,7 @@ def main():
         print("actual", asin, "ok" if d["ok"] else "noparse", "disp" if d.get("available") else "nodisp", "lista" if d.get("list") else "sinlista", flush=True)
         if not d["ok"]:
             keep.append(e); continue  # página rara (captcha o cambio): se deja igual
+        verificadas += 1
         if not d["available"] or not d["list"]:
             salieron += 1; continue
         g = ganancia_oferta(d["price"])
@@ -174,10 +175,10 @@ def main():
 
     keep.sort(key=lambda e: -e["off"])
     out = "/* TicoTime CR — Ofertas del día. Se actualiza automáticamente. */\nwindow.OFERTAS = {\n  revisado: \"%s\",\n  items: [\n%s\n  ]\n};\n" % (
-        now.strftime("%Y-%m-%dT%H:%M:00-06:00"), ",\n".join("    " + json.dumps(e, ensure_ascii=False) for e in keep))
+        (now.strftime("%Y-%m-%dT%H:%M:00-06:00") if verificadas >= max(5, len(items) // 3) else re.search(r'revisado: "([^"]+)"', raw).group(1)), ",\n".join("    " + json.dumps(e, ensure_ascii=False) for e in keep))
     open(of_path, "w", encoding="utf-8").write(out)
     json.dump(est, open(est_path, "w"))
-    print(f"Ofertas: {len(keep)} en total, {nuevos} nuevas, {salieron} salieron, {cambios} cambiaron de precio")
+    print(f"Ofertas: {verificadas} verificadas, {len(keep)} en total, {nuevos} nuevas, {salieron} salieron, {cambios} cambiaron de precio")
 
     # 3) lujo
     src_path = os.path.join(ROOT, "tools/lujo_src.json")
