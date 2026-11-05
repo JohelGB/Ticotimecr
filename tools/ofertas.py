@@ -25,7 +25,10 @@ def money(s):
     m = re.search(r"\$\s*([\d,]+\.?\d*)", s or "")
     return float(m.group(1).replace(",", "")) if m else None
 
+FALLOS = [0]
 def fetch(asin, tries=2):
+    if FALLOS[0] >= 6:
+        return None  # Amazon está frenando: no insistir en esta corrida
     t = time.time()
     for k in range(tries):
         try:
@@ -34,9 +37,12 @@ def fetch(asin, tries=2):
             if "captcha" in html.lower()[:20000] and "productTitle" not in html:
                 raise RuntimeError("captcha")
             print(f"{asin} {time.time()-t:.1f}s", flush=True)
+            FALLOS[0] = 0
             return html
         except Exception as e:
             time.sleep(3)
+    FALLOS[0] += 1
+    print(f"{asin} sin respuesta", flush=True)
     return None
 
 def seg(html, marker, n=40000):
@@ -50,19 +56,25 @@ def parse(html):
         return out
     out["ok"] = True
     out["title"] = re.sub(r"\s+", " ", m.group(1)).strip()
-    core = seg(html, 'id="corePrice_feature_div"') or seg(html, 'id="corePriceDisplay_desktop_feature_div"') or seg(html, 'id="apex_desktop"')
-    box = BeautifulSoup(core, "html.parser") if core else None
-    p = lp = None
-    if box:
-        p = box.select_one(".priceToPay .a-offscreen") or box.select_one(".a-price:not(.a-text-price) .a-offscreen")
-        lp = box.select_one(".basisPrice .a-offscreen")
-        if not lp:
-            for el in box.select(".a-price.a-text-price .a-offscreen"):
-                par = el.find_parent(); ctx = par.find_parent().get_text(" ", strip=True) if par and par.find_parent() else ""
-                if re.search(r"List|Typical", ctx):
-                    lp = el; break
-    out["price"] = money(p.get_text()) if p else None
-    out["list"] = money(lp.get_text()) if lp else None
+    segs = [x for x in (seg(html, 'id="corePrice_feature_div"'), seg(html, 'id="corePriceDisplay_desktop_feature_div"'), seg(html, 'id="apex_desktop"')) if x]
+    price = lst = None
+    for sg in segs:
+        box = BeautifulSoup(sg, "html.parser")
+        if price is None:
+            for sel in (".priceToPay .a-offscreen", ".apex-pricetopay-value .a-offscreen", ".a-price:not(.a-text-price) .a-offscreen"):
+                el = box.select_one(sel)
+                if el and money(el.get_text()):
+                    price = money(el.get_text()); break
+        if lst is None:
+            for sel in (".apex-basisprice-value .a-offscreen", ".basisPrice .a-offscreen"):
+                el = box.select_one(sel)
+                if el and money(el.get_text()):
+                    lst = money(el.get_text()); break
+    if lst is None:
+        m2 = re.search(r'(?:List Price|Typical price)[^$]{0,200}\$([\d,]+\.\d{2})', html)
+        if m2: lst = float(m2.group(1).replace(",", ""))
+    if lst is not None and price is not None and lst <= price: lst = None
+    out["price"], out["list"] = price, lst
     avt = re.sub(r"<[^>]+>", " ", seg(html, 'id="availability"', 3000)).lower()
     out["available"] = out["price"] is not None and "currently unavailable" not in avt
     m = re.search(r"Item model number\s*</span>\s*<span[^>]*>\s*([^<]+)", html) or re.search(r"Item model number[^<]*</th>\s*<td[^>]*>\s*([^<]+)", html)
@@ -108,7 +120,7 @@ def main():
     keep, salieron, cambios = [], 0, 0
     for e in items:
         asin = e["id"][2:]
-        h = fetch(asin); time.sleep(0.6)
+        h = fetch(asin); time.sleep(random.uniform(1.5, 3.0))
         if h is None:
             keep.append(e); continue  # no se pudo revisar: se deja igual
         d = parse(h)
@@ -143,7 +155,7 @@ def main():
             if marca_n >= MAX_MARCA: continue
             if cnd["cat"] == "H" and MIN_DAMA - damas >= faltan: continue
             revisados += 1
-            h = fetch(a); time.sleep(0.6)
+            h = fetch(a); time.sleep(random.uniform(1.5, 3.0))
             if not h: continue
             d = parse(h)
             print("cand", a, "ok" if d["ok"] else "noparse", "disp" if d.get("available") else "nodisp", "lista" if d.get("list") else "sinlista", (f"{round((1-d['price']/d['list'])*100)}%" if d.get("list") and d.get("price") else ""), flush=True)
@@ -178,7 +190,7 @@ def main():
         for e in L:
             cfg = src.get(e["id"][2:])
             if not cfg: continue
-            h = fetch(e["id"][2:]); time.sleep(0.6)
+            h = fetch(e["id"][2:]); time.sleep(random.uniform(1.5, 3.0))
             if not h: continue
             d = parse(h)
             if not d["ok"] or not d["available"]:
