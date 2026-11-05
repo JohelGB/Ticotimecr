@@ -1,0 +1,11 @@
+name: Prueba Amazon
+on: workflow_dispatch
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          for u in "https://www.amazon.com/dp/B0CJH8BL3P" "https://www.amazon.com/s?k=invicta+watch+men"; do
+            code=$(curl -s -o p.html -w "%{http_code}" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -H "Accept-Language: en-US,en;q=0.9" -H "Accept: text/html" "$u")
+            echo "$u -> $code size $(wc -c < p.html) captcha=$(grep -c -i 'captcha' p.html) price=$(grep -o 'a-offscreen\">[^<]*' p.html | head -3 | tr '\n' ' ')"
+          done
