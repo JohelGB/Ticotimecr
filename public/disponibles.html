@@ -360,7 +360,7 @@ window.loadStock().then(list => { window.__stockLoaded = true; STOCK = list; try
 <script src="lujo.js"></script>
 <script>
 (function(){
-  const L = window.LUJO || []; if (!L.length) return;
+  const L = (window.LUJO || []).filter(e => !e.agotado); if (!L.length) return;
   const $ = id => document.getElementById(id), WA = "50686400835";
   const f = n => "₡" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   const ade = p => p >= 100000 ? 25000 : p >= 50000 ? 20000 : 15000;

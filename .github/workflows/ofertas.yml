@@ -1,0 +1,26 @@
+name: Ofertas del día y Lujo (Amazon)
+on:
+  schedule:
+    - cron: '47 11,17,20 * * *'   # 5:47 am, 11:47 am y 2:47 pm hora de Costa Rica
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: ofertas, cancel-in-progress: false }
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -q beautifulsoup4
+      - run: python tools/ofertas.py
+      - name: Verificar y publicar
+        run: |
+          node -e "global.window={};eval(require('fs').readFileSync('public/ofertas.js','utf8'));const O=window.OFERTAS;if(!O.items.length)process.exit(1);console.log(O.items.length,O.revisado)"
+          node -e "global.window={};eval(require('fs').readFileSync('public/lujo.js','utf8'));console.log(window.LUJO.length)"
+          git config user.name "JohelGB"; git config user.email "johel.g.b@gmail.com"
+          git add public/ofertas.js public/lujo.js tools/ofertas_estado.json
+          git commit -m "Ofertas del día revisadas (automático)" || exit 0
+          git pull --rebase && git push
