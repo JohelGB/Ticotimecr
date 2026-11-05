@@ -10,6 +10,6 @@ window.LUJO = [
   {"id": "L-B074KKQ6L4", "brand": "Seiko", "name": "Presage Cocktail Time SRPB77", "sub": "Automático · Esfera con textura", "price": 241500, "img": "https://m.media-amazon.com/images/I/61A2YEPRN2L._AC_SL600_.jpg", "eta": "15 a 20 días"},
   {"id": "L-B08J8B7JJ7", "brand": "Seiko", "name": "Prospex SRPF03 Special Edition", "sub": "Automático · Buzo 200 m", "price": 262000, "antes": 316000, "img": "https://m.media-amazon.com/images/I/71u8bLT+O6L._AC_SL600_.jpg", "eta": "15 a 20 días"},
   {"id": "L-B07PGHH1JM", "brand": "Bulova", "name": "Marine Star Serie A 98A226", "sub": "Automático · Esfera blanca · Correa naranja", "price": 203000, "antes": 368000, "img": "https://m.media-amazon.com/images/I/81OQymqYPxL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-  {"id": "L-B01HGWCNS6", "brand": "Bulova", "name": "Classic Sutton Skeleton 96A187", "sub": "Automático · Esfera esqueleto · 43 mm", "price": 210500, "antes": 378000, "img": "https://m.media-amazon.com/images/I/61Pw1MuskEL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+  {"id": "L-B01HGWCNS6", "brand": "Bulova", "name": "Classic Sutton Skeleton 96A187", "sub": "Automático · Esfera esqueleto · 43 mm", "price": 210500, "img": "https://m.media-amazon.com/images/I/61Pw1MuskEL._AC_SL600_.jpg", "eta": "15 a 20 días"},
   {"id": "L-B0C9LK6YTS", "brand": "Bulova", "name": "Marine Star Marc Anthony 98D184", "sub": "Automático · Esfera azul · Corazón abierto", "price": 294000, "antes": 427500, "img": "https://m.media-amazon.com/images/I/81tO6250gqL._AC_SL600_.jpg", "eta": "15 a 20 días"}
 ];
