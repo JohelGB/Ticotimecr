@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 CR = datetime.timezone(datetime.timedelta(hours=-6))
 TC, TAX, TRAIDA = 462, 1.07, 4000
-N_OFERTAS, MIN_DAMA, MAX_MARCA, CANDIDATOS_POR_CORRIDA = 30, 8, 8, 45
+N_OFERTAS, MIN_DAMA, MAX_MARCA, CANDIDATOS_POR_CORRIDA = 30, 8, 8, 150
 
 def ganancia_oferta(usd):
     return 18000 if usd < 40 else 25000 if usd < 100 else 35000 if usd < 200 else 45000 if usd < 350 else 55000
