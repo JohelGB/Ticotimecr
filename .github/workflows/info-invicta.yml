@@ -1,0 +1,39 @@
+name: Info de productos Invicta (precio, foto, enlace)
+on:
+  push:
+    paths: ['tools/invicta_buscar.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Buscar cada SKU en invictastores.com
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request, urllib.parse
+          UA={'User-Agent':'Mozilla/5.0'}
+          get=lambda u: urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=30).read()
+          out={}
+          for line in open('tools/invicta_buscar.txt'):
+              sku=line.strip()
+              if not sku: continue
+              try:
+                  j=json.loads(get('https://www.invictastores.com/search/suggest.json?q='+urllib.parse.quote(sku)+'&resources[type]=product&resources[limit]=5'))
+                  prods=[x for x in j['resources']['results'].get('products',[]) if sku in (x['title']+x['handle'])]
+                  if not prods: out[sku]={'error':'sin resultado'}; continue
+                  h=prods[0]['handle']; d=json.loads(get('https://www.invictastores.com/products/'+h+'.js'))
+                  v=d['variants'][0]
+                  imgs=[('https:'+u if u.startswith('//') else u) for u in d['images'][:4]]
+                  out[sku]={'title':d['title'],'handle':h,'src':'https://invictastores.com/products/'+h,'usd':v['price']/100,'antes':(v.get('compare_at_price') or 0)/100,'disponible':v.get('available'),'imgs':imgs}
+              except Exception as e: out[sku]={'error':str(e)}
+          json.dump(out,open('tools/invicta_info.json','w'),indent=1,ensure_ascii=False)
+          print(json.dumps(out,indent=1,ensure_ascii=False))
+          PY
+      - run: |
+          git config user.name "JohelGB"; git config user.email "johel.g.b@gmail.com"
+          git add tools/invicta_info.json
+          git commit -m "Info de productos Invicta (Actions)" || exit 0
+          git pull --rebase && git push
