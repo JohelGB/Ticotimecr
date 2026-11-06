@@ -15,3 +15,4 @@
 | 2026-11-15 | 18:00 | 367 | Invicta Bolt Vanguard 46037 | reel-367-v3.mp4 |
 | 2026-11-16 | 12:30 | 349 | Invicta Aviator Chase | reel-349-v3.mp4 |
 | 2026-11-04 | 13:52 | 402 | Invicta S1 Rally Interstellar 49009 (elegante IA) | reel-2026-11-04-402-elegante.mp4 |
+| 2026-11-06 | 20:00 | 367 | Invicta Bolt Vanguard 46037 (elegante IA) | reel-2026-11-06-367-elegante.mp4 |
