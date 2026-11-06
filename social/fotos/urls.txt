@@ -23,3 +23,4 @@ ai_338_frame https://media.viewmax.io/users/GurzywJCh4RPo6VoEGHr8iRIcszcZ0yo/gen
 ai_402_volante https://media.viewmax.io/users/GurzywJCh4RPo6VoEGHr8iRIcszcZ0yo/sora-videos/01a1a810-6044-7521-961c-45b7cbe2cc69/eb73c5a5-41a5-41d4-9bfb-c1d81cbd8e97.mp4
 ai_402_frame https://media.viewmax.io/users/GurzywJCh4RPo6VoEGHr8iRIcszcZ0yo/generated/3c270c29-9aee-4579-a452-12739f9595c2.jpg
 ai_367_terraza https://media.viewmax.io/users/GurzywJCh4RPo6VoEGHr8iRIcszcZ0yo/generated/69aa7ee9-d9ee-4dda-8939-71c3d5fdd4a0.jpg
+ai_367_terraza2 https://media.viewmax.io/users/GurzywJCh4RPo6VoEGHr8iRIcszcZ0yo/generated/40011847-3d68-4f0c-862b-1823e20669b6.jpg
