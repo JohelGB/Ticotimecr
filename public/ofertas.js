@@ -1,6 +1,6 @@
 /* TicoTime CR — Ofertas del día. Se actualiza automáticamente. */
 window.OFERTAS = {
-  revisado: "2026-11-07T10:59:00-06:00",
+  revisado: "2026-11-07T15:05:00-06:00",
   items: [
     {"id": "A-B0C8JMCTYR", "name": "Bulova Classic Diamantes Dama", "cat": "D", "brand": "Bulova", "price": 132500, "antes": 234500, "off": 43, "img": "https://m.media-amazon.com/images/I/71cn1jZ-o-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0FLRHQXRG", "name": "Bulova Classic Mini 96P260 Diamante", "cat": "D", "brand": "Bulova", "price": 149000, "antes": 259500, "off": 43, "img": "https://m.media-amazon.com/images/I/61gvM7hFDvL._AC_SL600_.jpg", "eta": "15 a 20 días"},
@@ -20,7 +20,7 @@ window.OFERTAS = {
     {"id": "A-B0BTRJY96T", "name": "Seiko Essentials SUR525", "cat": "H", "brand": "Seiko", "price": 128500, "antes": 170500, "off": 25, "img": "https://m.media-amazon.com/images/I/61BRal80BLL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B077J61J2V", "name": "Invicta Bolt 25868 Dorado", "cat": "H", "brand": "Invicta", "price": 72500, "antes": 95500, "off": 24, "img": "https://m.media-amazon.com/images/I/61JlOTY5XJL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B01MROZPRJ", "name": "Invicta Speedway", "cat": "H", "brand": "Invicta", "price": 52000, "antes": 68500, "off": 24, "img": "https://m.media-amazon.com/images/I/710+Kz3c3TL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B00962GV2E", "name": "Invicta Specialty", "cat": "H", "brand": "Invicta", "price": 35000, "antes": 45500, "off": 23, "img": "https://m.media-amazon.com/images/I/712OkHFNzCL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B00962GV2E", "name": "Invicta Specialty", "cat": "H", "brand": "Invicta", "price": 35000, "antes": 45000, "off": 22, "img": "https://m.media-amazon.com/images/I/712OkHFNzCL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B07TCC7L4M", "name": "Casio MTP-S110 Acero", "cat": "H", "brand": "Casio", "price": 93000, "antes": 118500, "off": 22, "img": "https://m.media-amazon.com/images/I/71LRIp7OuVL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0094BKASS", "name": "G-Shock MT-G MTG-M900DA-8 Solar Atómico", "cat": "H", "brand": "G-Shock", "price": 105500, "antes": 133000, "off": 21, "img": "https://m.media-amazon.com/images/I/71-rTgTiXiL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0DJDGPL19", "name": "Invicta Pro Diver 48213 42 mm", "cat": "H", "brand": "Invicta", "price": 54000, "antes": 68000, "off": 21, "img": "https://m.media-amazon.com/images/I/81RbudzaJsL._AC_SL600_.jpg", "eta": "15 a 20 días"},
@@ -28,7 +28,9 @@ window.OFERTAS = {
     {"id": "A-B003WPUU0U", "name": "G-Shock GA-100-1A1 Negro", "cat": "H", "brand": "G-Shock", "price": 70500, "antes": 88500, "off": 20, "img": "https://m.media-amazon.com/images/I/51dyEL-CrYL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B00YIBYR9C", "name": "Invicta S1 Rally 20109", "cat": "H", "brand": "Invicta", "price": 64000, "antes": 80500, "off": 20, "img": "https://m.media-amazon.com/images/I/71YWu8NEAiL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B00075U5IA", "name": "Invicta Pro Diver", "cat": "H", "brand": "Invicta", "price": 57000, "antes": 71000, "off": 20, "img": "https://m.media-amazon.com/images/I/71JLaXDY0NL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B00075U5I0", "name": "Invicta Pro Diver Dama", "cat": "D", "brand": "Invicta", "price": 57000, "antes": 69000, "off": 17, "img": "https://m.media-amazon.com/images/I/71YL9RuexVL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B004CM6EY8", "name": "Invicta Pro Diver 0077", "cat": "H", "brand": "Invicta", "price": 56500, "antes": 67000, "off": 16, "img": "https://m.media-amazon.com/images/I/81gFi-PJR7L._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B0718XFT6J", "name": "Casio AEQ110BW", "cat": "H", "brand": "Casio", "price": 41500, "antes": 49500, "off": 16, "img": "https://m.media-amazon.com/images/I/61EMYr3JyKL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B001AZZF68", "name": "Casio Enticer LTP-1165A-4C Rosa Dama", "cat": "D", "brand": "Casio", "price": 42000, "antes": 49500, "off": 15, "img": "https://m.media-amazon.com/images/I/513dplRrscL._AC_SL600_.jpg", "eta": "15 a 20 días"}
   ]
 };
