@@ -1,6 +1,6 @@
 /* TicoTime CR — Ofertas del día. Se actualiza automáticamente. */
 window.OFERTAS = {
-  revisado: "2026-11-06T18:22:00-06:00",
+  revisado: "2026-11-07T10:59:00-06:00",
   items: [
     {"id": "A-B0C8JMCTYR", "name": "Bulova Classic Diamantes Dama", "cat": "D", "brand": "Bulova", "price": 132500, "antes": 234500, "off": 43, "img": "https://m.media-amazon.com/images/I/71cn1jZ-o-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0FLRHQXRG", "name": "Bulova Classic Mini 96P260 Diamante", "cat": "D", "brand": "Bulova", "price": 149000, "antes": 259500, "off": 43, "img": "https://m.media-amazon.com/images/I/61gvM7hFDvL._AC_SL600_.jpg", "eta": "15 a 20 días"},
@@ -18,18 +18,17 @@ window.OFERTAS = {
     {"id": "A-B01I50XTEU", "name": "Citizen Eco-Drive BM6980-08E", "cat": "H", "brand": "Citizen", "price": 121000, "antes": 185000, "off": 35, "img": "https://m.media-amazon.com/images/I/81qojfR30lL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09Z34HRY9", "name": "Citizen Eco-Drive FE7090-55L Dama", "cat": "D", "brand": "Citizen", "price": 121000, "antes": 185000, "off": 35, "img": "https://m.media-amazon.com/images/I/71quXIZOP3L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0BTRJY96T", "name": "Seiko Essentials SUR525", "cat": "H", "brand": "Seiko", "price": 128500, "antes": 170500, "off": 25, "img": "https://m.media-amazon.com/images/I/61BRal80BLL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B0CK2GZZ8D", "name": "Invicta Speedway 46833 42 mm", "cat": "H", "brand": "Invicta", "price": 37000, "antes": 49500, "off": 25, "img": "https://m.media-amazon.com/images/I/71OH13HbWZL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B003MYUQKA", "name": "Invicta Pro Diver 6977 Negro", "cat": "H", "brand": "Invicta", "price": 52000, "antes": 69000, "off": 25, "img": "https://m.media-amazon.com/images/I/71CP597+KNL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B077J61J2V", "name": "Invicta Bolt 25868 Dorado", "cat": "H", "brand": "Invicta", "price": 72500, "antes": 95500, "off": 24, "img": "https://m.media-amazon.com/images/I/61JlOTY5XJL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B0094BKASS", "name": "G-Shock MT-G MTG-M900DA-8 Solar Atómico", "cat": "H", "brand": "G-Shock", "price": 102000, "antes": 133000, "off": 23, "img": "https://m.media-amazon.com/images/I/71-rTgTiXiL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B01MROZPRJ", "name": "Invicta Speedway", "cat": "H", "brand": "Invicta", "price": 52000, "antes": 68500, "off": 24, "img": "https://m.media-amazon.com/images/I/710+Kz3c3TL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B00962GV2E", "name": "Invicta Specialty", "cat": "H", "brand": "Invicta", "price": 35000, "antes": 45500, "off": 23, "img": "https://m.media-amazon.com/images/I/712OkHFNzCL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B07TCC7L4M", "name": "Casio MTP-S110 Acero", "cat": "H", "brand": "Casio", "price": 93000, "antes": 118500, "off": 22, "img": "https://m.media-amazon.com/images/I/71LRIp7OuVL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B0DDWH4DNW", "name": "Casio Edifice EFB-730D-7AV", "cat": "H", "brand": "Casio", "price": 94500, "antes": 121000, "off": 22, "img": "https://m.media-amazon.com/images/I/81WSh4BPf4L._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B0094BKASS", "name": "G-Shock MT-G MTG-M900DA-8 Solar Atómico", "cat": "H", "brand": "G-Shock", "price": 105500, "antes": 133000, "off": 21, "img": "https://m.media-amazon.com/images/I/71-rTgTiXiL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0DJDGPL19", "name": "Invicta Pro Diver 48213 42 mm", "cat": "H", "brand": "Invicta", "price": 54000, "antes": 68000, "off": 21, "img": "https://m.media-amazon.com/images/I/81RbudzaJsL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B004E2SNHC", "name": "Citizen Classic EQ0540-57A Dama", "cat": "D", "brand": "Citizen", "price": 104500, "antes": 133000, "off": 21, "img": "https://m.media-amazon.com/images/I/61euDHndc2L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B003WPUU0U", "name": "G-Shock GA-100-1A1 Negro", "cat": "H", "brand": "G-Shock", "price": 70500, "antes": 88500, "off": 20, "img": "https://m.media-amazon.com/images/I/51dyEL-CrYL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B083STBYT5", "name": "Seiko Essentials SUR633 Dama", "cat": "D", "brand": "Seiko", "price": 126000, "antes": 158000, "off": 20, "img": "https://m.media-amazon.com/images/I/61YNG4U1kJL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B08W2BSCZT", "name": "Seiko Essentials SUR444 Beige Dama", "cat": "D", "brand": "Seiko", "price": 137000, "antes": 170500, "off": 20, "img": "https://m.media-amazon.com/images/I/51Wl5Fsdv5L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B00YIBYR9C", "name": "Invicta S1 Rally 20109", "cat": "H", "brand": "Invicta", "price": 64000, "antes": 80500, "off": 20, "img": "https://m.media-amazon.com/images/I/71YWu8NEAiL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B00075U5IA", "name": "Invicta Pro Diver", "cat": "H", "brand": "Invicta", "price": 57000, "antes": 71000, "off": 20, "img": "https://m.media-amazon.com/images/I/71JLaXDY0NL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B004CM6EY8", "name": "Invicta Pro Diver 0077", "cat": "H", "brand": "Invicta", "price": 56500, "antes": 67000, "off": 16, "img": "https://m.media-amazon.com/images/I/81gFi-PJR7L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B001AZZF68", "name": "Casio Enticer LTP-1165A-4C Rosa Dama", "cat": "D", "brand": "Casio", "price": 42000, "antes": 49500, "off": 15, "img": "https://m.media-amazon.com/images/I/513dplRrscL._AC_SL600_.jpg", "eta": "15 a 20 días"}
   ]
 };
