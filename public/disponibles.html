@@ -377,4 +377,33 @@ window.loadStock().then(list => { window.__stockLoaded = true; STOCK = list; try
   pintar(); $("tcLux").textContent = L.length;
 })();
 </script>
-<script src="asistente.js" defer></script></body></html>
+<script src="asistente.js" defer></script><style>
+.enc-grid .dial img{cursor:zoom-in}
+.enc-grid .dial::after{content:"🔍";position:absolute;right:8px;bottom:8px;width:30px;height:30px;border-radius:50%;background:#05080ccc;display:grid;place-items:center;font-size:14px;pointer-events:none}
+.zbox{position:fixed;inset:0;z-index:300;background:#000e;display:none;flex-direction:column;align-items:center;justify-content:center;padding:14px;touch-action:pinch-zoom}
+.zbox.on{display:flex}
+.zbox .zwrap{flex:1;width:100%;overflow:auto;display:flex;align-items:center;justify-content:center;-webkit-overflow-scrolling:touch}
+.zbox img{max-width:100%;max-height:100%;object-fit:contain;background:#fff;border-radius:10px;cursor:zoom-in;transition:transform .2s}
+.zbox.big img{max-width:none;max-height:none;width:200%;cursor:zoom-out}
+.zbox .zcap{color:#f3f1ec;font:600 15px/1.3 Inter,Arial,sans-serif;text-align:center;margin:10px 0 2px;max-width:640px}
+.zbox .zhint{color:#93a0ab;font:12px Inter,Arial,sans-serif;margin-bottom:4px}
+.zbox .zx{position:absolute;top:12px;right:12px;width:42px;height:42px;border-radius:50%;border:1px solid #ffffff44;background:#05080ccc;color:#fff;font-size:24px;cursor:pointer;z-index:2}
+</style>
+<div class="zbox" id="zbox" role="dialog" aria-modal="true" aria-label="Foto ampliada"><button class="zx" id="zx" aria-label="Cerrar">×</button><div class="zwrap"><img id="zimg" alt=""></div><div class="zcap" id="zcap"></div><div class="zhint">Tocá la foto para acercar · tocá afuera para cerrar</div></div>
+<script>
+(function(){
+  var box=document.getElementById('zbox'), im=document.getElementById('zimg'), cap=document.getElementById('zcap');
+  function big(u){ return /cdn\.shopify\.com/.test(u) ? u.replace(/([?&])width=\d+/,'$1width=1400') : u.replace(/\._[A-Z]{2}[^.]*_\./,'._AC_SL1500_.'); }
+  document.addEventListener('click',function(e){
+    var img=e.target.closest && e.target.closest('.enc-grid .dial img'); if(!img) return;
+    e.preventDefault(); e.stopPropagation();
+    im.src=big(img.currentSrc||img.src); im.alt=img.alt||''; cap.textContent=img.alt||'';
+    box.classList.remove('big'); box.classList.add('on'); document.body.style.overflow='hidden';
+  },true);
+  function cerrar(){ box.classList.remove('on','big'); document.body.style.overflow=''; im.removeAttribute('src'); }
+  document.getElementById('zx').onclick=cerrar;
+  box.addEventListener('click',function(e){ if(e.target===im){ box.classList.toggle('big'); return; } cerrar(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&box.classList.contains('on')) cerrar(); });
+})();
+</script>
+</body></html>
