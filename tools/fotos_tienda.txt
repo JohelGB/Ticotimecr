@@ -2,4 +2,4 @@
 # Una línea por reloj:  <ref> <url de la foto>   o   <ref> <número/SKU Invicta>
 # Para reemplazar una foto que ya existe, poné "!" antes de la ref:  !543 https://...
 543 49012
-546 21865
+546 https://s.turbifycdn.com/aah/yhst-92803816272180/invicta-21865-pro-diver-mens-automatic-watch-21.jpg
