@@ -1963,6 +1963,7 @@ window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoqu
           var d = byRef[ref], c;
           if (d) { c = {}; for (var k in d) c[k]=d[k]; c.price = price; }
           else c = {ref:ref, brand:guessBrand(r[1]||""), name:tidy(r[1]||("Reloj "+ref)), price:price, c:"#2b2f36"};
+          if (!c.img && window.FOTOS && window.FOTOS.indexOf(ref) >= 0) c.img = "assets/disponibles/" + ref + ".webp";
           delete c.offer;
           if (offer > 0 && offer < price) c.offer = offer;
           out.push(c);

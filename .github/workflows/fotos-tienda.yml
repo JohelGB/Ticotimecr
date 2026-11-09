@@ -1,0 +1,25 @@
+name: Fotos de la tienda (Disponibles)
+on:
+  push:
+    paths: ['tools/fotos_tienda.txt', 'tools/fotos_tienda.py']
+  schedule:
+    - cron: '17 */3 * * *'   # cada 3 horas revisa la hoja por relojes nuevos sin foto
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: fotos-tienda, cancel-in-progress: false }
+jobs:
+  fotos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -q pillow
+      - run: python tools/fotos_tienda.py
+      - run: |
+          git config user.name "JohelGB"; git config user.email "johel.g.b@gmail.com"
+          git add public/assets/disponibles public/fotos.js
+          git commit -m "Fotos de la tienda actualizadas (automático)" || exit 0
+          git pull --rebase && git push
