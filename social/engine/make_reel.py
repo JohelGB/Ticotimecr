@@ -4,6 +4,7 @@ W,H,FPS=1080,1920,30
 ENG=os.path.dirname(os.path.abspath(__file__)); ROOT=os.path.dirname(os.path.dirname(ENG))
 LOC=os.path.join(ROOT,'public/assets/disponibles'); WEB=os.path.join(ROOT,'social/fotos')
 F_B='/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf'; F_X='/usr/share/fonts/opentype/inter/InterDisplay-Black.otf'; F_M='/usr/share/fonts/opentype/inter/InterDisplay-Medium.otf'
+RED_X=(190,28,48); NAV=False
 GOLD=(239,198,80); GOLD2=(213,166,42); WHITE=(245,243,238); MUTED=(170,178,186); BG=(5,8,12)
 import glob
 def photos_for(ref):
@@ -35,6 +36,9 @@ def card(im,box_w=820,box_h=820):
     return c
 def make(spec,r,out):
     ref=spec['ref']; vo=spec['_voz']; D=dur(vo)+1.3
+    global NAV; NAV=bool(spec.get('navidad'))
+    gancho=spec.get('gancho','')
+    import random; rnd=random.Random(int(ref)); SNOW=[(rnd.uniform(0,W),rnd.uniform(0,H),rnd.uniform(2,6),rnd.uniform(40,110),rnd.uniform(0,6.28)) for _ in range(70)] if NAV else []
     fin=r['oferta'] or r['price']; ade=25000 if fin>=100000 else 20000 if fin>=50000 else 15000
     photos=[load(ref,n) for n in photos_for(ref)]
     # intro opcional con clip de IA (spec['intro'] = ruta relativa al repo)
@@ -69,7 +73,7 @@ def make(spec,r,out):
     for y in range(H): gd.line([(0,y),(W,y)],fill=BG+(min(235,int(170*abs(y-H*0.42)/(H*0.58))+40),))
     bg=Image.alpha_composite(b0,grad)
     tmp=f'/tmp/reel_{ref}'; os.makedirs(tmp,exist_ok=True)
-    N=int(D*FPS); feats=spec['feats']; fstart=2.0; fend=D-4.6; fl=(fend-fstart)/len(feats)
+    N=int(D*FPS); feats=spec['feats']; fstart=2.0; CL=9.0 if NAV else 4.4; fend=D-CL-0.2; fl=(fend-fstart)/len(feats)
     fT=font(F_B,50); fS=font(F_M,48); fN=font(F_B,56); fF=font(F_B,54); fw=font(F_X,66); fsm=font(F_M,34); fpill=font(F_B,50)
     for i in range(N):
         t=i/FPS
@@ -82,10 +86,14 @@ def make(spec,r,out):
             fr=Image.alpha_composite(fr,ov)
         else: fr=bg.copy()
         d=ImageDraw.Draw(fr)
+        for sx,sy,sr,sv,sp in SNOW:
+            yy=(sy+sv*t)%H; xx=sx+18*math.sin(t*1.3+sp)
+            d.ellipse([xx-sr,yy-sr,xx+sr,yy+sr],fill=(255,255,255,int(60+25*sr)))
         tp=t-IL
         top=64; tag='OFERTA' if r['oferta'] else 'ENTREGA INMEDIATA'
+        if NAV: tag=('REGALO EN OFERTA' if r['oferta'] else 'REGALO DE NAVIDAD')
         tw=d.textlength(tag,font=fT); px=(W-tw)/2-34
-        d.rounded_rectangle([px,top,px+tw+68,top+80],radius=40,fill=GOLD2+(255,)); d.text((px+34,top+8),tag,font=fT,fill=BG+(255,))
+        d.rounded_rectangle([px,top,px+tw+68,top+80],radius=40,fill=(RED_X if NAV else GOLD2)+(255,)); d.text((px+34,top+8),tag,font=fT,fill=(WHITE if NAV else BG)+(255,))
         bp=(t*112/60)%1; pz=1+0.04*math.exp(-bp*6); ctext(d,top+100-int(70*(pz-1)),fmt(fin),font(F_X,int(140*pz)),GOLD)
         if r['oferta']:
             s2='antes '+fmt(r['price']); w2=d.textlength(s2,font=fS); x2=(W-w2)/2; y2=top+280
@@ -118,6 +126,17 @@ def make(spec,r,out):
         d=ImageDraw.Draw(fr)
         name=spec.get('name',r['name']); fNn=fN if d.textlength(name,font=fN)<W-80 else font(F_B,44)
         ctext(d,1340,name,fNn,WHITE)
+        # gancho navideño (antes de las características)
+        if NAV and gancho and t<fstart:
+            a=int(255*min(ease(t/0.25),ease((fstart-t)/0.25)))
+            fg=font(F_X,64); ls=[]; cur=''
+            for w_ in gancho.split():
+                c2=(cur+' '+w_).strip()
+                if d.textlength(c2,font=fg)>W-160 and cur: ls.append(cur); cur=w_
+                else: cur=c2
+            ls.append(cur); hh=len(ls)*78+44; y0=1430
+            d.rounded_rectangle([60,y0,W-60,y0+hh],radius=40,fill=RED_X+(a,))
+            for q,l in enumerate(ls): ctext(d,y0+22+q*78,l,fg,WHITE,a)
         # caracteristicas una por una
         if fstart<=t<fend:
             j=min(int((t-fstart)//fl),len(feats)-1); lt2=t-fstart-j*fl
@@ -130,12 +149,16 @@ def make(spec,r,out):
                 cx=W/2+(q-(len(feats)-1)/2)*34; col=GOLD if q==j else (90,98,106)
                 d.ellipse([cx-7,1568-7,cx+7,1568+7],fill=col+(255,))
         # cierre
-        a=int(255*ease((t-(D-4.4))/0.45))
+        a=int(255*ease((t-(D-CL))/0.45))
         if a>0:
             p='Apartalo con '+fmt(ade); pw=d.textlength(p,font=fpill); x=(W-pw)/2-44
             d.rounded_rectangle([x,1430,x+pw+88,1530],radius=50,outline=GOLD+(a,),width=4,fill=(16,24,34,a)); d.text((x+44,1444),p,font=fpill,fill=WHITE+(a,))
             d.rounded_rectangle([80,1570,W-80,1730],radius=30,fill=(18,32,25,a),outline=(158,182,164,a),width=3)
-            ctext(d,1582,'WhatsApp 8640-0835',fw,(229,242,232),a); ctext(d,1672,'Original · Garantía 3 meses · ticotimecr.com',fsm,MUTED,a)
+            ctext(d,1582,'WhatsApp 8640-0835',fw,(229,242,232),a)
+            if NAV:
+                ctext(d,1668,'ticotimecr.com',font(F_B,44),GOLD,a)
+                ctext(d,1762,'¿Buscás otro modelo? ¡Te lo conseguimos!',font(F_B,42),WHITE,a)
+            else: ctext(d,1672,'Original · Garantía 3 meses · ticotimecr.com',fsm,MUTED,a)
         fr.convert('RGB').save(f'{tmp}/{i:04d}.jpg',quality=90)
     subprocess.run(['ffmpeg','-y','-loglevel','error','-framerate',str(FPS),'-i',f'{tmp}/%04d.jpg','-i',spec['_music'],'-i',vo,
       '-filter_complex',f'[1:a]volume=0.22,atrim=0:{D}[m];[2:a]adelay=350|350,volume=1.6[v];[m][v]amix=inputs=2:duration=first:normalize=0,afade=t=out:st={D-0.6}:d=0.6[a]',
@@ -151,6 +174,8 @@ if __name__=='__main__':
     fin=r['oferta'] or r['price']; ade=25000 if fin>=100000 else 20000 if fin>=50000 else 15000
     words={15000:'quince mil',20000:'veinte mil',25000:'veinticinco mil'}
     txt=sp['say']+f" Original y con garantía. Apartalo con {words[ade]}, y escribinos al WhatsApp."
+    if sp.get('navidad'):
+        txt=sp['say']+f" Original y con garantía. Apartalo con {words[ade]}. Y si buscás otro modelo, te lo conseguimos. Escribinos al ochenta y seis cuarenta, cero ocho treinta y cinco, o entrá a tico taim ce erre punto com."
     vo=f'/tmp/voz_{slug}.mp3'; env=dict(os.environ,NO_PROXY='',no_proxy='')
     for k in range(5):
         p=subprocess.run(['python3',os.path.join(ENG,'tts.py'),txt,vo,'es-CR-JuanNeural','+14%'],env=env,capture_output=True)

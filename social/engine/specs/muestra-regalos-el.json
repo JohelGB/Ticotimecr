@@ -1,0 +1,10 @@
+{
+ "titulo": "3 regalos para él",
+ "sub": "por menos de ₡50.000",
+ "voz_intro": "¿No sabés qué regalarle a él esta Navidad? Aquí tenés tres opciones por menos de cincuenta mil colones.",
+ "items": [
+  {"ref": "494", "name": "Invicta Speedway 49334 Verde", "price": 47000, "oferta": 44000, "say": "Opción uno: Invicta Speedway verde, en oferta a cuarenta y cuatro mil colones."},
+  {"ref": "407", "name": "Invicta Speedway Victorious 51137", "price": 45500, "oferta": null, "say": "Opción dos: Invicta Speedway Victorious, a cuarenta y cinco mil quinientos."},
+  {"ref": "532", "name": "Invicta Specialty 50324", "price": 39500, "oferta": null, "say": "Opción tres: Invicta Specialty, a treinta y nueve mil quinientos."}
+ ]
+}

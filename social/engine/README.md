@@ -5,6 +5,63 @@ fotos que se deslizan y se mueven, 3 características que aparecen una por una, 
 (edge-tts `es-CR-JuanNeural`), música sintetizada de fondo y cierre con "Apartalo con ₡X" + WhatsApp 8640-0835.
 Se publica en Instagram + Facebook (Reel) + TikTok con Metricool, usando el enlace raw de GitHub del video.
 
+## 🎄 TEMPORADA NAVIDEÑA (del 12 de noviembre al 24 de diciembre de 2026) — MANDA SOBRE EL PROCEDIMIENTO NORMAL
+Johel quiere que TODA la campaña se enfoque en **regalos de Navidad**: ganchos de regalo, opciones para regalar,
+promocionar el WhatsApp **8640-0835** y **ticotimecr.com**, los modelos disponibles, y siempre decir que
+**conseguimos cualquier modelo** por encargo. Desde el 25 de diciembre se vuelve al procedimiento normal.
+
+### A. Reel diario de un reloj (martes, miércoles, viernes, sábado y domingo)
+Igual que el procedimiento normal, pero el spec lleva además:
+- `"navidad": true` → el motor pone la etiqueta roja "REGALO DE NAVIDAD" (o "REGALO EN OFERTA"), nieve suave, el gancho en
+  rojo los primeros 2 s, y el cierre con WhatsApp + ticotimecr.com + "¿Buscás otro modelo? ¡Te lo conseguimos!". La voz agrega sola
+  el número, la página y "si buscás otro modelo, te lo conseguimos".
+- `"gancho"`: pregunta corta (≤ 34 letras) que se lee arriba del reloj. Rotá y no repitás el de los últimos 3 Reels:
+  "¿No sabés qué regalarle a él?" · "¿Ya tenés el regalo de papá?" · "El regalo que sí va a usar" · "¿Regalo para tu novio?" ·
+  "Regalo de Navidad listo" · "¿Qué le regalás a tu hermano?" · "Regalo para el que lo tiene todo" · "¿Intercambio de regalos?"
+  (reloj de dama: "¿No sabés qué regalarle a ella?" · "El regalo para mamá" · "¿Regalo para tu novia?").
+- `"say"` empieza con el gancho dicho en voz (p. ej. "¿No sabés qué regalarle a él esta Navidad?") y después el modelo,
+  el precio y DOS características (no tres: el cierre navideño es más largo).
+- Ejemplo: `specs/muestra-navidad-367.json`. Motor: `make_reel.py` (el mismo).
+
+### B. Reel "opciones de regalo" (LUNES y JUEVES, 19:00) — reemplaza el Reel de un reloj de ese día
+Un solo video con 3 (o 4) relojes disponibles: gancho → "OPCIÓN 1, 2, 3" con foto y precio → cierre con todos,
+"¿Buscás otro modelo? ¡Te lo conseguimos!", WhatsApp y página. Motor: `python3 social/engine/make_regalos.py specs/<AAAA-MM-DD>-regalos.json`
+(≈1,5 min). Ejemplo: `specs/muestra-regalos-el.json`.
+- Spec: `{"titulo":"3 regalos para él","sub":"por menos de ₡50.000","voz_intro":"¿No sabés qué regalarle a él esta Navidad? Aquí tenés tres opciones por menos de cincuenta mil colones.","items":[{"ref","name","price","oferta","say":"Opción uno: <modelo corto>, a <precio en palabras>."}, ...]}`
+- Temas (rotá, no repitás el anterior): "3 regalos para él · por menos de ₡50.000" · "Regalos por menos de ₡40.000" ·
+  "Regalos que brillan · dorados" · "Para el que lo tiene todo" (los de mayor precio) · "Regalos en oferta" (si hay ≥3 con oferta) ·
+  "3 regalos para ella" (solo si hay ≥3 de dama disponibles).
+- Solo relojes de la hoja Web con foto, con el precio de HOY (si tiene oferta, va la oferta). Que el `sub` sea verdad (revisá los precios).
+- Revisá con Read un cuadro de cada parte (gancho, una opción y el cierre) antes de publicar.
+- tiktokData.title: el `titulo` (p. ej. "3 regalos para él por menos de ₡50.000").
+- En la cola de Metricool, un día cuenta como cubierto si ya tiene un Reel con "Ref. N" o con "1️⃣" (Reel de opciones).
+- En `publicados.md` anotalo con ref `REGALOS` y en modelo el título + las refs (p. ej. "3 regalos para él: 494, 407, 532").
+
+### C. Texto de la publicación en temporada navideña (reemplaza el del paso 8)
+Reel de un reloj:
+```
+🎁 <gancho>
+<name>
+
+⌚ ₡<precio>        ← o "🔥 En oferta: ₡<oferta> (antes ₡<precio>)"
+💳 Apartalo con ₡<adelanto> y terminás de pagar con el aguinaldo
+🛡️ Original, con garantía de 3 meses
+🚚 Envíos a todo el país
+🔎 ¿Buscás otro modelo? Te lo conseguimos por encargo
+
+👉 Escribinos al WhatsApp 8640-0835
+🌐 Mirá todos los disponibles en ticotimecr.com
+Ref. <ref>
+
+#regalosdenavidad #navidadcr #regalosparaél #relojescr #relojescostarica #invicta #relojesoriginales #costarica
+```
+Reel de opciones: igual, pero arriba "🎁 <titulo> <sub>" y una línea por reloj: "1️⃣ <modelo> · ₡<precio> (Ref. N)", sin "Ref." al final.
+
+### D. Reels elegantes con IA (martes y viernes) en temporada
+Mismo procedimiento, pero el texto empieza con "🎁 ¿Cuánto creés que cuesta este regalo?" y antes de los hashtags agrega
+"🔎 ¿Buscás otro modelo? Te lo conseguimos" y "🌐 Mirá todos los disponibles en ticotimecr.com". Escenas con ambiente navideño
+cuando se pueda (luces de Navidad desenfocadas al fondo, caja de regalo abierta junto al reloj, árbol iluminado), sin texto.
+
 ## Datos fijos
 - Hoja de inventario: `1ArPB40GKsrGG0xw9znNU754ZgsH0C_hpiagp0HW1sig`, rango `Web!A1:D80` (ref, modelo, precio, oferta) = relojes disponibles HOY.
 - Fichas (nombre, sub, desc) de cada ref: `public/disponibles.js` (`window.STOCK`).
