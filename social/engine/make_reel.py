@@ -91,7 +91,8 @@ def make(spec,r,out):
             d.ellipse([xx-sr,yy-sr,xx+sr,yy+sr],fill=(255,255,255,int(60+25*sr)))
         tp=t-IL
         top=64; tag='OFERTA' if r['oferta'] else 'ENTREGA INMEDIATA'
-        if NAV: tag=('REGALO EN OFERTA' if r['oferta'] else 'REGALO DE NAVIDAD')
+        if r['oferta']: tag='PRECIO WEB'
+        if NAV: tag=('PRECIO WEB' if r['oferta'] else 'REGALO DE NAVIDAD')
         tw=d.textlength(tag,font=fT); px=(W-tw)/2-34
         d.rounded_rectangle([px,top,px+tw+68,top+80],radius=40,fill=(RED_X if NAV else GOLD2)+(255,)); d.text((px+34,top+8),tag,font=fT,fill=(WHITE if NAV else BG)+(255,))
         bp=(t*112/60)%1; pz=1+0.04*math.exp(-bp*6); ctext(d,top+100-int(70*(pz-1)),fmt(fin),font(F_X,int(140*pz)),GOLD)

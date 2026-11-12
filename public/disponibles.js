@@ -1964,11 +1964,21 @@ window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoqu
           if (d) { c = {}; for (var k in d) c[k]=d[k]; c.price = price; }
           else c = {ref:ref, brand:guessBrand(r[1]||""), name:tidy(r[1]||("Reloj "+ref)), price:price, c:"#2b2f36"};
           if (!c.img && window.FOTOS && window.FOTOS.indexOf(ref) >= 0) c.img = "assets/disponibles/" + ref + ".webp";
-          delete c.offer;
+          delete c.offer; delete c.dayDeal;
           if (offer > 0 && offer < price) c.offer = offer;
+          var dia = parseInt(String(r[4]||"").replace(/\D/g,""),10);
+          if (dia > 0 && dia < (c.offer || price)) c.dia = dia; else delete c.dia;
           out.push(c);
         });
         if (!out.length) throw new Error("vacío");
+        // Rifa: números libres (celda F2 de la hoja Web; solo números, sin nombres)
+        var rows = parseCSV(text); window.RIFA_LIBRES = rows[1] && rows[1][5] ? String(rows[1][5]).trim().split(/\s+/).filter(Boolean) : [];
+        // Reloj del día: rota cada día (hora de Costa Rica) entre los que tienen precio del día, de los más viejos a los nuevos
+        var cand = out.filter(function(x){ return x.dia && x.img; }).sort(function(a,b){ return a.ref-b.ref; });
+        if (cand.length) {
+          var dn = Math.floor((Date.now() - 6*3600e3) / 864e5), dd = cand[dn % cand.length];
+          dd.antesDia = dd.offer || 0; dd.offer = dd.dia; dd.dayDeal = true; window.DAY_DEAL = dd;
+        } else window.DAY_DEAL = null;
         return out;
       })
       .catch(function(){ return base; })
@@ -1977,5 +1987,32 @@ window.ENCARGOS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoqu
       .catch(function(){ return base; })
       .then(function(list){ clearTimeout(timer); return list; });
   };
+})();
+
+/* Barra "Reloj del día" (precio web por 24 h) arriba de todas las páginas que cargan este archivo */
+(function(){
+  function fin(){ var n=Date.now()-6*3600e3; return (Math.floor(n/864e5)+1)*864e5 - n; }
+  function hms(ms){ var t=Math.max(0,Math.floor(ms/1000)), h=Math.floor(t/3600), m=Math.floor(t%3600/60), s=t%60; return (h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s; }
+  window.diaFin = fin; window.diaHMS = hms;
+  function bar(){
+    if (!window.loadStock || document.getElementById("diaBar")) return;
+    window.loadStock().then(function(){
+      var d = window.DAY_DEAL; if (!d) return;
+      var f = function(n){ return "₡"+String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."); };
+      var st = document.createElement("style");
+      st.textContent = "#diaBar{position:relative;z-index:50;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:9px 14px;background:linear-gradient(90deg,#b5171f,#e0362c 50%,#b5171f);color:#fff;font:700 13px Inter,Arial,sans-serif;text-decoration:none;letter-spacing:.02em;text-align:center}#diaBar b{background:#fff;color:#b5171f;padding:2px 8px;border-radius:3px;letter-spacing:.06em}#diaBar s{opacity:.75;font-weight:500}#diaBar i{font-style:normal;font-variant-numeric:tabular-nums;background:#0006;padding:2px 7px;border-radius:3px}#diaBar u{text-decoration:none;border-bottom:1px solid #fff9}";
+      document.head.appendChild(st);
+      var a = document.createElement("a"); a.id = "diaBar"; a.href = "disponibles.html#dia";
+      a.innerHTML = '<b>⚡ RELOJ DEL DÍA</b><span>'+d.name+' <s>'+f(d.antesDia||d.price)+'</s> <strong>'+f(d.offer)+'</strong></span><span>Termina en <i id="diaBarT">'+hms(fin())+'</i></span><u>Ver →</u>';
+      document.body.insertBefore(a, document.body.firstChild);
+      var hd = document.querySelector("header");
+      if (!document.querySelector(".disp-page") && hd && /fixed|sticky/.test(getComputedStyle(hd).position)) {
+        var place = function(){ a.style.position = "fixed"; a.style.left = "0"; a.style.right = "0"; a.style.top = hd.getBoundingClientRect().bottom + "px"; };
+        place(); window.addEventListener("resize", place); window.addEventListener("scroll", place, {passive:true});
+      }
+      setInterval(function(){ var e=document.getElementById("diaBarT"); if (e) e.textContent = hms(fin()); }, 1000);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bar); else bar();
 })();
 

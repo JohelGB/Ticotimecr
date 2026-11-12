@@ -43,7 +43,7 @@ Reel de un reloj:
 🎁 <gancho>
 <name>
 
-⌚ ₡<precio>        ← o "🔥 En oferta: ₡<oferta> (antes ₡<precio>)"
+⌚ ₡<precio>        ← o "🔥 Precio web: ₡<oferta> (antes ₡<precio>) · solo en ticotimecr.com"
 💳 Apartalo con ₡<adelanto> y terminás de pagar con el aguinaldo
 🛡️ Original, con garantía de 3 meses
 🚚 Envíos a todo el país
@@ -51,11 +51,17 @@ Reel de un reloj:
 
 👉 Escribinos al WhatsApp 8640-0835
 🌐 Mirá todos los disponibles en ticotimecr.com
+⚡ Cada día un reloj distinto a precio relámpago: el Reloj del día, solo en la página
 Ref. <ref>
 
 #regalosdenavidad #navidadcr #regalosparaél #relojescr #relojescostarica #invicta #relojesoriginales #costarica
 ```
 Reel de opciones: igual, pero arriba "🎁 <titulo> <sub>" y una línea por reloj: "1️⃣ <modelo> · ₡<precio> (Ref. N)", sin "Ref." al final.
+
+### Campaña "visitá la página" (desde 12-nov-2026)
+- Las ofertas se llaman **"Precio web"** (la etiqueta del video ya lo dice cuando el reloj tiene oferta).
+- Todos los textos llevan la línea del **Reloj del día** (ver plantilla arriba) y "🌐 ticotimecr.com".
+- La página muestra la rifa con los números libres en vivo: en los textos de rifa poné "Mirá los números libres en ticotimecr.com".
 
 ### D. Reels elegantes con IA (martes y viernes) en temporada
 Mismo procedimiento, pero el texto empieza con "🎁 ¿Cuánto creés que cuesta este regalo?" y antes de los hashtags agrega
