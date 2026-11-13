@@ -19,3 +19,4 @@
 | 2026-11-10 | 20:00 | 338 | Invicta Venom Hydra 48237 (elegante IA) | reel-2026-11-10-338-elegante.mp4 |
 | 2026-11-06 19:00 | RIFA | Rifa navideña (lanzamiento) — Bolt Valkir / Pro Diver Digital / Compass, número ₡1.500 | FB+IG+TikTok | reel-rifa-navidad.mp4 |
 | 2026-11-19 | 19:00 | REGALOS | 3 regalos para él: 407, 332, 292 | reel-2026-11-19-regalos.mp4 |
+| 2026-11-13 | 20:00 | 208 | Invicta Pro Diver House of Cards 50524 (elegante IA) | reel-2026-11-13-208-elegante.mp4 |
