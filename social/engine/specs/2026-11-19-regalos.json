@@ -1,0 +1,10 @@
+{
+ "titulo": "3 regalos para él",
+ "sub": "por menos de ₡50.000",
+ "voz_intro": "¿No sabés qué regalarle a él esta Navidad? Aquí tenés tres opciones por menos de cincuenta mil colones.",
+ "items": [
+  {"ref": "407", "name": "Invicta Speedway Victorious 51137", "price": 45500, "oferta": 42500, "say": "Opción uno: Invicta Speedway Victorious, en oferta a cuarenta y dos mil quinientos colones."},
+  {"ref": "332", "name": "Invicta Pro Diver Impact 28003", "price": 49500, "oferta": 44500, "say": "Opción dos: Invicta Pro Diver Impact, en oferta a cuarenta y cuatro mil quinientos."},
+  {"ref": "292", "name": "Dulunwe 6077 Automático", "price": 49500, "oferta": 45000, "say": "Opción tres: Dulunwe automático, en oferta a cuarenta y cinco mil."}
+ ]
+}
