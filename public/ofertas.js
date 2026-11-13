@@ -2,11 +2,11 @@
 window.OFERTAS = {
   revisado: "2026-11-07T15:05:00-06:00",
   items: [
+    {"id": "A-B01HGWCNS6", "name": "Bulova Sutton 96A187 Automático Esqueleto", "cat": "H", "brand": "Bulova", "price": 220500, "antes": 393000, "off": 44, "img": "https://m.media-amazon.com/images/I/61Pw1MuskEL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0C8JMCTYR", "name": "Bulova Classic Diamantes Dama", "cat": "D", "brand": "Bulova", "price": 132500, "antes": 234500, "off": 43, "img": "https://m.media-amazon.com/images/I/71cn1jZ-o-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0FLRHQXRG", "name": "Bulova Classic Mini 96P260 Diamante", "cat": "D", "brand": "Bulova", "price": 149000, "antes": 259500, "off": 43, "img": "https://m.media-amazon.com/images/I/61gvM7hFDvL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B08CV6S6JZ", "name": "Bulova Sutton 97D123 Diamante", "cat": "H", "brand": "Bulova", "price": 183500, "antes": 321000, "off": 43, "img": "https://m.media-amazon.com/images/I/71Dxd+FpqPL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09VM49S54", "name": "Bulova Marine Star 98B384", "cat": "H", "brand": "Bulova", "price": 185500, "antes": 321000, "off": 42, "img": "https://m.media-amazon.com/images/I/71l+q+oA2NL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B01HGWCNS6", "name": "Bulova Sutton 96A187 Automático Esqueleto", "cat": "H", "brand": "Bulova", "price": 235500, "antes": 403000, "off": 42, "img": "https://m.media-amazon.com/images/I/61Pw1MuskEL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B08D9SY2T2", "name": "Citizen Promaster Dive BN0158-00X", "cat": "H", "brand": "Citizen", "price": 161000, "antes": 271500, "off": 41, "img": "https://m.media-amazon.com/images/I/81jPf73N-uS._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09VLNRXN5", "name": "Bulova Sutton 98B385", "cat": "H", "brand": "Bulova", "price": 161500, "antes": 271500, "off": 41, "img": "https://m.media-amazon.com/images/I/7116y64Aq-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B079G3P4DB", "name": "Bulova Marine Star 97B168 Cronógrafo", "cat": "H", "brand": "Bulova", "price": 204500, "antes": 343500, "off": 40, "img": "https://m.media-amazon.com/images/I/81dvG+N1teL._AC_SL600_.jpg", "eta": "15 a 20 días"},
