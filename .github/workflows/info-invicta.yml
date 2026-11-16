@@ -27,7 +27,7 @@ jobs:
                   h=prods[0]['handle']; d=json.loads(get('https://www.invictastores.com/products/'+h+'.js'))
                   v=d['variants'][0]
                   imgs=[('https:'+u if u.startswith('//') else u) for u in d['images'][:4]]
-                  out[sku]={'title':d['title'],'handle':h,'src':'https://invictastores.com/products/'+h,'usd':v['price']/100,'antes':(v.get('compare_at_price') or 0)/100,'disponible':v.get('available'),'imgs':imgs}
+                  out[sku]={'title':d['title'],'handle':h,'src':'https://invictastores.com/products/'+h,'usd':v['price']/100,'antes':(v.get('compare_at_price') or 0)/100,'disponible':v.get('available'),'imgs':imgs,'desc':__import__('re').sub(r'\s+',' ',__import__('re').sub(r'<[^>]+>',' ',d.get('description') or '')).strip()[:1500],'tags':d.get('tags',[])[:40]}
               except Exception as e: out[sku]={'error':str(e)}
           json.dump(out,open('tools/invicta_info.json','w'),indent=1,ensure_ascii=False)
           print(json.dumps(out,indent=1,ensure_ascii=False))
