@@ -2,7 +2,6 @@
 window.OFERTAS = {
   revisado: "2026-11-14T15:41:00-06:00",
   items: [
-    {"id": "A-B00444ULNY", "name": "Invicta Wildflower 0134 Dama", "cat": "D", "brand": "Invicta", "price": 59500, "antes": 143000, "off": 58, "img": "https://m.media-amazon.com/images/I/61ZzkvIrt1L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0FLRHQXRG", "name": "Bulova Classic Mini 96P260 Diamante", "cat": "D", "brand": "Bulova", "price": 134000, "antes": 249500, "off": 46, "img": "https://m.media-amazon.com/images/I/61gvM7hFDvL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0C8JMCTYR", "name": "Bulova Classic Diamantes Dama", "cat": "D", "brand": "Bulova", "price": 132500, "antes": 234500, "off": 43, "img": "https://m.media-amazon.com/images/I/71cn1jZ-o-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B08CV6S6JZ", "name": "Bulova Sutton 97D123 Diamante", "cat": "H", "brand": "Bulova", "price": 183500, "antes": 321000, "off": 43, "img": "https://m.media-amazon.com/images/I/71Dxd+FpqPL._AC_SL600_.jpg", "eta": "15 a 20 días"},
