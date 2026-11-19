@@ -4,7 +4,7 @@ window.OFERTAS = {
   items: [
     {"id": "A-B0FLRHQXRG", "name": "Bulova Classic Mini 96P260 Diamante", "cat": "D", "brand": "Bulova", "price": 134000, "antes": 249500, "off": 46, "img": "https://m.media-amazon.com/images/I/61gvM7hFDvL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0C8JMCTYR", "name": "Bulova Classic Diamantes Dama", "cat": "D", "brand": "Bulova", "price": 132500, "antes": 234500, "off": 43, "img": "https://m.media-amazon.com/images/I/71cn1jZ-o-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B08CV6S6JZ", "name": "Bulova Sutton 97D123 Diamante", "cat": "H", "brand": "Bulova", "price": 183500, "antes": 321000, "off": 43, "img": "https://m.media-amazon.com/images/I/71Dxd+FpqPL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B08CV6S6JZ", "name": "Bulova Sutton 97D123 Diamante", "cat": "H", "brand": "Bulova", "price": 181500, "antes": 321000, "off": 43, "img": "https://m.media-amazon.com/images/I/71Dxd+FpqPL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09VM49S54", "name": "Bulova Marine Star 98B384", "cat": "H", "brand": "Bulova", "price": 185500, "antes": 321000, "off": 42, "img": "https://m.media-amazon.com/images/I/71l+q+oA2NL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B08D9SY2T2", "name": "Citizen Promaster Dive BN0158-00X", "cat": "H", "brand": "Citizen", "price": 161000, "antes": 271500, "off": 41, "img": "https://m.media-amazon.com/images/I/81jPf73N-uS._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09VLNRXN5", "name": "Bulova Sutton 98B385", "cat": "H", "brand": "Bulova", "price": 161500, "antes": 271500, "off": 41, "img": "https://m.media-amazon.com/images/I/7116y64Aq-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
