@@ -1,0 +1,36 @@
+name: Fotos para catálogo PDF (encargos)
+on:
+  workflow_dispatch:
+jobs:
+  fotos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pillow
+      - name: Bajar y achicar fotos de encargos
+        run: |
+          node -e 'global.window={};const s=require("fs").readFileSync("public/disponibles.js","utf8");eval(s.slice(s.indexOf("window.ENCARGOS_FIJOS"),s.indexOf("window.ENCARGOS_CSV")));require("fs").writeFileSync("lista.txt",window.ENCARGOS_FIJOS.filter(e=>!e.agotado).map(e=>e.id+"\t"+e.img).join("\n"))'
+          mkdir -p fotos
+          python3 - <<'PY'
+          import urllib.request, io
+          from concurrent.futures import ThreadPoolExecutor
+          from PIL import Image
+          UA={'User-Agent':'Mozilla/5.0'}
+          def one(line):
+              i,u=line.split('\t')
+              err=''
+              for _ in range(3):
+                  try:
+                      b=urllib.request.urlopen(urllib.request.Request(u.strip(),headers=UA),timeout=40).read()
+                      im=Image.open(io.BytesIO(b)).convert('RGB'); im.thumbnail((420,420)); im.save(f'fotos/{i}.jpg',quality=80); return None
+                  except Exception as e: err=str(e)
+              return i+' '+err
+          L=[l for l in open('lista.txt').read().splitlines() if l.strip()]
+          with ThreadPoolExecutor(12) as ex: errs=[e for e in ex.map(one,L) if e]
+          print(len(L),'fotos,',len(errs),'errores'); print('\n'.join(errs))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fotos-catalogo
+          path: fotos/
+          retention-days: 2
