@@ -22,3 +22,4 @@
 | 2026-11-13 | 20:00 | 208 | Invicta Pro Diver House of Cards 50524 (elegante IA) | reel-2026-11-13-208-elegante.mp4 |
 | 2026-11-21 | 12:30 | 356 | Invicta Bolt Dorado Esfera Negra (navidad) | reel-2026-11-21-356.mp4 |
 | 2026-11-24 | 12:30 | 551 | Invicta Pro Diver SCUBA 0073 Dorado y Azul (navidad) | reel-2026-11-24-551.mp4 |
+| 2026-11-26 | 19:00 | REGALOS | Para el que lo tiene todo: 253, 402, 546 | reel-2026-11-26-regalos.mp4 |

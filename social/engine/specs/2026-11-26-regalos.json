@@ -1,0 +1,10 @@
+{
+ "titulo": "Para el que lo tiene todo",
+ "sub": "3 relojes automáticos",
+ "voz_intro": "¿Regalo para el que lo tiene todo? Aquí tenés tres relojes automáticos para esta Navidad.",
+ "items": [
+  {"ref": "253", "name": "Seiko Mod Nautilus Oro Rosa", "price": 160000, "oferta": 135000, "say": "Opción uno: Seiko Mod Nautilus oro rosa, en precio web a ciento treinta y cinco mil colones."},
+  {"ref": "402", "name": "Invicta S1 Rally Interstellar 49009", "price": 98500, "oferta": null, "say": "Opción dos: Invicta S1 Rally Interstellar, con esfera esqueleto, a noventa y ocho mil quinientos."},
+  {"ref": "546", "name": "Invicta Pro Diver Grand Diver 21865 Azul", "price": 75000, "oferta": null, "say": "Opción tres: Invicta Grand Diver azul, a setenta y cinco mil."}
+ ]
+}
