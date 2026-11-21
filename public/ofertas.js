@@ -3,7 +3,6 @@ window.OFERTAS = {
   revisado: "2026-11-14T15:41:00-06:00",
   items: [
     {"id": "A-B0FLRHQXRG", "name": "Bulova Classic Mini 96P260 Diamante", "cat": "D", "brand": "Bulova", "price": 134000, "antes": 249500, "off": 46, "img": "https://m.media-amazon.com/images/I/61gvM7hFDvL._AC_SL600_.jpg", "eta": "15 a 20 días"},
-    {"id": "A-B0C8JMCTYR", "name": "Bulova Classic Diamantes Dama", "cat": "D", "brand": "Bulova", "price": 132500, "antes": 234500, "off": 43, "img": "https://m.media-amazon.com/images/I/71cn1jZ-o-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B08CV6S6JZ", "name": "Bulova Sutton 97D123 Diamante", "cat": "H", "brand": "Bulova", "price": 181500, "antes": 321000, "off": 43, "img": "https://m.media-amazon.com/images/I/71Dxd+FpqPL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09VLNRXN5", "name": "Bulova Sutton 98B385", "cat": "H", "brand": "Bulova", "price": 156000, "antes": 271500, "off": 43, "img": "https://m.media-amazon.com/images/I/7116y64Aq-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09VM49S54", "name": "Bulova Marine Star 98B384", "cat": "H", "brand": "Bulova", "price": 185500, "antes": 321000, "off": 42, "img": "https://m.media-amazon.com/images/I/71l+q+oA2NL._AC_SL600_.jpg", "eta": "15 a 20 días"},
@@ -18,6 +17,7 @@ window.OFERTAS = {
     {"id": "A-B0FL8RMYK1", "name": "Citizen Eco-Drive AW1571-76L", "cat": "H", "brand": "Citizen", "price": 160000, "antes": 234500, "off": 32, "img": "https://m.media-amazon.com/images/I/81L8UkHqOQL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0D4RMG73H", "name": "Invicta Specialty 47470 Dama", "cat": "D", "brand": "Invicta", "price": 60500, "antes": 87500, "off": 31, "img": "https://m.media-amazon.com/images/I/718-ftrfHjL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B09F6NCDDX", "name": "Citizen Eco-Drive AW0082-01A", "cat": "H", "brand": "Citizen", "price": 154000, "antes": 210000, "off": 27, "img": "https://m.media-amazon.com/images/I/61ajoeZpuaL._AC_SL600_.jpg", "eta": "15 a 20 días"},
+    {"id": "A-B0C8JMCTYR", "name": "Bulova Classic Diamantes Dama", "cat": "D", "brand": "Bulova", "price": 183500, "antes": 244500, "off": 25, "img": "https://m.media-amazon.com/images/I/71cn1jZ-o-L._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0094BKASS", "name": "G-Shock MT-G MTG-M900DA-8 Solar Atómico", "cat": "H", "brand": "G-Shock", "price": 102000, "antes": 133000, "off": 23, "img": "https://m.media-amazon.com/images/I/71-rTgTiXiL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B07TCC7L4M", "name": "Casio MTP-S110 Acero", "cat": "H", "brand": "Casio", "price": 93000, "antes": 118500, "off": 22, "img": "https://m.media-amazon.com/images/I/71LRIp7OuVL._AC_SL600_.jpg", "eta": "15 a 20 días"},
     {"id": "A-B0DJDGPL19", "name": "Invicta Pro Diver 48213 42 mm", "cat": "H", "brand": "Invicta", "price": 54000, "antes": 68000, "off": 21, "img": "https://m.media-amazon.com/images/I/81RbudzaJsL._AC_SL600_.jpg", "eta": "15 a 20 días"},
