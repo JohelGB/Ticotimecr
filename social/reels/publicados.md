@@ -24,3 +24,4 @@
 | 2026-11-24 | 12:30 | 551 | Invicta Pro Diver SCUBA 0073 Dorado y Azul (navidad) | reel-2026-11-24-551.mp4 |
 | 2026-11-26 | 19:00 | REGALOS | Para el que lo tiene todo: 253, 402, 546 | reel-2026-11-26-regalos.mp4 |
 | 2026-11-27 | 12:30 | 533 | Invicta Objet D Art Glyph 69760 Automático (navidad) | reel-2026-11-27-533.mp4 |
+| 2026-11-28 | 12:30 | 534 | Invicta Aviator Jetframe 28100 Negro y Dorado (navidad) | reel-2026-11-28-534.mp4 |
