@@ -1,0 +1,14 @@
+{
+ "ref": "443",
+ "name": "Invicta Pro Diver 22095",
+ "price": 45000,
+ "oferta": 40000,
+ "navidad": true,
+ "gancho": "¿No sabés qué regalarle a él?",
+ "feats": [
+  "Acero en tono dorado",
+  "Esfera dorada con fecha",
+  "Bisel giratorio negro"
+ ],
+ "say": "¿No sabés qué regalarle a él esta Navidad? Invicta Pro Diver, en precio web a cuarenta mil colones. Caja y brazalete de acero en tono dorado. Y esfera dorada con textura y ventana de fecha."
+}
