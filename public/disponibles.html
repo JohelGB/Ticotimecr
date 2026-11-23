@@ -347,7 +347,7 @@ let encMax = 24, encCat = /hombre/.test(location.hash) ? "H" : "D", encMarca = "
 function pintarEnc(){
   [...$("encTabs").children].forEach(b => b.classList.toggle("on", b.dataset.cat === encCat));
   const G = ENC.filter(e => (e.cat || "D") === encCat);
-  const ORD = ["Invicta","Casio","G-Shock","Citizen","Seiko","Bulova","Pagani Design"];
+  const ORD = ["Invicta","Casio","G-Shock","Citizen","Seiko","Bulova","Caterpillar","Pagani Design"];
   const marcas = ORD.filter(m => G.some(e => e.brand === m)).concat([...new Set(G.map(e => e.brand))].filter(m => !ORD.includes(m)));
   if (encMarca !== "Todas" && !marcas.includes(encMarca)) encMarca = "Todas";
   $("encBrands").innerHTML = ["Todas", ...marcas].map(m => `<button class="chip${m === encMarca ? " on" : ""}" data-marca="${m}">${m}<b>${m === "Todas" ? G.length : G.filter(e => e.brand === m).length}</b></button>`).join("");
