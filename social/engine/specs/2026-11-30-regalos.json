@@ -1,0 +1,11 @@
+{
+ "titulo": "Regalos por menos",
+ "sub": "de ₡40.000",
+ "voz_intro": "¿Buscás un buen regalo de Navidad sin gastar mucho? Aquí tenés cuatro relojes por menos de cuarenta mil colones.",
+ "items": [
+  {"ref": "510", "name": "Invicta Speedway 49332 Dorado y Negro", "price": 45500, "oferta": 39900, "say": "Opción uno: Invicta Speedway dorado y negro, en precio web a treinta y nueve mil novecientos."},
+  {"ref": "532", "name": "Invicta Specialty Horotriad 50324 Celeste", "price": 39500, "oferta": 37500, "say": "Opción dos: Invicta Specialty celeste, multifunción, a treinta y siete mil quinientos."},
+  {"ref": "518", "name": "Invicta Angel Ephemera 50110 Plateado y Dorado", "price": 36000, "oferta": 35500, "say": "Opción tres: para ella, Invicta Angel con cristales, a treinta y cinco mil quinientos."},
+  {"ref": "552", "name": "Casio Illuminator AE-1500 Negro", "price": 31000, "oferta": null, "say": "Opción cuatro: Casio Illuminator, con batería de diez años, a treinta y un mil."}
+ ]
+}
