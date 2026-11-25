@@ -27,3 +27,4 @@
 | 2026-11-28 | 12:30 | 534 | Invicta Aviator Jetframe 28100 Negro y Dorado (navidad) | reel-2026-11-28-534.mp4 |
 | 2026-11-29 | 18:00 | 443 | Invicta Pro Diver 22095 (navidad) | reel-2026-11-29-443.mp4 |
 | 2026-11-30 | 19:00 | REGALOS | Regalos por menos de ₡40.000: 510, 532, 518, 552 | reel-2026-11-30-regalos.mp4 |
+| 2026-12-01 | 12:30 | 541 | Invicta Specialty Apexor 21658 Dorado (navidad) | reel-2026-12-01-541.mp4 |
