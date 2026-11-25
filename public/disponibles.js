@@ -1,6 +1,14 @@
 // Relojes disponibles (entrega inmediata). Cada reloj es pieza única.
 // Aquí van las fotos, descripciones y precios de respaldo. Lo que está disponible y su precio se leen de la hoja (ver abajo).
 window.STOCK = [
+  {ref:599,img:"assets/disponibles/599.webp",brand:"Invicta",name:"Invicta Celestial Exorbis 51805 Mundo",price:50000,c:"#1f3f8f",
+   sub:"Cuarzo · 47 mm · Dorado y negro · Esfera del mundo",
+   desc:["Esfera azul con el planeta Tierra en relieve dorado y fondo brillante tipo galaxia.",
+         "Caja grande de 47 mm dorada con bisel negro y tornillos decorativos.",
+         "Brazalete de acero inoxidable en tono dorado.",
+         "Movimiento de cuarzo con manecillas e índices luminosos.",
+         "Resistente al agua 50 m.",
+         "Garantía TicoTime de 3 meses."]},
   {ref:565,img:"assets/disponibles/565.webp",brand:"Casio",name:"Casio G-Shock G-Squad GBD-200 Blanco",price:100000,c:"#e8e8e8",
    sub:"Digital · Bluetooth · Blanco · 200 m",
    desc:["Reloj deportivo G-Squad con Bluetooth: se conecta con la app del celular.",
