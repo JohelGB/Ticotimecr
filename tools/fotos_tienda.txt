@@ -14,3 +14,6 @@
 600 22604
 594 69743
 595 70920
+610 70923
+611 48117
+565 https://www.casio.com/content/dam/casio/product-info/locales/us/en/timepiece/product/watch/G/GB/GBD/gbd-200-7/assets/GBD-200-7.png
