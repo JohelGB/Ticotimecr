@@ -361,7 +361,7 @@ function pintarEnc(){
   const ORD = ["Invicta","Casio","G-Shock","Citizen","Seiko","Bulova","Caterpillar","Pagani Design"];
   const marcas = ORD.filter(m => G.some(e => e.brand === m)).concat([...new Set(G.map(e => e.brand))].filter(m => !ORD.includes(m)));
   if (encMarca !== "Todas" && !marcas.includes(encMarca)) encMarca = "Todas";
-  $("encBrands").innerHTML = ["Todas", ...marcas].map(m => `<button class="chip${m === encMarca ? " on" : ""}" data-marca="${m}">${m}<b>${m === "Todas" ? G.length : G.filter(e => e.brand === m).length}</b></button>`).join("" + (encMarca !== "Todas" ? `<button class="chip" id="encShare" type="button" onclick="encLink()" style="border-color:var(--gold,#e2be78)">🔗 Compartir</button>` : "");
+  $("encBrands").innerHTML = ["Todas", ...marcas].map(m => `<button class="chip${m === encMarca ? " on" : ""}" data-marca="${m}">${m}<b>${m === "Todas" ? G.length : G.filter(e => e.brand === m).length}</b></button>`).join("") + (encMarca !== "Todas" ? `<button class="chip" id="encShare" type="button" onclick="encLink()" style="border-color:var(--gold,#e2be78)">🔗 Compartir</button>` : "");
   const L = G.filter(e => encMarca === "Todas" || e.brand === encMarca).sort((a, b) => a.price - b.price);
   const total = L.length; L.splice(encMax);
   $("encGrid").innerHTML = L.map(encCard).join("");
