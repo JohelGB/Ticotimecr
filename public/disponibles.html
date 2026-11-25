@@ -343,14 +343,25 @@ window.addEventListener("hashchange", () => { if (location.hash === "#ofertas") 
   pintar(); $("ofertas-dia").hidden = false;
   $("tcOfd").textContent = O.items.length; $("tabOfd").hidden = false;
 })();
-let encMax = 24, encCat = /hombre/.test(location.hash) ? "H" : "D", encMarca = "Todas";
+let encMax = 24, encCat = /hombre/.test(location.hash) ? "H" : "D", encMarca = "Todas", encSlug = "", encCatFijo = false;
+const encSl = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+function encFromHash(){ const m = location.hash.match(/^#encargo(?:-(hombre|dama))?(?:-([a-z0-9-]+))?$/); if (!m) return false; encCatFijo = !!m[1]; if (m[1]) encCat = m[1] === "hombre" ? "H" : "D"; encSlug = m[2] || ""; if (!encSlug) encMarca = "Todas"; encMax = 24; return true; }
+encFromHash();
+function encHash(){ const h = "#encargo-" + (encCat === "H" ? "hombre" : "dama") + (encMarca !== "Todas" ? "-" + encSl(encMarca) : ""); if (location.hash !== h) try { history.replaceState(null, "", h); } catch(e){} }
+function encLink(){ const u = location.origin + location.pathname + location.hash, t = "Relojes " + encMarca + " por encargo · TicoTime CR";
+  if (navigator.share) navigator.share({title: t, url: u}).catch(() => {});
+  else if (navigator.clipboard) navigator.clipboard.writeText(u).then(() => { const b = $("encShare"); if (b) { b.textContent = "✓ Link copiado"; setTimeout(() => { b.textContent = "🔗 Compartir"; }, 1800); } });
+}
 function pintarEnc(){
+  if (encSlug) { const B = [...new Set(ENC.map(e => e.brand))].find(b => encSl(b) === encSlug);
+    if (B) { if (!encCatFijo && !ENC.some(e => (e.cat || "D") === encCat && e.brand === B)) encCat = ENC.some(e => (e.cat || "D") === "H" && e.brand === B) ? "H" : "D"; encMarca = B; }
+    encSlug = ""; }
   [...$("encTabs").children].forEach(b => b.classList.toggle("on", b.dataset.cat === encCat));
   const G = ENC.filter(e => (e.cat || "D") === encCat);
   const ORD = ["Invicta","Casio","G-Shock","Citizen","Seiko","Bulova","Caterpillar","Pagani Design"];
   const marcas = ORD.filter(m => G.some(e => e.brand === m)).concat([...new Set(G.map(e => e.brand))].filter(m => !ORD.includes(m)));
   if (encMarca !== "Todas" && !marcas.includes(encMarca)) encMarca = "Todas";
-  $("encBrands").innerHTML = ["Todas", ...marcas].map(m => `<button class="chip${m === encMarca ? " on" : ""}" data-marca="${m}">${m}<b>${m === "Todas" ? G.length : G.filter(e => e.brand === m).length}</b></button>`).join("");
+  $("encBrands").innerHTML = ["Todas", ...marcas].map(m => `<button class="chip${m === encMarca ? " on" : ""}" data-marca="${m}">${m}<b>${m === "Todas" ? G.length : G.filter(e => e.brand === m).length}</b></button>`).join("" + (encMarca !== "Todas" ? `<button class="chip" id="encShare" type="button" onclick="encLink()" style="border-color:var(--gold,#e2be78)">🔗 Compartir</button>` : "");
   const L = G.filter(e => encMarca === "Todas" || e.brand === encMarca).sort((a, b) => a.price - b.price);
   const total = L.length; L.splice(encMax);
   $("encGrid").innerHTML = L.map(encCard).join("");
@@ -360,8 +371,9 @@ function encCard(e){ const modelo = (e.brand && !e.name.toLowerCase().includes(e
     return `<article class="dcard"><div class="dial${e.img?"":" noimg"}" style="cursor:default">${e.img?`<img src="${e.img}${/cdn\.shopify\.com/.test(e.img)?"&width=600":""}" alt="${e.name}" loading="lazy" referrerpolicy="no-referrer">`:dialSVG("#2b2f36")}<span class="ebadge">POR ENCARGO</span>${e.antes>e.price?`<span class="obadge">-${Math.round((1-e.price/e.antes)*100)}%</span>`:""}</div>
     <div class="info"><div class="mk">${e.brand||"&nbsp;"}</div><h3 class="name">${e.name}</h3>${e.sub?`<div class="sub">${e.sub}</div>`:""}<div class="eta">Llega en ${e.eta||"15 a 20 días"}</div><div class="price">${e.antes>e.price?`<span class="was">${fmt(e.antes)}</span><b>${fmt(e.price)}</b>`:fmt(e.price)}</div>${e.antes>e.price?`<div class="save">Ahorrás ${fmt(e.antes-e.price)}</div>`:""}<div class="apt">o apartalo con <b>${fmt(apartado(e.price))}</b></div>
     <a class="add wa" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Pedir por WhatsApp</a></div></article>`; }
-$("encTabs").addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (!b) return; encCat = b.dataset.cat; encMax = 24; pintarEnc(); });
-$("encBrands").addEventListener("click", e => { const b = e.target.closest("[data-marca]"); if (!b) return; encMarca = b.dataset.marca; encMax = 24; pintarEnc(); });
+$("encTabs").addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (!b) return; encCat = b.dataset.cat; encMax = 24; pintarEnc(); encHash(); });
+$("encBrands").addEventListener("click", e => { const b = e.target.closest("[data-marca]"); if (!b) return; encMarca = b.dataset.marca; encMax = 24; pintarEnc(); encHash(); });
+window.addEventListener("hashchange", () => { if (encFromHash() && ENC.length) pintarEnc(); });
 $("encMore").addEventListener("click", () => { encMax += 24; pintarEnc(); });
 window.loadEncargos && window.loadEncargos().then(L => { if (!L.length) return;
   ENC = L; ["D","H"].forEach(c => { const n = L.filter(e => (e.cat || "D") === c).length; const b = $("encTabs").querySelector(`[data-cat="${c}"]`); b.innerHTML = (c === "D" ? "Dama" : "Hombre") + `<b>${n}</b>`; b.hidden = !n; });
