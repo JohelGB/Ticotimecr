@@ -416,6 +416,18 @@ window.SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3xKgoquWA_
    ganancia: <43 → 12000 · 43-60 → 14500 · 60-100 → 18000 · 100-200 → 22000 · 200-350 → 30000 · ≥350 → 40000 (G-Shock mínimo 25000)
    La rutina programada de actualización de precios revisa cada src y ajusta usd/price. */
 window.ENCARGOS_FIJOS = [
+  {id:"A-B0HN2Q443Q", name:"Caterpillar TB Naranja TB.111.21.731", cat:"H", brand:"Caterpillar", price:78000, eta:"15 a 20 días",
+   img:"https://m.media-amazon.com/images/I/61uOsT1AjGL._AC_SL600_.jpg",
+   usd:89.0, src:"https://www.amazon.com/dp/B0HN2Q443Q", tienda:"amazon", ganancia:30000,
+   sub:"Hombre · Cuarzo · 44 mm · Esfera naranja · Hule negro · Nuevo 2026"},
+  {id:"A-B0HM4414F2", name:"Caterpillar LZ Naranja LZ.110.21.721", cat:"H", brand:"Caterpillar", price:83000, eta:"15 a 20 días",
+   img:"https://m.media-amazon.com/images/I/6157jfbNnZL._AC_SL600_.jpg",
+   usd:98.99, src:"https://www.amazon.com/dp/B0HM4414F2", tienda:"amazon", ganancia:30000,
+   sub:"Hombre · Cuarzo · 45 mm · Esfera naranja · Silicón negro y naranja · Nuevo 2026"},
+  {id:"A-B0HKWYNTYX", name:"Caterpillar Octa Shield Negro y Naranja JA.110.21.118", cat:"H", brand:"Caterpillar", price:81000, eta:"15 a 20 días",
+   img:"https://m.media-amazon.com/images/I/61FGhVI6EzL._AC_SL600_.jpg",
+   usd:94.99, src:"https://www.amazon.com/dp/B0HKWYNTYX", tienda:"amazon", ganancia:30000,
+   sub:"Hombre · Cuarzo · 43 mm · Detalles naranja · Silicón negro · Nuevo 2026"},
   {id:"A-B003ZGKVCI", name:"Caterpillar Big Twist YW141", cat:"H", brand:"Caterpillar", price:98000, eta:"15 a 20 días",
    img:"https://m.media-amazon.com/images/I/8159b7DQsHL._AC_SL600_.jpg",
    usd:119.0, src:"https://www.amazon.com/dp/B003ZGKVCI", tienda:"amazon", ganancia:35000,
