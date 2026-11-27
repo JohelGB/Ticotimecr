@@ -1,7 +1,7 @@
 name: Bajar fotos para reels
 on:
   push:
-    paths: ['social/fotos/urls.txt', 'social/fotos/buscar.txt']
+    paths: ['social/fotos/urls.txt', 'social/fotos/buscar.txt', 'social/fotos/og.txt']
   workflow_dispatch:
 permissions:
   contents: write
@@ -42,6 +42,29 @@ jobs:
               except Exception as e: print('fallo',ref,model,e)
           PY
           ls -la
+      - name: Foto principal (og:image) de paginas (og.txt = "<ref> <url pagina> [url2 ...]")
+        run: |
+          cd social/fotos
+          [ -f og.txt ] || exit 0
+          python3 - <<'PY'
+          import os, re, urllib.request
+          UA={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36','Accept-Language':'en-US'}
+          def get(u): return urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=30).read()
+          for line in open('og.txt'):
+              p=line.split()
+              if len(p)<2: continue
+              ref=p[0]
+              if any(f.startswith(ref+'_') for f in os.listdir('.')): continue
+              for page in p[1:]:
+                  try:
+                      h=get(page).decode('utf8','ignore')
+                      m=re.search(r'property=["\']og:image["\'][^>]*content=["\']([^"\']+)',h) or re.search(r'content=["\']([^"\']+)["\'][^>]*property=["\']og:image',h)
+                      if not m: print('sin og',ref,page); continue
+                      u=m.group(1); u='https:'+u if u.startswith('//') else u
+                      ext=u.split('?')[0].rsplit('.',1)[-1].lower()[:4]
+                      open(f'{ref}_0.{ext}','wb').write(get(u)); print('ok',ref,page,u); break
+                  except Exception as e: print('fallo',ref,page,e)
+          PY
       - run: |
           git config user.name "JohelGB"; git config user.email "johel.g.b@gmail.com"
           git add social/fotos
