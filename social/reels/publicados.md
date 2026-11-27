@@ -29,3 +29,4 @@
 | 2026-11-30 | 19:00 | REGALOS | Regalos por menos de ₡40.000: 510, 532, 518, 552 | reel-2026-11-30-regalos.mp4 |
 | 2026-12-01 | 12:30 | 541 | Invicta Specialty Apexor 21658 Dorado (navidad) | reel-2026-12-01-541.mp4 |
 | 2026-12-02 | 19:00 | 542 | Invicta Specialty Oxford 47489 Dorado y Verde (navidad) | reel-2026-12-02-542.mp4 |
+| 2026-12-03 | 19:00 | REGALOS | Regalos en oferta: 511, 494, 208, 367 | reel-2026-12-03-regalos.mp4 |

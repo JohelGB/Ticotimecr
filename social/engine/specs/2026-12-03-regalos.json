@@ -1,0 +1,11 @@
+{
+ "titulo": "Regalos en oferta",
+ "sub": "desde ₡42.000",
+ "voz_intro": "¿Querés dar un buen regalo esta Navidad y ahorrarte una platita? Aquí tenés cuatro relojes en oferta, con precio web.",
+ "items": [
+  {"ref": "511", "name": "Invicta Specialty Digital 70884 Dorado", "price": 47500, "oferta": 42000, "say": "Opción uno: Invicta Specialty dorado, análogo y digital, a cuarenta y dos mil."},
+  {"ref": "494", "name": "Invicta Speedway 49334 Verde", "price": 47000, "oferta": 44000, "say": "Opción dos: Invicta Speedway dorado con esfera verde, a cuarenta y cuatro mil."},
+  {"ref": "208", "name": "Invicta Pro Diver House of Cards 50524", "price": 55000, "oferta": 49900, "say": "Opción tres: Invicta Pro Diver con esfera de cartas de póker, a cuarenta y nueve mil novecientos."},
+  {"ref": "367", "name": "Invicta Bolt Vanguard 46037", "price": 56500, "oferta": 51300, "say": "Opción cuatro: Invicta Bolt Vanguard, cronógrafo amarillo y negro, a cincuenta y un mil trescientos."}
+ ]
+}
